@@ -1,0 +1,71 @@
+{
+  "naam": "Gevulde Aubergine met Griekse Pasta",
+  "slug": "gevulde-aubergine-met-griekse-pasta",
+  "categorie": "Wereldkeuken",
+  "personen": 4,
+  "moeilijkheid": "Gemiddeld",
+  "bereidingstijd": "45min",
+  "ingrediënten": [
+    {
+      "naam": "Orzo (Griekse pasta)",
+      "hoeveelheid": "250 g"
+    },
+    {
+      "naam": "Aubergines",
+      "hoeveelheid": "4 stuks"
+    },
+    {
+      "naam": "Sjalotten",
+      "hoeveelheid": "3 stuks"
+    },
+    {
+      "naam": "Mager gehakt",
+      "hoeveelheid": "300 g"
+    },
+    {
+      "naam": "Citroen",
+      "hoeveelheid": "1/2 stuk"
+    },
+    {
+      "naam": "Feta",
+      "hoeveelheid": "1 handje"
+    },
+    {
+      "naam": "Peper",
+      "hoeveelheid": "naar smaak"
+    },
+    {
+      "naam": "Zout",
+      "hoeveelheid": "naar smaak"
+    },
+    {
+      "naam": "Paprikapoeder",
+      "hoeveelheid": "1 el"
+    },
+    {
+      "naam": "Olijfolie",
+      "hoeveelheid": "naar behoefte"
+    }
+  ],
+  "saus": [],
+  "bereiding": [
+    "Verwarm de oven op de grillstand.",
+    "Prik met een vork enkele gaatjes in de aubergines.",
+    "Plaats de aubergines ongeveer 12 minuten in de microgolfoven tot ze zacht zijn.",
+    "Verhit een scheutje olijfolie in een pan.",
+    "Bak het mager gehakt goudbruin.",
+    "Snipper de sjalotten fijn en voeg ze toe aan het gehakt.",
+    "Kruid met peper, zout en paprikapoeder.",
+    "Haal de aubergines uit de microgolfoven en snij ze voorzichtig in de lengte doormidden.",
+    "Schep het vruchtvlees uit de aubergines met een koffielepel.",
+    "Voeg het vruchtvlees toe aan het gehaktmengsel en meng goed.",
+    "Kook de Griekse pasta volgens de aanwijzingen op de verpakking.",
+    "Leg de halve aubergines in een ovenschaal.",
+    "Vul de aubergines met het gehakt- en groentemengsel.",
+    "Verdeel de gekookte Griekse pasta over de gevulde aubergines.",
+    "Verkruimel de feta over elke aubergine.",
+    "Plaats enkele minuten onder de grill tot de feta licht begint te kleuren.",
+    "Serveer onmiddellijk.",
+    "Besprenkel vlak voor het serveren met het sap van een halve citroen."
+  ]
+}
