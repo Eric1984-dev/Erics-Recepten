@@ -1,0 +1,42 @@
+{
+  "naam": "Hoogwaardige Hotdog",
+  "slug": "hoogwaardige-hotdog",
+  "categorie": "Fastfood",
+  "personen": 4,
+  "moeilijkheid": "Makkelijk",
+  "bereidingstijd": "15min",
+  "ingrediënten": [
+    {
+      "naam": "Hotdogs",
+      "hoeveelheid": "8 stuks"
+    },
+    {
+      "naam": "Zoete augurken",
+      "hoeveelheid": "10 stuks"
+    },
+    {
+      "naam": "Ijsbergsla",
+      "hoeveelheid": "1 krop"
+    },
+    {
+      "naam": "Hotdogbroodjes",
+      "hoeveelheid": "8 stuks"
+    },
+    {
+      "naam": "Gemalen cheddar",
+      "hoeveelheid": "1 handje"
+    }
+  ],
+  "saus": [],
+  "bereiding": [
+    "Verwarm de oven voor op 180°C.",
+    "Snij de zoete augurken in zeer kleine blokjes.",
+    "Was de ijsbergsla en snij deze fijn.",
+    "Beleg elk broodje met een hotdogworst en wat gemalen cheddar.",
+    "Plaats de broodjes gedurende 5 minuten in de voorverwarmde oven tot de kaas licht gesmolten is.",
+    "Haal de broodjes uit de oven.",
+    "Werk de hotdogs af met de fijngesneden ijsbergsla en de augurkblokjes.",
+    "Voeg een saus naar keuze toe.",
+    "Serveer onmiddellijk."
+  ]
+}

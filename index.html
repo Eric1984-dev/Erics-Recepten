@@ -1317,26 +1317,20 @@
 
       const sections = weekMenuRecipes.map((recipe, index) => {
         const servings = Number(recipe.personen) || 4;
-        const ingredients = Array.isArray(recipe.ingrediënten) ? recipe.ingrediënten : [];
+        const ingredients = getMainIngredients(recipe);
         const lines = [
           `*${days[index]} – ${recipe.naam}*`,
           `Voor ${servings} personen`,
           "Ingrediënten:",
           ...(ingredients.length
-            ? ingredients.map(ingredient => {
-              const amount = String(ingredient.hoeveelheid ?? "").trim();
-              return `• ${[amount, ingredient.naam || "Ingrediënt"].filter(Boolean).join(" ")}`;
-            })
-            : ["• Geen ingrediënten opgegeven."])
+            ? ingredients.map(formatWhatsAppIngredient)
+            : ["Geen ingrediënten opgegeven."])
         ];
         const sauce = Array.isArray(recipe.saus) ? recipe.saus : [];
         if (sauce.length) {
           lines.push(
             "Voor de saus:",
-            ...sauce.map(ingredient => {
-              const amount = String(ingredient.hoeveelheid ?? "").trim();
-              return `• ${[amount, ingredient.naam || "Ingrediënt"].filter(Boolean).join(" ")}`;
-            })
+            ...sauce.map(formatWhatsAppIngredient)
           );
         }
         return lines.join("\n");
@@ -1579,6 +1573,31 @@
       return `${numericAmount[1]}${formatAmount(first)}${range}${numericAmount[5]}`;
     }
 
+    function ingredientNameKey(name) {
+      const normalized = String(name ?? "")
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLocaleLowerCase("nl")
+        .trim();
+      return normalized === "uien" ? "ui" : normalized;
+    }
+
+    function getMainIngredients(recipe) {
+      const sauceNames = new Set(
+        (Array.isArray(recipe.saus) ? recipe.saus : [])
+          .map(ingredient => ingredientNameKey(ingredient.naam))
+          .filter(Boolean)
+      );
+      return (Array.isArray(recipe.ingrediënten) ? recipe.ingrediënten : [])
+        .filter(ingredient => !sauceNames.has(ingredientNameKey(ingredient.naam)));
+    }
+
+    function formatWhatsAppIngredient(ingredient) {
+      const name = ingredient.naam || "Ingrediënt";
+      const amount = String(ingredient.hoeveelheid ?? "").trim();
+      return amount ? `${name}: ${amount}` : name;
+    }
+
     function renderIngredientList(target, items, groupName) {
       target.replaceChildren();
       (items || []).forEach((ingredient, index) => {
@@ -1621,7 +1640,7 @@
         meta.append(item);
       }
 
-      renderIngredientList(document.querySelector("#ingredient-list"), activeRecipe.ingrediënten, "ingredient");
+      renderIngredientList(document.querySelector("#ingredient-list"), getMainIngredients(activeRecipe), "ingredient");
       const sauce = Array.isArray(activeRecipe.saus) ? activeRecipe.saus : [];
       document.querySelector("#sauce-section").hidden = sauce.length === 0;
       if (sauce.length) renderIngredientList(document.querySelector("#sauce-list"), sauce, "sauce");
