@@ -1,0 +1,43 @@
+{
+  "naam": "Spaghetti Bolognaise",
+  "slug": "spaghetti-bolognaise",
+  "categorie": "Pasta",
+  "personen": 4,
+  "moeilijkheid": "Makkelijk",
+  "bereidingstijd": "35min",
+  "ingrediënten": [
+    { "naam": "Tomatensaus Frito", "hoeveelheid": "50 cl" },
+    { "naam": "Tomatensaus Spagheroni", "hoeveelheid": "1 pot" },
+    { "naam": "Pasta", "hoeveelheid": "400 g" },
+    { "naam": "Courgette", "hoeveelheid": "1 stuk" },
+    { "naam": "Champignons", "hoeveelheid": "1 bakje" },
+    { "naam": "Gemengd gehakt", "hoeveelheid": "500 g" },
+    { "naam": "Gemalen kaas", "hoeveelheid": "50 g" },
+    { "naam": "Olijfolie", "hoeveelheid": "naar behoefte" },
+    { "naam": "Wortelen", "hoeveelheid": "5 stuks" },
+    { "naam": "Ui", "hoeveelheid": "1 stuk" }
+  ],
+  "saus": [
+    { "naam": "Tomatensaus Frito", "hoeveelheid": "50 cl" },
+    { "naam": "Tomatensaus Spagheroni", "hoeveelheid": "1 pot" },
+    { "naam": "Courgette", "hoeveelheid": "1 stuk" },
+    { "naam": "Champignons", "hoeveelheid": "1 bakje" },
+    { "naam": "Wortelen", "hoeveelheid": "5 stuks" },
+    { "naam": "Ui", "hoeveelheid": "1 stuk" }
+  ],
+  "bereiding": [
+    "Verwarm een scheutje olijfolie in een grote pan.",
+    "Verkruimel het gehakt in de pan en bak goudbruin op hoog vuur.",
+    "Snij ondertussen de courgette in kleine blokjes.",
+    "Snipper de ui fijn.",
+    "Schil de wortelen en snij ze in kleine blokjes.",
+    "Snij de champignons in schijfjes.",
+    "Voeg alle groenten toe aan het gehakt en bak enkele minuten mee.",
+    "Voeg de tomatensaus Frito en de tomatensaus Spagheroni toe.",
+    "Meng alles goed en laat ongeveer 15 minuten sudderen op een laag vuur.",
+    "Kook ondertussen de pasta volgens de aanwijzingen op de verpakking.",
+    "Giet de pasta af.",
+    "Serveer de pasta met de bolognaisesaus.",
+    "Werk af met de gemalen kaas."
+  ]
+}
