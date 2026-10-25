@@ -1,0 +1,95 @@
+{
+  "naam": "Zelfgemaakte Mexicaanse Worstenbroodjes met Slaatje",
+  "slug": "zelfgemaakte-mexicaanse-worstenbroodjes-met-slaatje",
+  "categorie": "Wereldkeuken",
+  "personen": 4,
+  "moeilijkheid": "Gemiddeld",
+  "bereidingstijd": "45min",
+  "ingrediënten": [
+    {
+      "naam": "Gemengd gehakt",
+      "hoeveelheid": "500 g"
+    },
+    {
+      "naam": "Bladerdeeg",
+      "hoeveelheid": "2 pakken"
+    },
+    {
+      "naam": "Kurkuma",
+      "hoeveelheid": "1 snuifje"
+    },
+    {
+      "naam": "Peper",
+      "hoeveelheid": "naar smaak"
+    },
+    {
+      "naam": "Zout",
+      "hoeveelheid": "naar smaak"
+    },
+    {
+      "naam": "Paprikapoeder",
+      "hoeveelheid": "1 el"
+    },
+    {
+      "naam": "Gemalen cheddar",
+      "hoeveelheid": "1 handje"
+    },
+    {
+      "naam": "Ei",
+      "hoeveelheid": "1 stuk"
+    },
+    {
+      "naam": "Melk",
+      "hoeveelheid": "5 cl"
+    }
+  ],
+  "saus": [
+    {
+      "naam": "Sweet chilisaus",
+      "hoeveelheid": "2 el"
+    }
+  ],
+  "bereiding": [
+    "Verwarm de oven voor op 180°C.",
+    "Meng het gehakt met de gemalen cheddar, kurkuma, paprikapoeder, peper en zout.",
+    "Verdeel het bladerdeeg in lange stroken.",
+    "Neem een deel van het gehakt en rol er een lange worst van.",
+    "Leg de gehaktworst op een strook bladerdeeg en rol het geheel dicht.",
+    "Snij in worstenbroodjes van ongeveer 10 cm lang.",
+    "Herhaal dit met de rest van het gehakt en bladerdeeg.",
+    "Klop het ei los met de melk.",
+    "Bestrijk de worstenbroodjes met het ei-melkmengsel.",
+    "Leg de worstenbroodjes op een bakplaat.",
+    "Bak ongeveer 15 minuten in de oven tot ze goudbruin zijn.",
+    "Snij ondertussen de groenten voor het slaatje.",
+    "Meng alle ingrediënten van het slaatje in een grote kom.",
+    "Serveer de warme worstenbroodjes samen met het slaatje.",
+    "Werk af met een beetje sweet chilisaus."
+  ],
+  "bijgerecht": [
+    {
+      "naam": "Rucola",
+      "hoeveelheid": "1 zakje"
+    },
+    {
+      "naam": "Ijsbergsla",
+      "hoeveelheid": "1 zakje"
+    },
+    {
+      "naam": "Avocado",
+      "hoeveelheid": "1 stuk"
+    },
+    {
+      "naam": "Kerstomaten",
+      "hoeveelheid": "1/2 bakje"
+    },
+    {
+      "naam": "Komkommer",
+      "hoeveelheid": "1 stuk"
+    },
+    {
+      "naam": "Mini mozzarella",
+      "hoeveelheid": "1 bakje"
+    }
+  ]
+}

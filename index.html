@@ -959,6 +959,8 @@
     Gemaakt met <span aria-label="liefde">♥</span> en een snufje kruiden.
     <span aria-hidden="true">·</span>
     Zelf een voorstel? <a href="mailto:ericstraetmans@hotmail.com?subject=voorstel%20recept">Laat het me weten</a>
+    <span aria-hidden="true">·</span>
+    © Erics Recepten. Alle rechten voorbehouden.
   </footer>
 
   <dialog class="recipe-dialog" id="recipe-dialog" aria-labelledby="dialog-title">
@@ -983,6 +985,10 @@
       <section id="ingredients-section">
         <h3 class="detail-heading">Ingrediënten</h3>
         <ul class="ingredient-list" id="ingredient-list"></ul>
+      </section>
+      <section id="side-dish-section" hidden>
+        <h3 class="detail-heading">Bijgerecht</h3>
+        <ul class="ingredient-list" id="side-dish-list"></ul>
       </section>
       <section id="sauce-section" hidden>
         <h3 class="detail-heading">Voor de saus</h3>
@@ -1220,6 +1226,7 @@
     function recipeEmoji(recipe) {
       const title = recipe.naam.toLocaleLowerCase("nl").normalize("NFD").replace(/[\u0300-\u036f]/g, "");
       if (title.includes("hotdog")) return "🌭";
+      if (title.includes("worstenbrood")) return "🌭";
       if (title.includes("lasagne")) return "🥘";
       if (title.includes("kapsalon")) return "🍟";
       if (title.includes("kebab")) return "🥙";
@@ -1366,6 +1373,13 @@
           lines.push(
             "Voor de saus:",
             ...sauce.map(formatWhatsAppIngredient)
+          );
+        }
+        const sideDish = Array.isArray(recipe.bijgerecht) ? recipe.bijgerecht : [];
+        if (sideDish.length) {
+          lines.push(
+            "Bijgerecht:",
+            ...sideDish.map(formatWhatsAppIngredient)
           );
         }
         lines.push(`Recept: ${recipeUrl(recipe)}`);
@@ -1677,6 +1691,9 @@
       }
 
       renderIngredientList(document.querySelector("#ingredient-list"), getMainIngredients(activeRecipe), "ingredient");
+      const sideDish = Array.isArray(activeRecipe.bijgerecht) ? activeRecipe.bijgerecht : [];
+      document.querySelector("#side-dish-section").hidden = sideDish.length === 0;
+      if (sideDish.length) renderIngredientList(document.querySelector("#side-dish-list"), sideDish, "side-dish");
       const sauce = Array.isArray(activeRecipe.saus) ? activeRecipe.saus : [];
       document.querySelector("#sauce-section").hidden = sauce.length === 0;
       if (sauce.length) renderIngredientList(document.querySelector("#sauce-list"), sauce, "sauce");

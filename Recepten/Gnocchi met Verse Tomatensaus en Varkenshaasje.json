@@ -1,0 +1,104 @@
+{
+  "naam": "Gnocchi met Verse Tomatensaus en Varkenshaasje",
+  "slug": "gnocchi-met-verse-tomatensaus-en-varkenshaasje",
+  "categorie": "Pasta",
+  "personen": 4,
+  "moeilijkheid": "Gemiddeld",
+  "bereidingstijd": "60min",
+  "ingrediënten": [
+    {
+      "naam": "Varkenshaasje",
+      "hoeveelheid": "500 g"
+    },
+    {
+      "naam": "Tomaten",
+      "hoeveelheid": "5 stuks"
+    },
+    {
+      "naam": "Rode paprika's",
+      "hoeveelheid": "2 stuks"
+    },
+    {
+      "naam": "Uien",
+      "hoeveelheid": "2 stuks"
+    },
+    {
+      "naam": "Gnocchi",
+      "hoeveelheid": "250 g"
+    },
+    {
+      "naam": "Boter",
+      "hoeveelheid": "1 el"
+    },
+    {
+      "naam": "Peper",
+      "hoeveelheid": "naar smaak"
+    },
+    {
+      "naam": "Zout",
+      "hoeveelheid": "naar smaak"
+    },
+    {
+      "naam": "Tomatenblokjes",
+      "hoeveelheid": "100 g"
+    },
+    {
+      "naam": "Olijfolie",
+      "hoeveelheid": "naar behoefte"
+    },
+    {
+      "naam": "Rucola",
+      "hoeveelheid": "optioneel"
+    }
+  ],
+  "saus": [
+    {
+      "naam": "Tomaten",
+      "hoeveelheid": "5 stuks"
+    },
+    {
+      "naam": "Rode paprika's",
+      "hoeveelheid": "2 stuks"
+    },
+    {
+      "naam": "Uien",
+      "hoeveelheid": "2 stuks"
+    },
+    {
+      "naam": "Tomatenblokjes",
+      "hoeveelheid": "100 g"
+    },
+    {
+      "naam": "Olijfolie",
+      "hoeveelheid": "naar behoefte"
+    },
+    {
+      "naam": "Peper",
+      "hoeveelheid": "naar smaak"
+    },
+    {
+      "naam": "Zout",
+      "hoeveelheid": "naar smaak"
+    }
+  ],
+  "bereiding": [
+    "Verwarm de oven voor op 175°C.",
+    "Haal het varkenshaasje tijdig uit de koelkast zodat het op kamertemperatuur kan komen.",
+    "Snij de uien in grove stukken en stoof ze aan in een steelpan.",
+    "Snij de tomaten in grove stukken en voeg ze toe aan de ui.",
+    "Verwijder de zaadlijsten van de paprika's en snij ze in grove stukken.",
+    "Voeg de paprika's toe aan de tomaten en ui.",
+    "Voeg de tomatenblokjes toe en laat ongeveer 10 minuten zachtjes sudderen.",
+    "Kruid het varkenshaasje met peper en zout.",
+    "Smelt de boter samen met een scheutje olijfolie in een pan op hoog vuur.",
+    "Schroei het varkenshaasje aan beide kanten goudbruin dicht.",
+    "Wikkel het varkenshaasje in aluminiumfolie.",
+    "Leg het vlees ongeveer 15 minuten in de voorverwarmde oven.",
+    "Kook ondertussen de gnocchi volgens de aanwijzingen op de verpakking.",
+    "Mix de tomatensaus tot een gladde saus.",
+    "Haal het varkenshaasje uit de oven en laat het 5 minuten rusten in de aluminiumfolie.",
+    "Snij het varkenshaasje in reepjes of medaillons.",
+    "Serveer de gnocchi met de verse tomatensaus en het varkenshaasje.",
+    "Werk eventueel af met wat extra rucola."
+  ]
+}
