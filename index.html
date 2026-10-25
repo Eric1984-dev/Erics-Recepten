@@ -547,7 +547,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 7px;
+      flex-wrap: wrap;
+      gap: 7px 12px;
       border-top: 1px solid var(--line);
       color: var(--muted);
       font-size: .81rem;
@@ -555,6 +556,8 @@
     }
 
     .site-footer span { color: var(--orange); }
+    .site-footer a { color: var(--green); font-weight: 800; text-decoration-color: #a8b96f; text-underline-offset: 3px; }
+    .site-footer a:hover { color: var(--green-dark); }
 
     .recipe-dialog {
       width: min(760px, calc(100% - 28px));
@@ -765,6 +768,10 @@
             <span aria-hidden="true">🎡</span>
             <span id="spin-button-label">Recepten laden…</span>
           </button>
+          <a class="surprise-button proposal-button" href="mailto:ericstraetmans@hotmail.com?subject=voorstel%20recept">
+            <span aria-hidden="true">✉</span>
+            Stel een recept voor
+          </a>
         </div>
       </div>
       <div class="hero-art">
@@ -804,7 +811,11 @@
     </section>
   </main>
 
-  <footer class="site-footer">Gemaakt met <span aria-label="liefde">♥</span> en een snufje kruiden.</footer>
+  <footer class="site-footer">
+    Gemaakt met <span aria-label="liefde">♥</span> en een snufje kruiden.
+    <span aria-hidden="true">·</span>
+    Zelf een voorstel? <a href="mailto:ericstraetmans@hotmail.com?subject=voorstel%20recept">Laat het me weten</a>
+  </footer>
 
   <dialog class="recipe-dialog" id="recipe-dialog" aria-labelledby="dialog-title">
     <div class="dialog-top">

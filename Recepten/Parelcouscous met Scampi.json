@@ -1,0 +1,37 @@
+{
+  "naam": "Parelcouscous met Scampi",
+  "slug": "parelcouscous-met-scampi",
+  "categorie": "Vis",
+  "personen": 4,
+  "moeilijkheid": "Makkelijk",
+  "bereidingstijd": "35min",
+  "ingrediënten": [
+    { "naam": "Parelcouscous", "hoeveelheid": "3 zakjes" },
+    { "naam": "Scampi's", "hoeveelheid": "30 stuks" },
+    { "naam": "Rode ui", "hoeveelheid": "1 stuk" },
+    { "naam": "Courgettes", "hoeveelheid": "2 stuks" },
+    { "naam": "Citroensap", "hoeveelheid": "sap van 1/2 citroen" },
+    { "naam": "Rucola", "hoeveelheid": "1 zakje" },
+    { "naam": "Olijfolie", "hoeveelheid": "naar behoefte" },
+    { "naam": "Paprikapoeder", "hoeveelheid": "naar smaak" }
+  ],
+  "saus": [],
+  "bereiding": [
+    "Verhit een scheutje olijfolie in een grote pan op hoog vuur.",
+    "Kruid de gewassen scampi's met paprikapoeder.",
+    "Bak de scampi's in de hete pan tot ze gaar zijn.",
+    "Haal de scampi's uit de pan en zet apart.",
+    "Snij de rode ui in ringen.",
+    "Bak de ui in dezelfde pan tot deze begint te kleuren.",
+    "Snij de courgettes in blokjes en voeg ze toe aan de ui.",
+    "Bak de groenten tot ze gaar zijn.",
+    "Kook ondertussen de parelcouscous volgens de aanwijzingen op de verpakking.",
+    "Voeg de scampi's opnieuw toe aan de groenten.",
+    "Zet het vuur lager.",
+    "Voeg de gare parelcouscous toe aan de pan.",
+    "Besprenkel met het citroensap.",
+    "Meng alles goed door elkaar.",
+    "Verdeel de rucola over de borden of meng deze kort onder het gerecht.",
+    "Serveer onmiddellijk."
+  ]
+}
