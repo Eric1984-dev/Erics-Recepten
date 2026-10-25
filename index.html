@@ -736,8 +736,15 @@
     .weekmenu-recipe { min-width: 0; }
     .weekmenu-recipe h3 { margin: 0 0 5px; font-family: Georgia, "Times New Roman", serif; font-size: 1rem; font-weight: 600; letter-spacing: -.02em; }
     .weekmenu-meta { color: var(--muted); font-size: .74rem; }
-    .weekmenu-open { min-height: 37px; padding: 0 12px; border: 0; border-radius: 11px; background: #f2f4e9; color: var(--green); cursor: pointer; font-size: .77rem; font-weight: 800; transition: background .18s ease; }
-    .weekmenu-open:hover { background: #e6edcf; }
+    .weekmenu-toggle { width: 38px; height: 38px; display: grid; place-items: center; border: 0; border-radius: 11px; background: #f2f4e9; color: var(--green); cursor: pointer; font-size: 1.25rem; transition: background .18s ease; }
+    .weekmenu-toggle:hover { background: #e6edcf; }
+    .weekmenu-toggle-icon { display: block; transition: transform .18s ease; }
+    .weekmenu-toggle[aria-expanded="true"] .weekmenu-toggle-icon { transform: rotate(180deg); }
+    .weekmenu-expanded { grid-column: 1 / -1; padding-top: 13px; border-top: 1px solid #e9ebe2; }
+    .weekmenu-expanded h4 { margin: 0 0 8px; color: var(--green); font-size: .82rem; }
+    .weekmenu-expanded h4:not(:first-child) { margin-top: 16px; }
+    .weekmenu-expanded-ingredients { margin: 0; padding-left: 20px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 5px 20px; color: var(--muted); font-size: .8rem; }
+    .weekmenu-expanded-steps { margin: 0; padding-left: 22px; display: grid; gap: 7px; color: var(--muted); font-size: .8rem; line-height: 1.5; }
     .weekmenu-share { width: 100%; min-height: 46px; margin-top: 18px; padding: 0 15px; display: flex; align-items: center; justify-content: center; border-radius: 13px; background: #25d366; color: #12351f; text-decoration: none; font-size: .85rem; font-weight: 800; transition: background .18s ease, transform .18s ease; }
     .weekmenu-share:hover { background: #20bd5a; transform: translateY(-1px); }
     .weekmenu-regenerate { width: 100%; min-height: 46px; margin-top: 18px; padding: 0 15px; border: 0; border-radius: 13px; background: var(--green); color: white; cursor: pointer; font-size: .85rem; font-weight: 800; transition: background .18s ease, transform .18s ease; }
@@ -847,7 +854,8 @@
       .ingredient-item { min-height: 40px; }
       .weekmenu-item { grid-template-columns: 66px minmax(0, 1fr); gap: 9px; }
       .weekmenu-day { font-size: .64rem; }
-      .weekmenu-open { grid-column: 2; justify-self: start; }
+      .weekmenu-toggle { grid-column: 2; justify-self: start; }
+      .weekmenu-expanded-ingredients { grid-template-columns: 1fr; }
       .cookie-notice { right: 10px; bottom: 10px; width: calc(100% - 20px); padding: 13px; gap: 10px; }
       .cookie-icon { width: 36px; height: 36px; font-size: 1.2rem; }
       .cookie-copy h2 { font-size: 1rem; }
@@ -1347,15 +1355,62 @@
         meta.textContent = [recipe.categorie, recipe.bereidingstijd].filter(Boolean).join(" · ");
         details.append(title, meta);
 
-        const openButton = document.createElement("button");
-        openButton.className = "weekmenu-open";
-        openButton.type = "button";
-        openButton.textContent = "Bekijk recept";
-        openButton.addEventListener("click", () => {
-          openRecipe(recipe);
+        const toggleButton = document.createElement("button");
+        toggleButton.className = "weekmenu-toggle";
+        toggleButton.type = "button";
+        toggleButton.setAttribute("aria-expanded", "false");
+        toggleButton.setAttribute("aria-label", `Recept bekijken: ${recipe.naam}`);
+        const toggleIcon = document.createElement("span");
+        toggleIcon.className = "weekmenu-toggle-icon";
+        toggleIcon.setAttribute("aria-hidden", "true");
+        toggleIcon.textContent = "⌄";
+        toggleButton.append(toggleIcon);
+
+        const expandedDetails = document.createElement("div");
+        expandedDetails.className = "weekmenu-expanded";
+        expandedDetails.id = `weekmenu-recipe-details-${index}`;
+        expandedDetails.hidden = true;
+        toggleButton.setAttribute("aria-controls", expandedDetails.id);
+        toggleButton.addEventListener("click", () => {
+          const expanded = toggleButton.getAttribute("aria-expanded") === "true";
+          toggleButton.setAttribute("aria-expanded", String(!expanded));
+          toggleButton.setAttribute("aria-label", `${expanded ? "Recept bekijken" : "Recept verbergen"}: ${recipe.naam}`);
+          expandedDetails.hidden = expanded;
         });
 
-        item.append(day, details, openButton);
+        const ingredientGroups = [
+          { title: "Ingrediënten", items: getMainIngredients(recipe) },
+          { title: "Voor de saus", items: Array.isArray(recipe.saus) ? recipe.saus : [] },
+          { title: "Bijgerecht", items: Array.isArray(recipe.bijgerecht) ? recipe.bijgerecht : [] }
+        ];
+        ingredientGroups.forEach(group => {
+          if (!group.items.length) return;
+          const heading = document.createElement("h4");
+          heading.textContent = group.title;
+          const list = document.createElement("ul");
+          list.className = "weekmenu-expanded-ingredients";
+          group.items.forEach(ingredient => {
+            const listItem = document.createElement("li");
+            listItem.textContent = formatWhatsAppIngredient(ingredient);
+            list.append(listItem);
+          });
+          expandedDetails.append(heading, list);
+        });
+
+        if (Array.isArray(recipe.bereiding) && recipe.bereiding.length) {
+          const stepsHeading = document.createElement("h4");
+          stepsHeading.textContent = "Bereiding";
+          const steps = document.createElement("ol");
+          steps.className = "weekmenu-expanded-steps";
+          recipe.bereiding.forEach(instruction => {
+            const step = document.createElement("li");
+            step.textContent = instruction;
+            steps.append(step);
+          });
+          expandedDetails.append(stepsHeading, steps);
+        }
+
+        item.append(day, details, toggleButton, expandedDetails);
         weekMenuList.append(item);
       });
 
