@@ -1,0 +1,19 @@
+{
+  "name": "erics-recepten",
+  "version": "1.0.0",
+  "description": "Erics Recepten - Recipe website",
+  "type": "module",
+  "scripts": {
+    "dev": "python3 -m http.server 8000",
+    "build": "echo 'No build step required for static site'"
+  },
+  "dependencies": {
+    "@vercel/analytics": "^1.1.1"
+  },
+  "keywords": [
+    "recipes",
+    "cooking"
+  ],
+  "author": "Eric1984-dev",
+  "license": "MIT"
+}
