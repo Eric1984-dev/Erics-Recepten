@@ -955,6 +955,15 @@
       return categoryEmojis[recipe.categorie] || "🍲";
     }
 
+    function recipeIdentity(recipe) {
+      return String(recipe.slug || recipe.naam)
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLocaleLowerCase("nl")
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-|-$/g, "");
+    }
+
     function visibleRecipes() {
       const query = searchInput.value.trim().toLocaleLowerCase("nl");
       return recipes
@@ -1204,8 +1213,16 @@
 
         const recovered = [];
         const failed = [];
+        const duplicates = [];
+        const recipeIdentities = new Set();
         for (const result of results) {
           if (result.recipe) {
+            const identity = recipeIdentity(result.recipe);
+            if (recipeIdentities.has(identity)) {
+              duplicates.push(`${result.recipe._fileName}: dubbel recept overgeslagen.`);
+              continue;
+            }
+            recipeIdentities.add(identity);
             recipes.push(result.recipe);
             if (result.recipe._recovered) recovered.push(`${result.recipe._fileName}: de onvolledige laatste bereidingsstap is overgeslagen.`);
           } else if (result.error) {
@@ -1215,10 +1232,19 @@
 
         if (!recipes.length) {
           setNotice(["Geen enkel recept kon worden geladen.", ...failed], true);
-        } else if (failed.length || recovered.length) {
+        } else if (failed.length || recovered.length || duplicates.length) {
+          const attentionCount = failed.length + recovered.length;
+          const summary = [`${recipes.length} recepten geladen`];
+          if (attentionCount) {
+            summary.push(`${attentionCount} bestand${attentionCount === 1 ? "" : "en"} vraagt aandacht`);
+          }
+          if (duplicates.length) {
+            summary.push(`${duplicates.length} dubbel recept${duplicates.length === 1 ? "" : "en"} overgeslagen`);
+          }
           setNotice([
-            `${recipes.length} recepten geladen; ${failed.length + recovered.length} bestand${failed.length + recovered.length === 1 ? "" : "en"} vraagt aandacht.`,
+            `${summary.join("; ")}.`,
             ...recovered,
+            ...duplicates,
             ...failed
           ]);
         }
