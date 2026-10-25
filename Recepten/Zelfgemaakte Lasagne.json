@@ -1,0 +1,120 @@
+{
+  "naam": "Zelfgemaakte Lasagne",
+  "slug": "zelfgemaakte-lasagne",
+  "categorie": "Pasta",
+  "personen": 4,
+  "moeilijkheid": "Gemiddeld",
+  "bereidingstijd": "90min",
+  "ingrediënten": [
+    {
+      "naam": "Courgettes",
+      "hoeveelheid": "2 stuks"
+    },
+    {
+      "naam": "Verse lasagnevellen",
+      "hoeveelheid": "8 stuks"
+    },
+    {
+      "naam": "Gemengd gehakt",
+      "hoeveelheid": "500 g"
+    },
+    {
+      "naam": "Wortelen",
+      "hoeveelheid": "4 stuks"
+    },
+    {
+      "naam": "Uien",
+      "hoeveelheid": "2 stuks"
+    },
+    {
+      "naam": "Melk",
+      "hoeveelheid": "50 cl"
+    },
+    {
+      "naam": "Boter",
+      "hoeveelheid": "30 g"
+    },
+    {
+      "naam": "Peper",
+      "hoeveelheid": "naar smaak"
+    },
+    {
+      "naam": "Zout",
+      "hoeveelheid": "naar smaak"
+    },
+    {
+      "naam": "Gemalen kaas",
+      "hoeveelheid": "250 g"
+    },
+    {
+      "naam": "Tomatenblokjes",
+      "hoeveelheid": "250 g"
+    },
+    {
+      "naam": "Frito tomatensaus",
+      "hoeveelheid": "25 cl"
+    },
+    {
+      "naam": "Look",
+      "hoeveelheid": "1 teen"
+    },
+    {
+      "naam": "Bloem",
+      "hoeveelheid": "30 g"
+    }
+  ],
+  "saus": [
+    {
+      "naam": "Melk",
+      "hoeveelheid": "50 cl"
+    },
+    {
+      "naam": "Boter",
+      "hoeveelheid": "30 g"
+    },
+    {
+      "naam": "Bloem",
+      "hoeveelheid": "30 g"
+    },
+    {
+      "naam": "Gemalen kaas",
+      "hoeveelheid": "125 g"
+    },
+    {
+      "naam": "Peper",
+      "hoeveelheid": "naar smaak"
+    },
+    {
+      "naam": "Zout",
+      "hoeveelheid": "naar smaak"
+    }
+  ],
+  "bereiding": [
+    "Verwarm de oven voor op 185°C.",
+    "Bak het gehakt goudbruin op hoog vuur.",
+    "Snipper de uien fijn en voeg toe aan het gehakt.",
+    "Plet de look en voeg toe aan het gehakt.",
+    "Schil de wortelen en snij deze in kleine blokjes.",
+    "Voeg de wortelen toe aan het gehakt en bak kort mee.",
+    "Voeg de tomatenblokjes en de Frito tomatensaus toe.",
+    "Laat de saus ongeveer 15 minuten zachtjes sudderen.",
+    "Snij de courgettes in dunne schijfjes.",
+    "Maak ondertussen de bechamelsaus.",
+    "Smelt de boter in een steelpan.",
+    "Voeg de bloem toe en roer tot een lichte koekjesgeur vrijkomt.",
+    "Kruid met peper en zout.",
+    "Voeg geleidelijk de melk toe en blijf roeren tot een gebonden saus ontstaat.",
+    "Voeg de helft van de gemalen kaas toe en meng goed.",
+    "Bedek de bodem van een ovenschaal met een dun laagje bechamelsaus.",
+    "Leg een laag lasagnevellen op de saus.",
+    "Verdeel een deel van het gehakt-tomatensausmengsel over de lasagnevellen.",
+    "Leg een laag courgetteschijfjes op het gehaktmengsel.",
+    "Overgiet met een deel van de bechamelsaus.",
+    "Herhaal de lagen tot alle ingrediënten opgebruikt zijn.",
+    "Eindig met een laag lasagnevellen.",
+    "Giet de resterende bechamelsaus over de bovenste laag.",
+    "Bestrooi met de resterende gemalen kaas.",
+    "Bak de lasagne ongeveer 35 tot 40 minuten in de oven tot de bovenkant goudbruin is.",
+    "Laat 10 minuten rusten voor het serveren."
+  ]
+}
