@@ -363,6 +363,10 @@
       letter-spacing: -.055em;
     }
 
+    .heading-with-icon { display: flex; align-items: center; gap: 11px; }
+    .heading-icon { width: 25px; height: 25px; flex: 0 0 auto; color: #81934a; }
+    .detail-heading .heading-icon { width: 21px; height: 21px; }
+
     .recipe-count {
       padding-bottom: 7px;
       color: var(--muted);
@@ -674,6 +678,8 @@
 
     .dialog-close:hover { background: white; transform: rotate(90deg); }
     .dialog-category { margin-bottom: 10px; color: #718747; font-size: .73rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+    .weekmenu-date-range { display: flex; align-items: center; gap: 7px; }
+    .weekmenu-date-range svg { width: 16px; height: 16px; flex: 0 0 auto; }
 
     .dialog-title {
       max-width: 620px;
@@ -919,7 +925,13 @@
       <div class="section-heading">
         <div>
           <div class="section-kicker">Vanavond op tafel?</div>
-          <h2 id="recipe-heading">Wat eten we vandaag?</h2>
+          <h2 class="heading-with-icon" id="recipe-heading">
+            Wat eten we vandaag?
+            <svg class="heading-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M4 9h16v9a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V9Z" />
+              <path d="M2 11h2m16 0h2M8 6h8m-6-2v2m4-2v2" />
+            </svg>
+          </h2>
         </div>
         <div class="recipe-count" id="recipe-count" aria-live="polite">Recepten laden…</div>
       </div>
@@ -991,7 +1003,12 @@
         </div>
       </div>
       <section id="ingredients-section">
-        <h3 class="detail-heading">Ingrediënten</h3>
+        <h3 class="detail-heading heading-with-icon">
+          <svg class="heading-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 3v5m3-5v5m3-5v5a3 3 0 0 1-3 3v10M17 3c-1.3 1.8-2 4.1-2 7h4V3m-2 7v11" />
+          </svg>
+          Ingrediënten
+        </h3>
         <ul class="ingredient-list" id="ingredient-list"></ul>
       </section>
       <section id="side-dish-section" hidden>
@@ -1003,7 +1020,13 @@
         <ul class="ingredient-list" id="sauce-list"></ul>
       </section>
       <section id="steps-section">
-        <h3 class="detail-heading">Zo maak je het</h3>
+        <h3 class="detail-heading heading-with-icon">
+          <svg class="heading-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4 9h16v9a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V9Z" />
+            <path d="M2 11h2m16 0h2M8 6h8m-6-2v2m4-2v2" />
+          </svg>
+          Zo maak je het
+        </h3>
         <ol class="steps-list" id="steps-list"></ol>
       </section>
     </div>
@@ -1012,7 +1035,13 @@
   <dialog class="recipe-dialog weekmenu-dialog" id="weekmenu-dialog" aria-labelledby="weekmenu-title">
     <div class="dialog-top">
       <button class="dialog-close" id="weekmenu-close" type="button" aria-label="Weekmenu sluiten">×</button>
-      <div class="dialog-category">Maandag tot en met vrijdag</div>
+      <div class="dialog-category weekmenu-date-range" id="weekmenu-date-range">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="3" y="5" width="18" height="16" rx="2" />
+          <path d="M16 3v4M8 3v4M3 10h18" />
+        </svg>
+        Maandag tot en met vrijdag
+      </div>
       <h2 class="dialog-title" id="weekmenu-title">Jouw weekmenu</h2>
     </div>
     <div class="dialog-content">
@@ -1045,6 +1074,7 @@
     let activeRecipe = null;
     let activeServings = 4;
     let weekMenuRecipes = [];
+    let weekMenuDates = [];
     let checkedIngredients = new Set();
     let wheelRotation = 0;
     let pendingWheelRecipe = null;
@@ -1070,6 +1100,7 @@
     const weekMenuIntro = document.querySelector("#weekmenu-intro");
     const weekMenuList = document.querySelector("#weekmenu-list");
     const weekMenuShare = document.querySelector("#weekmenu-share");
+    const weekMenuDateRange = document.querySelector("#weekmenu-date-range");
 
     const categoryEmojis = {
       Amerikaans: "🍔",
@@ -1334,6 +1365,7 @@
     function renderWeekMenu() {
       const days = ["Maandag", "Dinsdag", "Woensdag", "Donderdag", "Vrijdag"];
       weekMenuList.replaceChildren();
+      weekMenuDateRange.textContent = `${formatWeekMenuDate(weekMenuDates[0])} t/m ${formatWeekMenuDate(weekMenuDates[4])}`;
       weekMenuIntro.textContent = weekMenuRecipes.length === 5
         ? "Vijf verschillende recepten, gekozen uit jouw verzameling."
         : `Er zijn ${weekMenuRecipes.length} recepten beschikbaar; die hebben we allemaal opgenomen.`;
@@ -1344,7 +1376,7 @@
 
         const day = document.createElement("span");
         day.className = "weekmenu-day";
-        day.textContent = days[index];
+        day.textContent = `${days[index]} ${formatWeekMenuDate(weekMenuDates[index])}`;
 
         const details = document.createElement("div");
         details.className = "weekmenu-recipe";
@@ -1418,7 +1450,7 @@
         const servings = Number(recipe.personen) || 4;
         const ingredients = getMainIngredients(recipe);
         const lines = [
-          `*${days[index]} – ${recipe.naam}*`,
+          `*${days[index]} ${formatWeekMenuDate(weekMenuDates[index])} – ${recipe.naam}*`,
           `Voor ${servings} personen`,
           "Ingrediënten:",
           ...(ingredients.length
@@ -1445,9 +1477,27 @@
       weekMenuShare.href = `https://wa.me/?text=${encodeURIComponent(["*Mijn weekmenu* 🍽️", ...sections].join("\n\n"))}`;
     }
 
+    function getWeekMenuDates(today = new Date()) {
+      const monday = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 12);
+      const dayOfWeek = monday.getDay();
+      monday.setDate(monday.getDate() + (dayOfWeek === 0 ? 1 : dayOfWeek === 6 ? 2 : 1 - dayOfWeek));
+      return Array.from({ length: 5 }, (_, index) => {
+        const date = new Date(monday);
+        date.setDate(monday.getDate() + index);
+        return date;
+      });
+    }
+
+    function formatWeekMenuDate(date) {
+      const day = String(date.getDate()).padStart(2, "0");
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      return `${day}/${month}/${date.getFullYear()}`;
+    }
+
     function generateWeekMenu() {
       if (!recipes.length) return;
 
+      weekMenuDates = getWeekMenuDates();
       const shuffledRecipes = [...recipes];
       for (let index = shuffledRecipes.length - 1; index > 0; index -= 1) {
         const randomIndex = Math.floor(Math.random() * (index + 1));
