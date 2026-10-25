@@ -366,6 +366,8 @@
     .heading-with-icon { display: flex; align-items: center; gap: 11px; }
     .heading-icon { width: 25px; height: 25px; flex: 0 0 auto; color: #81934a; }
     .detail-heading .heading-icon { width: 21px; height: 21px; }
+    .serving-caption strong { display: flex; align-items: center; gap: 9px; }
+    .serving-caption .heading-icon { width: 21px; height: 21px; }
 
     .recipe-count {
       padding-bottom: 7px;
@@ -993,7 +995,13 @@
     <div class="dialog-content">
       <div class="serving-row">
         <div class="serving-caption">
-          <strong>Voor hoeveel eters?</strong>
+          <strong>
+            <svg class="heading-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="8" r="3.5" />
+              <path d="M5 20v-1.5a7 7 0 0 1 14 0V20H5Z" />
+            </svg>
+            Voor hoeveel eters?
+          </strong>
           <span>De ingrediënten passen zich vanzelf aan.</span>
         </div>
         <div class="serving-control" aria-label="Pas het aantal personen aan">
