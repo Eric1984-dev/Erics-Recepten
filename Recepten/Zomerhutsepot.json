@@ -1,0 +1,28 @@
+{
+  "naam": "Zomerhutsepot",
+  "slug": "zomerhutsepot",
+  "categorie": "Stoofpot",
+  "personen": 4,
+  "moeilijkheid": "Makkelijk",
+  "bereidingstijd": "45min",
+  "ingrediënten": [
+    { "naam": "Courgettes", "hoeveelheid": "2 stuks" },
+    { "naam": "Tomaten", "hoeveelheid": "5 stuks" },
+    { "naam": "Kippenbouillon", "hoeveelheid": "1 l" },
+    { "naam": "Aardappelen", "hoeveelheid": "250 g" },
+    { "naam": "Spekblokjes", "hoeveelheid": "400 g" }
+  ],
+  "saus": [],
+  "bereiding": [
+    "Schil de aardappelen en snij ze in schijfjes.",
+    "Was de courgettes en tomaten.",
+    "Snij de courgettes en tomaten in schijfjes.",
+    "Voeg de aardappelen, courgettes en tomaten samen in een grote kookpot.",
+    "Giet de kippenbouillon erbij.",
+    "Breng aan de kook en laat vervolgens zachtjes sudderen tot de aardappelen gaar zijn.",
+    "Bak ondertussen de spekblokjes krokant in een aparte pan.",
+    "Voeg de spekblokjes toe aan de hutsepot zodra de aardappelen gaar zijn.",
+    "Meng alles goed door elkaar.",
+    "Serveer onmiddellijk."
+  ]
+}

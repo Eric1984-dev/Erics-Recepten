@@ -1,0 +1,35 @@
+{
+  "naam": "Ovenschotel met Prei en Gehakt",
+  "slug": "ovenschotel-met-prei-en-gehakt",
+  "categorie": "Ovenschotel",
+  "personen": 4,
+  "moeilijkheid": "Makkelijk",
+  "bereidingstijd": "60min",
+  "ingrediënten": [
+    { "naam": "Vastkokende aardappelen", "hoeveelheid": "500 g" },
+    { "naam": "Prei", "hoeveelheid": "5 stuks" },
+    { "naam": "Currykruiden", "hoeveelheid": "4 el" },
+    { "naam": "Gemengd gehakt", "hoeveelheid": "750 g" },
+    { "naam": "Boter", "hoeveelheid": "1 el" },
+    { "naam": "Melk", "hoeveelheid": "25 cl" },
+    { "naam": "Peper", "hoeveelheid": "naar smaak" },
+    { "naam": "Zout", "hoeveelheid": "naar smaak" },
+    { "naam": "Muskaatnoot", "hoeveelheid": "naar smaak" }
+  ],
+  "saus": [],
+  "bereiding": [
+    "Bak het gemengd gehakt op hoog vuur en kruid met 2 el currykruiden.",
+    "Was de prei grondig en snij deze in ringen.",
+    "Stoof de prei gaar en kruid met de overige 2 el currykruiden.",
+    "Kook de aardappelen gaar in gezouten water.",
+    "Giet de aardappelen af en stamp ze fijn tot puree.",
+    "Voeg de boter, melk, peper, zout en muskaatnoot toe aan de puree en meng goed.",
+    "Verwarm de oven voor op 180°C.",
+    "Bedek de bodem van een ovenschaal met een laag puree.",
+    "Verdeel de gestoofde prei over de puree.",
+    "Verdeel vervolgens het gehakt over de prei.",
+    "Werk af met een laatste laag puree.",
+    "Bak de ovenschotel ongeveer 20 minuten in de oven tot deze goed warm is en licht begint te kleuren.",
+    "Serveer onmiddellijk."
+  ]
+}

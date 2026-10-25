@@ -1,0 +1,43 @@
+{
+  "naam": "Pulled Chicken",
+  "slug": "pulled-chicken",
+  "categorie": "Wereldkeuken",
+  "personen": 4,
+  "moeilijkheid": "Makkelijk",
+  "bereidingstijd": "120min",
+  "ingrediënten": [
+    { "naam": "Kippendijen", "hoeveelheid": "500 g" },
+    { "naam": "BBQ-saus", "hoeveelheid": "6 el" },
+    { "naam": "Tomatenblokjes", "hoeveelheid": "1 blik (500 g)" },
+    { "naam": "Uien", "hoeveelheid": "4 stuks" },
+    { "naam": "Peper", "hoeveelheid": "naar smaak" },
+    { "naam": "Zout", "hoeveelheid": "naar smaak" },
+    { "naam": "Boter", "hoeveelheid": "1 el" },
+    { "naam": "Olijfolie", "hoeveelheid": "naar behoefte" },
+    { "naam": "Wortelen", "hoeveelheid": "5 stuks" }
+  ],
+  "saus": [
+    { "naam": "BBQ-saus", "hoeveelheid": "6 el" },
+    { "naam": "Tomatenblokjes", "hoeveelheid": "1 blik (500 g)" }
+  ],
+  "bereiding": [
+    "Verwarm de oven voor op 160°C.",
+    "Kruid de kippendijen met peper en zout.",
+    "Smelt de boter in een ovenvaste pan en voeg een scheutje olijfolie toe.",
+    "Bak de kippendijen op hoog vuur goudbruin aan beide kanten.",
+    "Snij de uien in ringen.",
+    "Haal de kippendijen uit de pan en zet ze apart.",
+    "Bak de uien in dezelfde pan tot ze glazig zijn.",
+    "Schil de wortelen en snij ze in kleine blokjes.",
+    "Voeg de wortelen toe aan de uien en bak kort mee.",
+    "Leg de kippendijen terug in de pan.",
+    "Voeg de tomatenblokjes toe.",
+    "Voeg de BBQ-saus toe.",
+    "Meng alles goed door elkaar.",
+    "Plaats de pan gedurende 1,5 uur in de voorverwarmde oven.",
+    "Haal de pan uit de oven wanneer het vlees zacht is.",
+    "Trek de kippendijen met twee vorken uit elkaar tot fijne draadjes.",
+    "Meng het vlees door de saus.",
+    "Serveer warm, eventueel met broodjes, wraps, rijst of aardappelen."
+  ]
+}

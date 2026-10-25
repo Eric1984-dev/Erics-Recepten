@@ -1,0 +1,39 @@
+{
+  "naam": "Pinsa met Kip en BBQ-saus",
+  "slug": "pinsa-met-kip-en-bbq-saus",
+  "categorie": "Pinsa",
+  "personen": 4,
+  "moeilijkheid": "Makkelijk",
+  "bereidingstijd": "30min",
+  "ingrediënten": [
+    { "naam": "Voorgebakken pinsadeeg", "hoeveelheid": "4 stuks" },
+    { "naam": "BBQ-saus", "hoeveelheid": "3 el" },
+    { "naam": "Kippenblokjes", "hoeveelheid": "300 g" },
+    { "naam": "Pijpajuin", "hoeveelheid": "1 stuk" },
+    { "naam": "Sjalotten", "hoeveelheid": "3 stuks" },
+    { "naam": "Sesamzaadjes", "hoeveelheid": "1 el" },
+    { "naam": "Bloem", "hoeveelheid": "naar behoefte" },
+    { "naam": "Champignons", "hoeveelheid": "1 bakje" },
+    { "naam": "Peper", "hoeveelheid": "naar smaak" },
+    { "naam": "Zout", "hoeveelheid": "naar smaak" }
+  ],
+  "saus": [
+    { "naam": "BBQ-saus", "hoeveelheid": "3 el" }
+  ],
+  "bereiding": [
+    "Verwarm de oven voor op 220°C.",
+    "Meng de kippenblokjes met de bloem en kruid met peper en zout.",
+    "Bak de kippenblokjes kort aan op hoog vuur. Ze garen verder in de oven.",
+    "Haal de kip uit de pan en zet apart.",
+    "Snij de champignons in schijfjes en bak ze kort aan.",
+    "Snij de sjalotten in dunne schijfjes en bak mee met de champignons.",
+    "Voeg de kippenblokjes opnieuw toe aan de pan.",
+    "Voeg 2 el BBQ-saus toe en meng alles goed door elkaar op een laag vuur.",
+    "Beleg het pinsadeeg met het mengsel van kip, champignons en sjalotten.",
+    "Bak de pinsa's gedurende 10 minuten in de oven.",
+    "Snipper de pijpajuin fijn.",
+    "Werk de pinsa's af met de pijpajuin en sesamzaadjes.",
+    "Besprenkel met de resterende BBQ-saus.",
+    "Serveer onmiddellijk."
+  ]
+}

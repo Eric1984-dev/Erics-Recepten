@@ -1,0 +1,37 @@
+{
+  "naam": "Risotto met Courgette en Chorizo",
+  "slug": "risotto-met-courgette-en-chorizo",
+  "categorie": "Risotto",
+  "personen": 4,
+  "moeilijkheid": "Gemiddeld",
+  "bereidingstijd": "45min",
+  "ingrediënten": [
+    { "naam": "Chorizoworst", "hoeveelheid": "1 stuk" },
+    { "naam": "Risottorijst", "hoeveelheid": "300 g" },
+    { "naam": "Courgettes", "hoeveelheid": "2 stuks" },
+    { "naam": "Sjalotten", "hoeveelheid": "2 stuks" },
+    { "naam": "Parmezaanse kaas", "hoeveelheid": "50 g" },
+    { "naam": "Boter", "hoeveelheid": "3 el" },
+    { "naam": "Kippenbouillon", "hoeveelheid": "1 l" },
+    { "naam": "Olijfolie", "hoeveelheid": "naar behoefte" }
+  ],
+  "saus": [],
+  "bereiding": [
+    "Verhit een scheutje olijfolie in een grote pan.",
+    "Snij de chorizoworst in kleine blokjes.",
+    "Bak de chorizo op middelhoog vuur tot deze krokant is en haal uit de pan.",
+    "Snij de courgettes in kleine blokjes.",
+    "Bak de courgette kort aan in dezelfde pan.",
+    "Snipper de sjalotten fijn en voeg ze toe aan de courgette.",
+    "Bak tot de sjalotten glazig zijn en haal vervolgens alles uit de pan.",
+    "Voeg opnieuw een beetje olijfolie toe aan de pan.",
+    "Voeg de risottorijst toe en roer zachtjes tot de korrels glazig worden.",
+    "Voeg geleidelijk de warme kippenbouillon toe terwijl de rijst gaart.",
+    "Roer af en toe, maar niet voortdurend.",
+    "Blijf bouillon toevoegen tot de risottorijst gaar en smeuïg is.",
+    "Voeg de gebakken courgette, sjalotten en chorizo opnieuw toe aan de pan.",
+    "Rasp de parmezaanse kaas en voeg deze samen met de boter toe.",
+    "Meng alles goed tot een romige risotto.",
+    "Serveer onmiddellijk."
+  ]
+}

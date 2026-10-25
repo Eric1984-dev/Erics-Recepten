@@ -1,0 +1,36 @@
+{
+  "naam": "Mediterrane Rijst met Verse Gehaktballetjes en Groenten",
+  "slug": "mediterrane-rijst-met-verse-gehaktballetjes-en-Groenten",
+  "categorie": "Rijstgerechten",
+  "personen": 4,
+  "moeilijkheid": "Makkelijk",
+  "bereidingstijd": "45min",
+  "ingrediënten": [
+    { "naam": "Mediterrane rijst", "hoeveelheid": "2 pakken" },
+    { "naam": "Aubergines", "hoeveelheid": "2 stuks" },
+    { "naam": "Wortelen", "hoeveelheid": "5 stuks" },
+    { "naam": "Gemengd gehakt", "hoeveelheid": "750 g" },
+    { "naam": "Paneermeel", "hoeveelheid": "100 g" },
+    { "naam": "Peper", "hoeveelheid": "naar smaak" },
+    { "naam": "Zout", "hoeveelheid": "naar smaak" },
+    { "naam": "Paprikapoeder", "hoeveelheid": "1 el" },
+    { "naam": "Water", "hoeveelheid": "25 cl" }
+  ],
+  "saus": [],
+  "bereiding": [
+    "Voeg het paneermeel toe aan het gehakt.",
+    "Kruid het gehakt met peper, zout en paprikapoeder.",
+    "Meng goed en rol gehaktballetjes van gelijke grootte.",
+    "Bak de gehaktballetjes op hoog vuur goudbruin.",
+    "Schil de aubergines en wortelen.",
+    "Snij de aubergines en wortelen in blokjes van ongeveer 1 cm.",
+    "Haal de gebakken gehaktballetjes uit de pan en zet apart.",
+    "Voeg de groenten toe aan dezelfde pan en stoof ze kort aan.",
+    "Voeg de mediterrane rijst en het water toe.",
+    "Meng alles goed door elkaar.",
+    "Voeg de gehaktballetjes opnieuw toe aan de pan.",
+    "Laat het geheel sudderen tot de rijst gaar is en het vocht opgenomen is.",
+    "Roer af en toe om aanbakken te voorkomen.",
+    "Serveer warm."
+  ]
+}

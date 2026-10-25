@@ -1,0 +1,49 @@
+{
+  "naam": "Penne met Chipolata, Champignons en Kaassaus",
+  "slug": "penne-met-chipolata-champignons-en-kaassaus",
+  "categorie": "Pasta",
+  "personen": 4,
+  "moeilijkheid": "Gemiddeld",
+  "bereidingstijd": "45min",
+  "ingrediënten": [
+    { "naam": "Chipolata worsten", "hoeveelheid": "6 stuks" },
+    { "naam": "Penne", "hoeveelheid": "400 g" },
+    { "naam": "Champignons", "hoeveelheid": "1 bakje" },
+    { "naam": "Artisjokharten", "hoeveelheid": "1 bokaal" },
+    { "naam": "Boter", "hoeveelheid": "60 g" },
+    { "naam": "Melk", "hoeveelheid": "50 cl" },
+    { "naam": "Peper", "hoeveelheid": "naar smaak" },
+    { "naam": "Zout", "hoeveelheid": "naar smaak" },
+    { "naam": "Muskaatnoot", "hoeveelheid": "naar smaak" },
+    { "naam": "Gemalen emmentaler", "hoeveelheid": "200 g" },
+    { "naam": "Bloem", "hoeveelheid": "30 g" }
+  ],
+  "saus": [
+    { "naam": "Boter", "hoeveelheid": "30 g" },
+    { "naam": "Bloem", "hoeveelheid": "30 g" },
+    { "naam": "Melk", "hoeveelheid": "50 cl" },
+    { "naam": "Gemalen emmentaler", "hoeveelheid": "200 g" },
+    { "naam": "Peper", "hoeveelheid": "naar smaak" },
+    { "naam": "Zout", "hoeveelheid": "naar smaak" },
+    { "naam": "Muskaatnoot", "hoeveelheid": "naar smaak" }
+  ],
+  "bereiding": [
+    "Snij de chipolataworsten in stukjes van ongeveer 2 cm.",
+    "Verhit een klontje boter in een pan en bak de worststukjes goudbruin op hoog vuur.",
+    "Haal de worsten uit de pan en zet apart.",
+    "Snij de champignons in schijfjes.",
+    "Bak de champignons in dezelfde pan tot ze mooi gekleurd zijn.",
+    "Maak ondertussen de kaassaus.",
+    "Smelt 30 g boter in een steelpan.",
+    "Voeg de bloem toe en roer voortdurend tot een lichte koekjesgeur vrijkomt.",
+    "Kruid met peper, zout en muskaatnoot.",
+    "Voeg geleidelijk de melk toe terwijl je blijft roeren.",
+    "Laat de saus indikken.",
+    "Voeg de gemalen emmentaler toe en roer tot een gladde kaassaus.",
+    "Kook de penne volgens de aanwijzingen op de verpakking.",
+    "Giet de pasta af.",
+    "Meng de penne met de champignons, de chipolataworsten en de kaassaus.",
+    "Voeg de artisjokharten toe en meng voorzichtig door het geheel.",
+    "Serveer onmiddellijk."
+  ]
+}
