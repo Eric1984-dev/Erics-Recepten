@@ -1,0 +1,92 @@
+{
+  "naam": "Jorzo met Groenten",
+  "slug": "jorzo-met-groenten",
+  "categorie": "Pasta",
+  "personen": 4,
+  "moeilijkheid": "Makkelijk",
+  "bereidingstijd": "45min",
+  "ingrediënten": [
+    {
+      "naam": "Orzo (Griekse pasta)",
+      "hoeveelheid": "250 g"
+    },
+    {
+      "naam": "Varkensgyros",
+      "hoeveelheid": "400 g"
+    },
+    {
+      "naam": "Uien",
+      "hoeveelheid": "2 stuks"
+    },
+    {
+      "naam": "Look",
+      "hoeveelheid": "1 teen"
+    },
+    {
+      "naam": "Champignons",
+      "hoeveelheid": "1 bakje"
+    },
+    {
+      "naam": "Wortelen",
+      "hoeveelheid": "5 stuks"
+    },
+    {
+      "naam": "Komijn",
+      "hoeveelheid": "1 kl"
+    },
+    {
+      "naam": "Peper",
+      "hoeveelheid": "naar smaak"
+    },
+    {
+      "naam": "Zout",
+      "hoeveelheid": "naar smaak"
+    },
+    {
+      "naam": "Olijfolie",
+      "hoeveelheid": "naar behoefte"
+    },
+    {
+      "naam": "Groentebouillon",
+      "hoeveelheid": "750 ml"
+    },
+    {
+      "naam": "Tomatenpuree",
+      "hoeveelheid": "1 el"
+    }
+  ],
+  "saus": [
+    {
+      "naam": "Tomatenpuree",
+      "hoeveelheid": "1 el"
+    },
+    {
+      "naam": "Groentebouillon",
+      "hoeveelheid": "750 ml"
+    },
+    {
+      "naam": "Komijn",
+      "hoeveelheid": "1 kl"
+    }
+  ],
+  "bereiding": [
+    "Verhit een scheutje olijfolie in een grote pan.",
+    "Bak de varkensgyros goudbruin.",
+    "Snij de uien in ringen en voeg toe aan het vlees.",
+    "Plet de look en voeg eveneens toe aan het vlees.",
+    "Bak kort mee tot de ui glazig is.",
+    "Snij de champignons in schijfjes.",
+    "Schil de wortelen en snij ze in kleine blokjes.",
+    "Haal het vleesmengsel uit de pan en zet apart.",
+    "Bak de champignons in dezelfde pan tot ze goudbruin zijn.",
+    "Voeg het vleesmengsel opnieuw toe aan de pan.",
+    "Voeg de wortelen toe en laat enkele minuten meestoven.",
+    "Voeg de tomatenpuree toe en bak kort mee.",
+    "Kruid met komijn, peper en zout.",
+    "Voeg de orzo toe en roer goed om.",
+    "Giet de groentebouillon erbij.",
+    "Laat zachtjes sudderen tot de orzo gaar is en het vocht grotendeels opgenomen is.",
+    "Roer regelmatig zodat de pasta niet aan de bodem kleeft.",
+    "Serveer warm."
+  ]
+}
