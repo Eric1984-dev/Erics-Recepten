@@ -1,0 +1,52 @@
+{
+  "naam": "Sardientjes in de Oven",
+  "slug": "sardientjes-in-de-oven",
+  "categorie": "Vis",
+  "personen": 4,
+  "moeilijkheid": "Makkelijk",
+  "bereidingstijd": "25min",
+  "ingrediënten": [
+    {
+      "naam": "Sardientjes (diepvries Colruyt)",
+      "hoeveelheid": "20 stuks"
+    },
+    {
+      "naam": "Paneermeel",
+      "hoeveelheid": "5 el"
+    },
+    {
+      "naam": "Citroensap",
+      "hoeveelheid": "sap van 1/2 citroen"
+    },
+    {
+      "naam": "Peper",
+      "hoeveelheid": "naar smaak"
+    },
+    {
+      "naam": "Zout",
+      "hoeveelheid": "naar smaak"
+    },
+    {
+      "naam": "Peterselie",
+      "hoeveelheid": "naar smaak"
+    },
+    {
+      "naam": "Stokbrood",
+      "hoeveelheid": "naar wens"
+    }
+  ],
+  "saus": [],
+  "bereiding": [
+    "Verwarm de oven op de laagste grillstand.",
+    "Snipper de peterselie fijn en zet opzij.",
+    "Maak de sardientjes schoon door kop, ingewanden en staart te verwijderen.",
+    "Leg de sardientjes op een ovenschaal.",
+    "Plaats de sardientjes gedurende 5 minuten onder de grill.",
+    "Draai de sardientjes om en grill opnieuw gedurende 5 minuten.",
+    "Haal de sardientjes uit de oven en besprenkel met het citroensap.",
+    "Bestrooi met het paneermeel en de fijngesneden peterselie.",
+    "Plaats opnieuw onder de grill tot het paneermeel goudbruin en krokant is.",
+    "Kruid eventueel af met peper en zout.",
+    "Serveer met stokbrood of een bijgerecht naar keuze."
+  ]
+}

@@ -612,6 +612,32 @@
     .site-footer a { color: var(--green); font-weight: 800; text-decoration-color: #a8b96f; text-underline-offset: 3px; }
     .site-footer a:hover { color: var(--green-dark); }
 
+    .cookie-notice {
+      width: min(680px, calc(100% - 32px));
+      padding: 17px 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      position: fixed;
+      z-index: 20;
+      right: 16px;
+      bottom: 18px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: var(--paper);
+      box-shadow: 0 15px 45px rgb(20 43 30 / 20%);
+      color: var(--ink);
+      animation: cookie-in .25s ease both;
+    }
+
+    .cookie-notice[hidden] { display: none; }
+    .cookie-icon { width: 42px; height: 42px; flex: 0 0 auto; display: grid; place-items: center; border-radius: 14px; background: #f1f4e7; font-size: 1.4rem; }
+    .cookie-copy { min-width: 0; flex: 1; }
+    .cookie-copy h2 { margin: 0 0 4px; font-family: Georgia, "Times New Roman", serif; font-size: 1.08rem; font-weight: 600; letter-spacing: -.025em; }
+    .cookie-copy p { margin: 0; color: var(--muted); font-size: .8rem; line-height: 1.5; }
+    .cookie-dismiss { min-height: 42px; padding: 0 15px; flex: 0 0 auto; border: 0; border-radius: 12px; background: var(--green); color: white; cursor: pointer; font-size: .82rem; font-weight: 800; transition: background .18s ease, transform .18s ease; }
+    .cookie-dismiss:hover { background: var(--green-dark); transform: translateY(-1px); }
+
     .recipe-dialog {
       width: min(760px, calc(100% - 28px));
       max-height: min(88vh, 900px);
@@ -710,6 +736,8 @@
     .weekmenu-meta { color: var(--muted); font-size: .74rem; }
     .weekmenu-open { min-height: 37px; padding: 0 12px; border: 0; border-radius: 11px; background: #f2f4e9; color: var(--green); cursor: pointer; font-size: .77rem; font-weight: 800; transition: background .18s ease; }
     .weekmenu-open:hover { background: #e6edcf; }
+    .weekmenu-share { width: 100%; min-height: 46px; margin-top: 18px; padding: 0 15px; display: flex; align-items: center; justify-content: center; border-radius: 13px; background: #25d366; color: #12351f; text-decoration: none; font-size: .85rem; font-weight: 800; transition: background .18s ease, transform .18s ease; }
+    .weekmenu-share:hover { background: #20bd5a; transform: translateY(-1px); }
     .weekmenu-regenerate { width: 100%; min-height: 46px; margin-top: 18px; padding: 0 15px; border: 0; border-radius: 13px; background: var(--green); color: white; cursor: pointer; font-size: .85rem; font-weight: 800; transition: background .18s ease, transform .18s ease; }
     .weekmenu-regenerate:hover { background: var(--green-dark); transform: translateY(-1px); }
 
@@ -771,6 +799,11 @@
       to { opacity: 1; transform: translateY(0) scale(1); }
     }
 
+    @keyframes cookie-in {
+      from { opacity: 0; translate: 0 8px; }
+      to { opacity: 1; translate: 0 0; }
+    }
+
     @media (max-width: 900px) {
       .hero { min-height: 410px; padding: 42px; }
       .hero-art { min-height: 290px; }
@@ -813,6 +846,11 @@
       .weekmenu-item { grid-template-columns: 66px minmax(0, 1fr); gap: 9px; }
       .weekmenu-day { font-size: .64rem; }
       .weekmenu-open { grid-column: 2; justify-self: start; }
+      .cookie-notice { right: 10px; bottom: 10px; width: calc(100% - 20px); padding: 13px; gap: 10px; }
+      .cookie-icon { width: 36px; height: 36px; font-size: 1.2rem; }
+      .cookie-copy h2 { font-size: 1rem; }
+      .cookie-copy p { font-size: .75rem; }
+      .cookie-dismiss { min-height: 38px; padding: 0 12px; font-size: .77rem; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -964,15 +1002,26 @@
     <div class="dialog-content">
       <p class="weekmenu-intro" id="weekmenu-intro"></p>
       <ol class="weekmenu-list" id="weekmenu-list"></ol>
+      <a class="weekmenu-share" id="weekmenu-share" href="https://wa.me/" target="_blank" rel="noopener noreferrer">🟢 Stuur weekmenu via WhatsApp</a>
       <button class="weekmenu-regenerate" id="weekmenu-regenerate" type="button">↻ Kies vijf andere recepten</button>
     </div>
   </dialog>
+
+  <aside class="cookie-notice" id="cookie-notice" role="region" aria-labelledby="cookie-title" aria-describedby="cookie-description" hidden>
+    <span class="cookie-icon" aria-hidden="true">🍪</span>
+    <div class="cookie-copy">
+      <h2 id="cookie-title">Even over cookies</h2>
+      <p id="cookie-description">Deze website gebruikt geen trackingcookies. We onthouden in je browser alleen dat je deze melding hebt gezien.</p>
+    </div>
+    <button class="cookie-dismiss" id="cookie-dismiss" type="button">Begrepen</button>
+  </aside>
 
   <script>
     "use strict";
 
     const RECIPE_DIRECTORY = "Recepten";
     const GITHUB_REPOSITORY = "https://github.com/Eric1984-dev/Erics-Recepten";
+    const COOKIE_NOTICE_STORAGE_KEY = "erics-recepten-cookie-notice-dismissed";
     const recipes = [];
     let activeCategory = "Alles";
     let activeDifficulty = "Alle niveaus";
@@ -1004,6 +1053,7 @@
     const weekMenuDialog = document.querySelector("#weekmenu-dialog");
     const weekMenuIntro = document.querySelector("#weekmenu-intro");
     const weekMenuList = document.querySelector("#weekmenu-list");
+    const weekMenuShare = document.querySelector("#weekmenu-share");
 
     const categoryEmojis = {
       Aziatisch: "🍜",
@@ -1017,6 +1067,29 @@
       Risotto: "🍚",
       Stoofpot: "🥘"
     };
+
+    function initializeCookieNotice() {
+      const cookieNotice = document.querySelector("#cookie-notice");
+      const dismissButton = document.querySelector("#cookie-dismiss");
+
+      try {
+        if (window.localStorage.getItem(COOKIE_NOTICE_STORAGE_KEY) === "dismissed") return;
+      } catch (error) {
+        if (!(error instanceof DOMException)) throw error;
+        console.error("De cookievoorkeur kon niet uit lokale opslag worden gelezen.", error);
+      }
+
+      cookieNotice.hidden = false;
+      dismissButton.addEventListener("click", () => {
+        cookieNotice.hidden = true;
+        try {
+          window.localStorage.setItem(COOKIE_NOTICE_STORAGE_KEY, "dismissed");
+        } catch (error) {
+          if (!(error instanceof DOMException)) throw error;
+          console.error("De cookievoorkeur kon niet in lokale opslag worden bewaard.", error);
+        }
+      });
+    }
 
     function readableError(error) {
       if (error instanceof TypeError) {
@@ -1241,6 +1314,34 @@
         item.append(day, details, openButton);
         weekMenuList.append(item);
       });
+
+      const sections = weekMenuRecipes.map((recipe, index) => {
+        const servings = Number(recipe.personen) || 4;
+        const ingredients = Array.isArray(recipe.ingrediënten) ? recipe.ingrediënten : [];
+        const lines = [
+          `*${days[index]} – ${recipe.naam}*`,
+          `Voor ${servings} personen`,
+          "Ingrediënten:",
+          ...(ingredients.length
+            ? ingredients.map(ingredient => {
+              const amount = String(ingredient.hoeveelheid ?? "").trim();
+              return `• ${[amount, ingredient.naam || "Ingrediënt"].filter(Boolean).join(" ")}`;
+            })
+            : ["• Geen ingrediënten opgegeven."])
+        ];
+        const sauce = Array.isArray(recipe.saus) ? recipe.saus : [];
+        if (sauce.length) {
+          lines.push(
+            "Voor de saus:",
+            ...sauce.map(ingredient => {
+              const amount = String(ingredient.hoeveelheid ?? "").trim();
+              return `• ${[amount, ingredient.naam || "Ingrediënt"].filter(Boolean).join(" ")}`;
+            })
+          );
+        }
+        return lines.join("\n");
+      });
+      weekMenuShare.href = `https://wa.me/?text=${encodeURIComponent(["*Mijn weekmenu* 🍽️", ...sections].join("\n\n"))}`;
     }
 
     function generateWeekMenu() {
@@ -1656,6 +1757,7 @@
       }
     }
 
+    initializeCookieNotice();
     start();
   </script>
 </body>
