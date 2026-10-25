@@ -1246,6 +1246,32 @@
         .replace(/^-|-$/g, "");
     }
 
+    function recipeHash(recipe) {
+      return `#recept/${encodeURIComponent(recipeIdentity(recipe))}`;
+    }
+
+    function recipeUrl(recipe) {
+      const url = new URL(window.location.href);
+      url.hash = recipeHash(recipe);
+      return url.href;
+    }
+
+    function openRecipeFromLocation() {
+      const routePrefix = "#recept/";
+      if (!window.location.hash.startsWith(routePrefix)) return;
+
+      let identity;
+      try {
+        identity = decodeURIComponent(window.location.hash.slice(routePrefix.length));
+      } catch (error) {
+        if (!(error instanceof URIError)) throw error;
+        return;
+      }
+
+      const recipe = recipes.find(candidate => recipeIdentity(candidate) === identity);
+      if (recipe) openRecipe(recipe, false);
+    }
+
     function renderWheel() {
       wheelSlices.replaceChildren();
       if (!recipes.length) {
@@ -1337,6 +1363,7 @@
             ...sauce.map(formatWhatsAppIngredient)
           );
         }
+        lines.push(`Recept: ${recipeUrl(recipe)}`);
         return lines.join("\n");
       });
       weekMenuShare.href = `https://wa.me/?text=${encodeURIComponent(["*Mijn weekmenu* 🍽️", ...sections].join("\n\n"))}`;
@@ -1664,12 +1691,17 @@
       });
     }
 
-    function openRecipe(recipe) {
+    function openRecipe(recipe, updateLocation = true) {
       activeRecipe = recipe;
       activeServings = Math.max(1, Math.round(Number(recipe.personen) || 4));
       checkedIngredients = new Set();
       renderRecipeDetails();
-      dialog.showModal();
+      if (updateLocation) {
+        const url = new URL(window.location.href);
+        url.hash = recipeHash(recipe);
+        window.history.replaceState(window.history.state, "", url);
+      }
+      if (!dialog.open) dialog.showModal();
     }
 
     function changeServings(value) {
@@ -1687,9 +1719,16 @@
       else servingsInput.value = String(activeServings);
     });
     document.querySelector("#dialog-close").addEventListener("click", () => dialog.close());
+    dialog.addEventListener("close", () => {
+      if (!activeRecipe || window.location.hash !== recipeHash(activeRecipe)) return;
+      const url = new URL(window.location.href);
+      url.hash = "";
+      window.history.replaceState(window.history.state, "", url);
+    });
     dialog.addEventListener("click", event => {
       if (event.target === dialog) dialog.close();
     });
+    window.addEventListener("hashchange", openRecipeFromLocation);
     document.querySelector("#weekmenu-close").addEventListener("click", () => weekMenuDialog.close());
     document.querySelector("#weekmenu-regenerate").addEventListener("click", generateWeekMenu);
     weekMenuButton.addEventListener("click", generateWeekMenu);
@@ -1766,6 +1805,7 @@
         renderFilters();
         renderRecipes();
         renderWheel();
+        openRecipeFromLocation();
       } catch (error) {
         renderWheel();
         setNotice([readableError(error)], true);
