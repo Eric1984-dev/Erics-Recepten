@@ -355,6 +355,10 @@
       gap: 18px;
     }
 
+    .filter-groups { display: grid; gap: 10px; }
+    .filter-group { display: flex; align-items: center; gap: 9px; }
+    .filter-group-label { min-width: 91px; color: var(--muted); font-size: .69rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+
     .filters {
       display: flex;
       flex-wrap: wrap;
@@ -729,6 +733,8 @@
       .section-heading { align-items: start; flex-direction: column; gap: 8px; }
       .recipe-count { padding-bottom: 0; }
       .filters { gap: 7px; }
+      .filter-group { align-items: flex-start; }
+      .filter-group-label { min-width: 83px; padding-top: 10px; }
       .filter-button { min-height: 36px; padding: 0 12px; font-size: .76rem; }
       .recipe-grid { grid-template-columns: 1fr; gap: 15px; }
       .card-art { height: 164px; }
@@ -796,7 +802,20 @@
       </div>
 
       <div class="toolbar">
-        <div class="filters" id="filters" aria-label="Filter recepten op categorie"></div>
+        <div class="filter-groups">
+          <div class="filter-group">
+            <span class="filter-group-label" id="category-filter-label">Soort</span>
+            <div class="filters" id="filters" aria-labelledby="category-filter-label"></div>
+          </div>
+          <div class="filter-group">
+            <span class="filter-group-label" id="difficulty-filter-label">Moeilijkheid</span>
+            <div class="filters" id="difficulty-filters" aria-labelledby="difficulty-filter-label"></div>
+          </div>
+          <div class="filter-group">
+            <span class="filter-group-label" id="duration-filter-label">Bereidingstijd</span>
+            <div class="filters" id="duration-filters" aria-labelledby="duration-filter-label"></div>
+          </div>
+        </div>
         <label class="search-wrap">
           <span class="search-icon" aria-hidden="true">⌕</span>
           <span class="sr-only" hidden>Zoek een recept</span>
@@ -858,6 +877,8 @@
     const GITHUB_REPOSITORY = "https://github.com/Eric1984-dev/Erics-Recepten";
     const recipes = [];
     let activeCategory = "Alles";
+    let activeDifficulty = "Alle niveaus";
+    let activeDuration = "Alle tijden";
     let activeRecipe = null;
     let activeServings = 4;
     let checkedIngredients = new Set();
@@ -867,6 +888,8 @@
 
     const grid = document.querySelector("#recipe-grid");
     const filters = document.querySelector("#filters");
+    const difficultyFilters = document.querySelector("#difficulty-filters");
+    const durationFilters = document.querySelector("#duration-filters");
     const countLabel = document.querySelector("#recipe-count");
     const notice = document.querySelector("#load-notice");
     const searchInput = document.querySelector("#recipe-search");
@@ -1098,10 +1121,41 @@
       spinFallbackTimer = window.setTimeout(finishWheelSpin, 4200);
     }
 
+    function durationMinutes(value) {
+      if (value === null || value === undefined || value === "") return null;
+      const text = String(value).toLocaleLowerCase("nl").replace(/,/g, ".");
+      const units = "uren|uur|u|h|minuten|minuut|mins|min";
+      const range = new RegExp(`(\\d+(?:\\.\\d+)?)\\s*(?:-|–|tot)\\s*(\\d+(?:\\.\\d+)?)\\s*(${units})\\b`).exec(text);
+      if (range) {
+        const midpoint = (Number(range[1]) + Number(range[2])) / 2;
+        return midpoint * (/^(uren|uur|u|h)$/.test(range[3]) ? 60 : 1);
+      }
+
+      const parts = [...text.matchAll(new RegExp(`(\\d+(?:\\.\\d+)?)\\s*(${units})\\b`, "g"))];
+      if (!parts.length) {
+        return /^\d+(?:\.\d+)?$/.test(text.trim()) ? Number(text) : null;
+      }
+
+      return parts.reduce((total, part) => {
+        const amount = Number(part[1]);
+        return total + amount * (/^(uren|uur|u|h)$/.test(part[2]) ? 60 : 1);
+      }, 0);
+    }
+
+    function durationFilterFor(recipe) {
+      const minutes = durationMinutes(recipe.bereidingstijd);
+      if (minutes === null) return "Niet vermeld";
+      if (minutes <= 30) return "Tot 30 min";
+      if (minutes <= 60) return "31–60 min";
+      return "Meer dan 60 min";
+    }
+
     function visibleRecipes() {
       const query = searchInput.value.trim().toLocaleLowerCase("nl");
       return recipes
         .filter(recipe => activeCategory === "Alles" || recipe.categorie === activeCategory)
+        .filter(recipe => activeDifficulty === "Alle niveaus" || recipe.moeilijkheid === activeDifficulty)
+        .filter(recipe => activeDuration === "Alle tijden" || durationFilterFor(recipe) === activeDuration)
         .filter(recipe => {
           if (!query) return true;
           const searchable = [
@@ -1114,14 +1168,14 @@
         .sort((first, second) => first.naam.localeCompare(second.naam, "nl"));
     }
 
-    function makeFilterButton(label, total) {
+    function makeFilterButton(label, activeValue, onSelect, total = null) {
       const button = document.createElement("button");
       button.type = "button";
       button.className = "filter-button";
-      button.setAttribute("aria-pressed", String(activeCategory === label));
-      button.textContent = label === "Alles" ? `Alles · ${total}` : label;
+      button.setAttribute("aria-pressed", String(activeValue === label));
+      button.textContent = total === null ? label : `${label} · ${total}`;
       button.addEventListener("click", () => {
-        activeCategory = label;
+        onSelect(label);
         renderFilters();
         renderRecipes();
       });
@@ -1130,10 +1184,28 @@
 
     function renderFilters() {
       filters.replaceChildren();
-      filters.append(makeFilterButton("Alles", recipes.length));
+      difficultyFilters.replaceChildren();
+      durationFilters.replaceChildren();
+      filters.append(makeFilterButton("Alles", activeCategory, label => { activeCategory = label; }, recipes.length));
       const categories = [...new Set(recipes.map(recipe => recipe.categorie).filter(Boolean))]
         .sort((first, second) => first.localeCompare(second, "nl"));
-      for (const category of categories) filters.append(makeFilterButton(category, recipes.length));
+      for (const category of categories) {
+        filters.append(makeFilterButton(category, activeCategory, label => { activeCategory = label; }));
+      }
+
+      difficultyFilters.append(makeFilterButton("Alle niveaus", activeDifficulty, label => { activeDifficulty = label; }));
+      const difficulties = [...new Set(recipes.map(recipe => recipe.moeilijkheid).filter(Boolean))]
+        .sort((first, second) => first.localeCompare(second, "nl"));
+      for (const difficulty of difficulties) {
+        difficultyFilters.append(makeFilterButton(difficulty, activeDifficulty, label => { activeDifficulty = label; }));
+      }
+
+      durationFilters.append(makeFilterButton("Alle tijden", activeDuration, label => { activeDuration = label; }));
+      const durationOptions = ["Tot 30 min", "31–60 min", "Meer dan 60 min", "Niet vermeld"]
+        .filter(option => recipes.some(recipe => durationFilterFor(recipe) === option));
+      for (const duration of durationOptions) {
+        durationFilters.append(makeFilterButton(duration, activeDuration, label => { activeDuration = label; }));
+      }
     }
 
     function createRecipeCard(recipe, index) {
