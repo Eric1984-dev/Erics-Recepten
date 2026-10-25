@@ -1,0 +1,38 @@
+{
+  "naam": "Pokébowl met Scampi",
+  "slug": "pokebowl-met-scampi",
+  "categorie": "Aziatisch",
+  "personen": 4,
+  "moeilijkheid": "Makkelijk",
+  "bereidingstijd": "45min",
+  "ingrediënten": [
+    { "naam": "Sushirijst", "hoeveelheid": "500 g" },
+    { "naam": "Wortelen", "hoeveelheid": "4 stuks" },
+    { "naam": "Komkommer", "hoeveelheid": "1 stuk" },
+    { "naam": "Suiker", "hoeveelheid": "1 el" },
+    { "naam": "Avocado", "hoeveelheid": "1 stuk" },
+    { "naam": "Edamamebonen", "hoeveelheid": "200 g" },
+    { "naam": "Scampi's", "hoeveelheid": "30 stuks" },
+    { "naam": "Mango", "hoeveelheid": "1 stuk" },
+    { "naam": "Sushi rijstazijn", "hoeveelheid": "naar smaak" }
+  ],
+  "saus": [
+    { "naam": "Mayonaise", "hoeveelheid": "3 el" },
+    { "naam": "Sriracha mayo", "hoeveelheid": "1 el" },
+    { "naam": "Sojasaus", "hoeveelheid": "1 el" }
+  ],
+  "bereiding": [
+    "Bereid de sushirijst volgens de aanwijzingen op de verpakking.",
+    "Meng de rijst met de suiker en sushi rijstazijn.",
+    "Laat de rijst volledig afkoelen.",
+    "Bak de scampi's op hoog vuur tot ze gaar zijn.",
+    "Snij de wortelen en komkommer in fijne reepjes.",
+    "Snij de avocado in plakjes.",
+    "Snij de mango in blokjes.",
+    "Kook de edamamebonen volgens de aanwijzingen op de verpakking en laat afkoelen.",
+    "Maak de saus door de mayonaise, sriracha mayo en sojasaus te mengen.",
+    "Verdeel de afgekoelde rijst over kommetjes.",
+    "Schik de scampi's, wortelen, komkommer, avocado, mango en edamamebonen op de rijst.",
+    "Besprenkel met de saus en serveer onmiddellijk."
+  ]
+}

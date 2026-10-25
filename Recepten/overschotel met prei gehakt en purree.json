@@ -1,0 +1,32 @@
+{
+  "naam": "Wraps met Gehakt en Cheddar",
+  "slug": "wraps-met-gehakt-en-cheddar",
+  "categorie": "Wraps",
+  "personen": 4,
+  "moeilijkheid": "Makkelijk",
+  "bereidingstijd": "30min",
+  "ingrediënten": [
+    { "naam": "Gemengd gehakt", "hoeveelheid": "750 g" },
+    { "naam": "Cheddar", "hoeveelheid": "5 plakjes" },
+    { "naam": "Komkommer", "hoeveelheid": "1 stuk" },
+    { "naam": "Wraps", "hoeveelheid": "8 stuks" },
+    { "naam": "Sla", "hoeveelheid": "naar wens" },
+    { "naam": "Tomaten", "hoeveelheid": "naar wens" },
+    { "naam": "Geraspte wortelen", "hoeveelheid": "naar wens" },
+    { "naam": "Paprikakruiden", "hoeveelheid": "1 el" },
+    { "naam": "Sjalotten", "hoeveelheid": "2 stuks" }
+  ],
+  "saus": [],
+  "bereiding": [
+    "Bak het gemengd gehakt op hoog vuur gaar.",
+    "Snipper de sjalotten fijn en voeg ze toe aan het gehakt.",
+    "Voeg de paprikakruiden toe en meng goed.",
+    "Leg de plakjes cheddar op het warme gehakt en roer tot de kaas gesmolten is.",
+    "Snij de komkommer en tomaten in stukjes.",
+    "Verwarm de wraps kort indien gewenst.",
+    "Beleg elke wrap met sla, geraspte wortelen, komkommer en tomaten.",
+    "Verdeel het gehaktmengsel over de wraps.",
+    "Werk af met een saus naar keuze.",
+    "Vouw de wraps dicht en serveer onmiddellijk."
+  ]
+}

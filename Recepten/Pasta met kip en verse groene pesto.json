@@ -1,0 +1,45 @@
+{
+  "naam": "Pasta met Verse Groene Pesto en Kip",
+  "slug": "pasta-met-verse-groene-pesto-en-kip",
+  "categorie": "Pasta",
+  "personen": 4,
+  "moeilijkheid": "Makkelijk",
+  "bereidingstijd": "45min",
+  "ingrediënten": [
+    { "naam": "Kippenblokjes", "hoeveelheid": "500 g" },
+    { "naam": "Kerstomaten", "hoeveelheid": "1 bakje" },
+    { "naam": "Mini mozzarella bolletjes", "hoeveelheid": "1 doosje" },
+    { "naam": "Basilicum", "hoeveelheid": "1 plantje" },
+    { "naam": "Pijnboompitten", "hoeveelheid": "50 g" },
+    { "naam": "Olijfolie", "hoeveelheid": "25 cl" },
+    { "naam": "Bloem", "hoeveelheid": "naar behoefte" },
+    { "naam": "Peper", "hoeveelheid": "naar smaak" },
+    { "naam": "Zout", "hoeveelheid": "naar smaak" },
+    { "naam": "Sjalotten", "hoeveelheid": "2 stuks" },
+    { "naam": "Pasta", "hoeveelheid": "500 g" }
+  ],
+  "saus": [
+    { "naam": "Basilicum", "hoeveelheid": "1 plantje" },
+    { "naam": "Pijnboompitten", "hoeveelheid": "50 g" },
+    { "naam": "Olijfolie", "hoeveelheid": "25 cl" },
+    { "naam": "Peper", "hoeveelheid": "naar smaak" },
+    { "naam": "Zout", "hoeveelheid": "naar smaak" }
+  ],
+  "bereiding": [
+    "Wentel de kippenblokjes door de bloem en kruid met peper en zout.",
+    "Bak de kip op hoog vuur goudbruin en gaar.",
+    "Maak de pesto door het basilicum, de pijnboompitten, de olijfolie, peper en zout tot een gladde saus te blenden.",
+    "Haal de kip uit de pan en zet even opzij.",
+    "Snipper de sjalotten fijn.",
+    "Snij de kerstomaten doormidden.",
+    "Bak de kerstomaten kort aan in dezelfde pan.",
+    "Voeg de fijngesneden sjalotten toe en laat zacht worden.",
+    "Voeg de kip opnieuw toe aan de pan.",
+    "Meng de helft van de pesto onder het mengsel.",
+    "Voeg de mini mozzarella bolletjes toe.",
+    "Laat het geheel ongeveer 10 minuten sudderen op een laag vuur.",
+    "Kook de pasta volgens de aanwijzingen op de verpakking.",
+    "Giet de pasta af en meng onder de kip, groenten en pesto.",
+    "Serveer onmiddellijk en geef eventueel de resterende pesto apart erbij."
+  ]
+}

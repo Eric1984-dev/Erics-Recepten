@@ -1,0 +1,1244 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f5ef">
+  <meta name="description" content="Ontdek iets lekkers om te koken en pas elk recept eenvoudig aan het aantal eters aan.">
+  <title>Erics Recepten — elke dag iets lekkers</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #183b32;
+      --muted: #6e7c73;
+      --green: #285c45;
+      --green-dark: #1d4937;
+      --lime: #d5e775;
+      --cream: #f7f5ef;
+      --paper: #fffefa;
+      --orange: #ec8756;
+      --line: #e8e8de;
+      --shadow: 0 20px 60px rgb(30 54 41 / 9%);
+      --radius: 24px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(ellipse at 9% 12%, rgb(213 231 117 / 17%), transparent 26rem),
+        var(--cream);
+      color: var(--ink);
+      font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    button, input { font: inherit; }
+    button { color: inherit; }
+    a { color: inherit; }
+
+    .site-header {
+      width: min(1160px, calc(100% - 48px));
+      height: 82px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      text-decoration: none;
+      font-size: 1.03rem;
+      font-weight: 800;
+      letter-spacing: -.04em;
+    }
+
+    .brand-mark {
+      width: 39px;
+      height: 39px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      background: var(--green);
+      color: white;
+      font-size: 21px;
+      transform: rotate(-5deg);
+    }
+
+    .header-note {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+      font-size: .88rem;
+      font-weight: 600;
+    }
+
+    .online-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #84b363;
+      box-shadow: 0 0 0 4px rgb(132 179 99 / 16%);
+    }
+
+    .hero {
+      width: min(1160px, calc(100% - 48px));
+      min-height: 460px;
+      margin: 4px auto 76px;
+      padding: 48px 58px;
+      display: grid;
+      grid-template-columns: 1.07fr .93fr;
+      align-items: center;
+      overflow: hidden;
+      border-radius: 32px;
+      background: var(--green);
+      color: white;
+      position: relative;
+      isolation: isolate;
+    }
+
+    .hero::before, .hero::after {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .hero::before {
+      width: 430px;
+      height: 430px;
+      right: -145px;
+      top: -205px;
+      border: 1px solid rgb(255 255 255 / 13%);
+      box-shadow: 0 0 0 38px rgb(255 255 255 / 3%), 0 0 0 78px rgb(255 255 255 / 3%);
+    }
+
+    .hero::after {
+      width: 300px;
+      height: 300px;
+      left: 40%;
+      bottom: -250px;
+      background: rgb(213 231 117 / 8%);
+      filter: blur(2px);
+    }
+
+    .hero-copy { max-width: 540px; position: relative; z-index: 1; }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 20px;
+      color: var(--lime);
+      font-size: .76rem;
+      font-weight: 800;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 21px;
+      height: 2px;
+      background: currentColor;
+    }
+
+    h1, h2, h3, p { margin-top: 0; }
+
+    h1 {
+      max-width: 580px;
+      margin-bottom: 20px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(3rem, 5.7vw, 5.05rem);
+      font-weight: 500;
+      letter-spacing: -.07em;
+      line-height: .99;
+    }
+
+    h1 em {
+      color: var(--lime);
+      font-weight: 500;
+    }
+
+    .hero-copy > p {
+      max-width: 430px;
+      margin-bottom: 29px;
+      color: rgb(255 255 255 / 77%);
+      font-size: 1.03rem;
+      line-height: 1.75;
+    }
+
+    .primary-link {
+      min-height: 50px;
+      padding: 0 19px;
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      border-radius: 14px;
+      background: var(--lime);
+      color: var(--ink);
+      font-size: .91rem;
+      font-weight: 800;
+      text-decoration: none;
+      transition: transform .2s ease, background .2s ease;
+    }
+
+    .primary-link:hover { background: #e2f392; transform: translateY(-2px); }
+    .primary-link span { font-size: 1.15rem; transition: transform .2s ease; }
+    .primary-link:hover span { transform: translateX(3px); }
+
+    .hero-art {
+      min-height: 335px;
+      display: grid;
+      place-items: center;
+      position: relative;
+      animation: float-in .85s .15s both;
+    }
+
+    .plate {
+      width: min(315px, 27vw);
+      aspect-ratio: 1;
+      display: grid;
+      place-items: center;
+      border: 14px solid rgb(255 255 255 / 92%);
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 50% 48%, #fff7de 0 53%, #f0e6cd 54% 59%, transparent 60%),
+        #d3df9a;
+      box-shadow: 0 28px 45px rgb(13 40 28 / 26%), inset 0 3px 10px rgb(38 74 46 / 12%);
+      transform: rotate(-9deg);
+      animation: plate-in .8s .25s both;
+    }
+
+    .plate-emoji {
+      font-size: clamp(7rem, 13vw, 10rem);
+      filter: drop-shadow(0 11px 9px rgb(33 57 32 / 15%));
+      transform: rotate(9deg);
+      animation: bob 4s 1.1s ease-in-out infinite;
+    }
+
+    .floating-food {
+      position: absolute;
+      display: grid;
+      width: 55px;
+      height: 55px;
+      place-items: center;
+      border: 1px solid rgb(255 255 255 / 55%);
+      border-radius: 18px;
+      background: rgb(255 255 255 / 94%);
+      box-shadow: 0 12px 25px rgb(16 40 28 / 15%);
+      font-size: 1.8rem;
+      animation: bob 3.5s ease-in-out infinite;
+    }
+
+    .food-one { top: 19px; left: 13%; transform: rotate(-11deg); }
+    .food-two { right: 5%; top: 73px; animation-delay: -.9s; transform: rotate(9deg); }
+    .food-three { bottom: 16px; left: 19%; animation-delay: -1.6s; transform: rotate(7deg); }
+
+    .hero-sticker {
+      position: absolute;
+      right: 3%;
+      bottom: 39px;
+      padding: 11px 15px;
+      border-radius: 13px;
+      background: #f5bd65;
+      color: #513c19;
+      font-size: .77rem;
+      font-weight: 900;
+      transform: rotate(-5deg);
+    }
+
+    .recipe-section {
+      width: min(1160px, calc(100% - 48px));
+      margin: 0 auto 92px;
+      scroll-margin-top: 28px;
+    }
+
+    .section-heading {
+      margin-bottom: 27px;
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .section-kicker {
+      margin-bottom: 8px;
+      color: #81934a;
+      font-size: .74rem;
+      font-weight: 800;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      margin-bottom: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 500;
+      letter-spacing: -.055em;
+    }
+
+    .recipe-count {
+      padding-bottom: 7px;
+      color: var(--muted);
+      font-size: .87rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .toolbar {
+      margin-bottom: 25px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .filter-button {
+      min-height: 39px;
+      padding: 0 15px;
+      border: 1px solid #e5e6dc;
+      border-radius: 999px;
+      background: transparent;
+      color: #657269;
+      cursor: pointer;
+      font-size: .81rem;
+      font-weight: 700;
+      transition: background .18s ease, border-color .18s ease, color .18s ease, transform .18s ease;
+    }
+
+    .filter-button:hover { border-color: #a6bc72; color: var(--green); transform: translateY(-1px); }
+    .filter-button[aria-pressed="true"] { border-color: var(--green); background: var(--green); color: white; }
+
+    .search-wrap {
+      width: min(250px, 100%);
+      min-height: 43px;
+      padding: 0 13px;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      border: 1px solid #e5e6dc;
+      border-radius: 13px;
+      background: var(--paper);
+      color: #8a958b;
+      transition: border-color .2s ease, box-shadow .2s ease;
+    }
+
+    .search-wrap:focus-within { border-color: #9cb46a; box-shadow: 0 0 0 3px rgb(156 180 106 / 15%); }
+    .search-icon { font-size: 1.05rem; }
+
+    .search-wrap input {
+      width: 100%;
+      border: 0;
+      outline: 0;
+      background: transparent;
+      color: var(--ink);
+      font-size: .85rem;
+    }
+
+    .search-wrap input::placeholder { color: #9ba39b; }
+
+    .notice {
+      margin: 0 0 22px;
+      padding: 14px 17px;
+      border: 1px solid #e8d7a5;
+      border-radius: 14px;
+      background: #fff8df;
+      color: #66521e;
+      font-size: .88rem;
+      line-height: 1.6;
+    }
+
+    .notice[hidden] { display: none; }
+    .notice.error { border-color: #ebc5b9; background: #fff0eb; color: #783a27; }
+    .notice p { margin: 0; }
+    .notice ul { margin: 7px 0 0; padding-left: 20px; }
+
+    .recipe-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 21px;
+    }
+
+    .recipe-card {
+      min-width: 0;
+      overflow: hidden;
+      border: 1px solid rgb(42 69 48 / 7%);
+      border-radius: 21px;
+      background: var(--paper);
+      box-shadow: 0 7px 24px rgb(38 51 35 / 4%);
+      animation: card-in .48s both;
+      animation-delay: var(--delay, 0ms);
+      transition: transform .22s ease, box-shadow .22s ease;
+    }
+
+    .recipe-card:hover { transform: translateY(-5px); box-shadow: var(--shadow); }
+
+    .card-art {
+      height: 171px;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 50% 48%, rgb(255 255 255 / 42%) 0 31%, transparent 32%),
+        linear-gradient(140deg, hsl(var(--hue) 55% 88%), hsl(calc(var(--hue) + 14) 48% 79%));
+      position: relative;
+    }
+
+    .card-art::before, .card-art::after {
+      content: "";
+      width: 125px;
+      height: 125px;
+      position: absolute;
+      border: 1px solid rgb(255 255 255 / 40%);
+      border-radius: 50%;
+      transform: translate(81px, -68px);
+    }
+
+    .card-art::after { width: 180px; height: 180px; transform: translate(-115px, 82px); }
+
+    .card-emoji {
+      z-index: 1;
+      font-size: 5.25rem;
+      filter: drop-shadow(0 8px 7px rgb(41 53 30 / 13%));
+      transition: transform .28s cubic-bezier(.2,.8,.2,1);
+    }
+
+    .recipe-card:hover .card-emoji { transform: scale(1.1) rotate(-5deg); }
+
+    .card-body { padding: 18px 19px 19px; }
+
+    .card-labels { min-height: 24px; margin-bottom: 9px; display: flex; align-items: center; gap: 7px; }
+
+    .category-label {
+      padding: 5px 9px;
+      border-radius: 999px;
+      background: #eff3df;
+      color: #58703e;
+      font-size: .67rem;
+      font-weight: 800;
+    }
+
+    .difficulty-label { color: #909890; font-size: .69rem; font-weight: 700; }
+
+    .card-title {
+      min-height: 53px;
+      margin: 0 0 14px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.29rem;
+      font-weight: 600;
+      letter-spacing: -.035em;
+      line-height: 1.2;
+    }
+
+    .card-meta {
+      margin-bottom: 17px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      color: #728076;
+      font-size: .76rem;
+      font-weight: 600;
+    }
+
+    .card-meta span { display: inline-flex; align-items: center; gap: 5px; }
+
+    .card-open {
+      width: 100%;
+      min-height: 43px;
+      padding: 0 13px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border: 0;
+      border-radius: 12px;
+      background: #f2f4e9;
+      color: var(--green);
+      cursor: pointer;
+      font-size: .82rem;
+      font-weight: 800;
+      transition: background .18s ease;
+    }
+
+    .card-open:hover { background: #e6edcf; }
+    .card-open span { font-size: 1.1rem; }
+
+    .empty-state {
+      grid-column: 1 / -1;
+      padding: 48px 22px;
+      border: 1px dashed #d6dacd;
+      border-radius: 21px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .empty-state strong { display: block; margin-bottom: 7px; color: var(--ink); font-family: Georgia, serif; font-size: 1.45rem; }
+
+    .site-footer {
+      min-height: 100px;
+      padding: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: .81rem;
+      text-align: center;
+    }
+
+    .site-footer span { color: var(--orange); }
+
+    .recipe-dialog {
+      width: min(760px, calc(100% - 28px));
+      max-height: min(88vh, 900px);
+      padding: 0;
+      overflow: auto;
+      border: 0;
+      border-radius: 26px;
+      background: var(--paper);
+      color: var(--ink);
+      box-shadow: 0 30px 100px rgb(11 28 18 / 32%);
+      animation: dialog-in .25s ease both;
+    }
+
+    .recipe-dialog::backdrop { background: rgb(17 36 27 / 58%); backdrop-filter: blur(4px); }
+    .dialog-top { padding: 29px 32px 25px; background: #f1f4e7; position: relative; }
+
+    .dialog-close {
+      width: 37px;
+      height: 37px;
+      display: grid;
+      place-items: center;
+      position: absolute;
+      top: 17px;
+      right: 18px;
+      border: 1px solid rgb(24 59 50 / 11%);
+      border-radius: 50%;
+      background: rgb(255 255 255 / 72%);
+      cursor: pointer;
+      font-size: 1.2rem;
+      transition: transform .18s ease, background .18s ease;
+    }
+
+    .dialog-close:hover { background: white; transform: rotate(90deg); }
+    .dialog-category { margin-bottom: 10px; color: #718747; font-size: .73rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+
+    .dialog-title {
+      max-width: 620px;
+      margin: 0 44px 13px 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(1.8rem, 5vw, 2.65rem);
+      font-weight: 500;
+      letter-spacing: -.055em;
+      line-height: 1.07;
+    }
+
+    .dialog-meta { display: flex; flex-wrap: wrap; gap: 15px; color: #68766c; font-size: .81rem; font-weight: 600; }
+
+    .dialog-content { padding: 26px 32px 34px; }
+    .serving-row { margin-bottom: 25px; display: flex; align-items: center; justify-content: space-between; gap: 18px; }
+    .serving-caption strong { display: block; margin-bottom: 4px; font-size: .97rem; }
+    .serving-caption span { color: var(--muted); font-size: .79rem; }
+
+    .serving-control { display: flex; align-items: center; gap: 10px; }
+
+    .serving-button {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border: 1px solid #dfe4d5;
+      border-radius: 12px;
+      background: white;
+      color: var(--green);
+      cursor: pointer;
+      font-size: 1.25rem;
+      font-weight: 700;
+      transition: background .15s ease, transform .15s ease;
+    }
+
+    .serving-button:hover:not(:disabled) { background: #f0f4df; transform: scale(1.04); }
+    .serving-button:disabled { opacity: .38; cursor: not-allowed; }
+
+    .serving-input {
+      width: 51px;
+      height: 38px;
+      border: 1px solid #dfe4d5;
+      border-radius: 11px;
+      outline: 0;
+      background: white;
+      color: var(--ink);
+      font-weight: 800;
+      text-align: center;
+    }
+
+    .serving-input:focus { border-color: #91a95f; box-shadow: 0 0 0 3px rgb(145 169 95 / 15%); }
+    .serving-input::-webkit-inner-spin-button, .serving-input::-webkit-outer-spin-button { margin: 0; -webkit-appearance: none; }
+    .detail-heading { margin: 27px 0 13px; font-family: Georgia, "Times New Roman", serif; font-size: 1.45rem; font-weight: 500; letter-spacing: -.03em; }
+    .detail-heading:first-child { margin-top: 0; }
+
+    .ingredient-list {
+      margin: 0;
+      padding: 0;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0 20px;
+      list-style: none;
+    }
+
+    .ingredient-item {
+      min-height: 42px;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      border-bottom: 1px solid #eef0e9;
+      color: #48584d;
+      font-size: .85rem;
+      line-height: 1.4;
+      transition: color .15s ease;
+    }
+
+    .ingredient-item input { width: 16px; height: 16px; flex: 0 0 auto; accent-color: var(--green); cursor: pointer; }
+    .ingredient-name { min-width: 0; flex: 1; }
+    .ingredient-amount { color: var(--green); font-size: .79rem; font-weight: 800; text-align: right; white-space: nowrap; }
+    .ingredient-item.is-checked .ingredient-name { color: #9aa39a; text-decoration: line-through; }
+
+    .steps-list { margin: 0; padding: 0; display: grid; gap: 11px; list-style: none; counter-reset: recipe-step; }
+    .step-item { min-height: 43px; display: grid; grid-template-columns: 31px 1fr; align-items: start; gap: 11px; color: #58665b; font-size: .87rem; line-height: 1.58; }
+
+    .step-number {
+      width: 29px;
+      height: 29px;
+      display: grid;
+      place-items: center;
+      border-radius: 10px;
+      background: #eff3df;
+      color: #59713c;
+      font-size: .77rem;
+      font-weight: 900;
+    }
+
+    :focus-visible { outline: 3px solid #dd9d65; outline-offset: 3px; }
+
+    @keyframes card-in {
+      from { opacity: 0; transform: translateY(13px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes plate-in {
+      from { opacity: 0; transform: translateY(13px) rotate(-16deg) scale(.88); }
+      to { opacity: 1; transform: translateY(0) rotate(-9deg) scale(1); }
+    }
+
+    @keyframes float-in {
+      from { opacity: 0; transform: translateX(15px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes bob {
+      0%, 100% { translate: 0 0; }
+      50% { translate: 0 -8px; }
+    }
+
+    @keyframes dialog-in {
+      from { opacity: 0; transform: translateY(10px) scale(.985); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    @media (max-width: 900px) {
+      .hero { min-height: 410px; padding: 42px; }
+      .hero-art { min-height: 290px; }
+      .plate { width: min(270px, 32vw); }
+      .recipe-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .toolbar { align-items: flex-start; flex-direction: column-reverse; }
+      .search-wrap { width: min(360px, 100%); }
+    }
+
+    @media (max-width: 620px) {
+      .site-header { width: calc(100% - 32px); height: 70px; }
+      .header-note { font-size: .75rem; }
+      .hero { width: calc(100% - 24px); min-height: unset; margin: 4px auto 54px; padding: 35px 26px 25px; grid-template-columns: 1fr; border-radius: 25px; }
+      h1 { max-width: 450px; font-size: clamp(3rem, 13vw, 4.15rem); }
+      .hero-copy > p { font-size: .94rem; }
+      .hero-art { min-height: 250px; margin-top: 12px; }
+      .plate { width: 220px; }
+      .plate-emoji { font-size: 7.6rem; }
+      .food-one { top: 10px; left: 15%; }
+      .food-two { right: 10%; top: 25px; }
+      .food-three { bottom: 4px; left: 18%; }
+      .hero-sticker { right: 8%; bottom: 23px; }
+      .recipe-section { width: calc(100% - 32px); margin-bottom: 64px; }
+      .section-heading { align-items: start; flex-direction: column; gap: 8px; }
+      .recipe-count { padding-bottom: 0; }
+      .filters { gap: 7px; }
+      .filter-button { min-height: 36px; padding: 0 12px; font-size: .76rem; }
+      .recipe-grid { grid-template-columns: 1fr; gap: 15px; }
+      .card-art { height: 164px; }
+      .card-title { min-height: auto; }
+      .recipe-dialog { width: calc(100% - 18px); max-height: 93vh; border-radius: 21px; }
+      .dialog-top { padding: 25px 21px 21px; }
+      .dialog-content { padding: 23px 21px 28px; }
+      .dialog-close { top: 13px; right: 13px; }
+      .serving-row { align-items: flex-start; flex-direction: column; gap: 13px; }
+      .ingredient-list { grid-template-columns: 1fr; }
+      .ingredient-item { min-height: 40px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#" aria-label="Erics Recepten, naar boven">
+      <span class="brand-mark" aria-hidden="true">✳</span>
+      <span>Erics Recepten</span>
+    </a>
+    <div class="header-note"><span class="online-dot" aria-hidden="true"></span> Met liefde uit eigen keuken</div>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <div class="eyebrow">Welkom aan tafel</div>
+        <h1 id="hero-title">Lekker eten.<br><em>Goed geregeld.</em></h1>
+        <p>Van een snelle hap tot uitgebreid tafelen: vind je volgende favoriet en zet de ingrediënten meteen op de juiste hoeveelheid.</p>
+        <a class="primary-link" href="#recepten">Ontdek de recepten <span aria-hidden="true">→</span></a>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="plate"><span class="plate-emoji">🥗</span></div>
+        <span class="floating-food food-one">🍅</span>
+        <span class="floating-food food-two">🍋</span>
+        <span class="floating-food food-three">🌿</span>
+        <span class="hero-sticker">Altijd iets lekkers!</span>
+      </div>
+    </section>
+
+    <section class="recipe-section" id="recepten" aria-labelledby="recipe-heading">
+      <div class="section-heading">
+        <div>
+          <div class="section-kicker">Vanavond op tafel?</div>
+          <h2 id="recipe-heading">Wat eten we vandaag?</h2>
+        </div>
+        <div class="recipe-count" id="recipe-count" aria-live="polite">Recepten laden…</div>
+      </div>
+
+      <div class="toolbar">
+        <div class="filters" id="filters" aria-label="Filter recepten op categorie"></div>
+        <label class="search-wrap">
+          <span class="search-icon" aria-hidden="true">⌕</span>
+          <span class="sr-only" hidden>Zoek een recept</span>
+          <input id="recipe-search" type="search" placeholder="Zoek een recept…" aria-label="Zoek een recept" autocomplete="off">
+        </label>
+      </div>
+
+      <div class="notice" id="load-notice" role="status" hidden></div>
+      <div class="recipe-grid" id="recipe-grid" aria-live="polite">
+        <div class="empty-state"><strong>Even de pannen klaarzetten…</strong>De recepten komen eraan.</div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">Gemaakt met <span aria-label="liefde">♥</span> en een snufje kruiden.</footer>
+
+  <dialog class="recipe-dialog" id="recipe-dialog" aria-labelledby="dialog-title">
+    <div class="dialog-top">
+      <button class="dialog-close" id="dialog-close" type="button" aria-label="Recept sluiten">×</button>
+      <div class="dialog-category" id="dialog-category"></div>
+      <h2 class="dialog-title" id="dialog-title"></h2>
+      <div class="dialog-meta" id="dialog-meta"></div>
+    </div>
+    <div class="dialog-content">
+      <div class="serving-row">
+        <div class="serving-caption">
+          <strong>Voor hoeveel eters?</strong>
+          <span>De ingrediënten passen zich vanzelf aan.</span>
+        </div>
+        <div class="serving-control" aria-label="Pas het aantal personen aan">
+          <button class="serving-button" id="servings-minus" type="button" aria-label="Een persoon minder">−</button>
+          <input class="serving-input" id="servings-input" type="number" min="1" step="1" inputmode="numeric" aria-label="Aantal personen">
+          <button class="serving-button" id="servings-plus" type="button" aria-label="Een persoon meer">+</button>
+        </div>
+      </div>
+      <section id="ingredients-section">
+        <h3 class="detail-heading">Ingrediënten</h3>
+        <ul class="ingredient-list" id="ingredient-list"></ul>
+      </section>
+      <section id="sauce-section" hidden>
+        <h3 class="detail-heading">Voor de saus</h3>
+        <ul class="ingredient-list" id="sauce-list"></ul>
+      </section>
+      <section id="steps-section">
+        <h3 class="detail-heading">Zo maak je het</h3>
+        <ol class="steps-list" id="steps-list"></ol>
+      </section>
+    </div>
+  </dialog>
+
+  <script>
+    "use strict";
+
+    const RECIPE_DIRECTORY = "Recepten";
+    const GITHUB_REPOSITORY = "https://github.com/Eric1984-dev/Erics-Recepten";
+    const recipes = [];
+    let activeCategory = "Alles";
+    let activeRecipe = null;
+    let activeServings = 4;
+    let checkedIngredients = new Set();
+
+    const grid = document.querySelector("#recipe-grid");
+    const filters = document.querySelector("#filters");
+    const countLabel = document.querySelector("#recipe-count");
+    const notice = document.querySelector("#load-notice");
+    const searchInput = document.querySelector("#recipe-search");
+    const dialog = document.querySelector("#recipe-dialog");
+    const servingsInput = document.querySelector("#servings-input");
+
+    const categoryEmojis = {
+      Aziatisch: "🍜",
+      Pasta: "🍝",
+      Vis: "🦐",
+      Wraps: "🌯",
+      Wereldkeuken: "🍛"
+    };
+
+    function readableError(error) {
+      if (error instanceof TypeError) {
+        return "De receptenmap is niet bereikbaar. Controleer de internetverbinding, de repository-instellingen en of de repository openbaar is.";
+      }
+      return error.message || "Onbekende fout.";
+    }
+
+    function getGitHubRepository() {
+      if (GITHUB_REPOSITORY.trim()) {
+        const parts = GITHUB_REPOSITORY.trim().replace(/^https?:\/\/github\.com\//i, "").replace(/\/$/, "").split("/");
+        if (parts.length >= 2) return { owner: parts[0], repo: parts[1] };
+      }
+
+      const match = window.location.hostname.match(/^([a-z0-9-]+)\.github\.io$/i);
+      if (!match) return null;
+
+      const owner = match[1];
+      const firstPathPart = window.location.pathname.split("/").filter(Boolean)[0];
+      return { owner, repo: firstPathPart || `${owner}.github.io` };
+    }
+
+    function isRecipeFile(name) {
+      return /\.(json|txt)$/i.test(name);
+    }
+
+    async function discoverFromGitHub(repository) {
+      const endpoint = `https://api.github.com/repos/${encodeURIComponent(repository.owner)}/${encodeURIComponent(repository.repo)}/contents/${RECIPE_DIRECTORY}`;
+      const response = await fetch(endpoint, { headers: { Accept: "application/vnd.github+json" } });
+      if (!response.ok) {
+        if (response.status === 404) {
+          throw new Error(`De map "${repository.owner}/${repository.repo}/${RECIPE_DIRECTORY}" is niet gevonden. Controleer of index.html en de map Recepten/ in de openbare GitHub-repository staan en gecommit zijn.`);
+        }
+        if (response.status === 403) {
+          throw new Error("GitHub heeft het verzoek beperkt. Probeer het later opnieuw of controleer of de repository openbaar is.");
+        }
+        throw new Error(`GitHub kon de receptenmap niet ophalen (HTTP ${response.status}).`);
+      }
+
+      const entries = await response.json();
+      if (!Array.isArray(entries)) {
+        throw new Error("GitHub gaf geen bestandslijst terug voor de receptenmap.");
+      }
+
+      return entries
+        .filter(entry => entry.type === "file" && isRecipeFile(entry.name) && entry.download_url)
+        .map(entry => ({ name: entry.name, url: entry.download_url }));
+    }
+
+    async function discoverFromDirectoryListing() {
+      if (window.location.protocol === "file:") {
+        throw new Error("Een browser kan naastgelegen bestanden niet rechtstreeks uitlezen. Open index.html via een webserver of publiceer de site met een geconfigureerde openbare GitHub-repository.");
+      }
+
+      const directoryUrl = new URL(`./${RECIPE_DIRECTORY}/`, window.location.href);
+      const response = await fetch(directoryUrl);
+      if (!response.ok) {
+        throw new Error(`De map "${RECIPE_DIRECTORY}" kan niet worden uitgelezen. Configureer de openbare GitHub-repository bovenaan het script in index.html.`);
+      }
+
+      const html = await response.text();
+      const documentFromListing = new DOMParser().parseFromString(html, "text/html");
+      const files = [...documentFromListing.querySelectorAll("a[href]")].flatMap(link => {
+        const fileUrl = new URL(link.getAttribute("href"), directoryUrl);
+        if (fileUrl.origin !== directoryUrl.origin || !fileUrl.pathname.startsWith(directoryUrl.pathname)) return [];
+        const relativePath = fileUrl.pathname.slice(directoryUrl.pathname.length);
+        if (!relativePath || relativePath.includes("/") || !isRecipeFile(relativePath)) return [];
+        return [{ name: decodeURIComponent(relativePath), url: fileUrl.href }];
+      });
+
+      return files;
+    }
+
+    function parseRecipe(text) {
+      try {
+        return { recipe: JSON.parse(text), recovered: false };
+      } catch (error) {
+        const incompleteFinalStep = /,\s*"(?:(?:\\.)|[^"\\])*$/.exec(text);
+        if (!incompleteFinalStep || !text.slice(0, incompleteFinalStep.index).includes('"bereiding"')) {
+          throw error;
+        }
+
+        const completeRecipeText = `${text.slice(0, incompleteFinalStep.index).trimEnd()}\n  ]\n}`;
+        const recipe = JSON.parse(completeRecipeText);
+        if (!recipe.naam || !Array.isArray(recipe.ingrediënten) || !Array.isArray(recipe.bereiding)) {
+          throw error;
+        }
+        return { recipe, recovered: true };
+      }
+    }
+
+    async function loadRecipeFile(file) {
+      const response = await fetch(file.url);
+      if (!response.ok) {
+        throw new Error(`${file.name}: ophalen mislukt (HTTP ${response.status}).`);
+      }
+
+      const text = (await response.text()).replace(/^\uFEFF/, "");
+      const { recipe, recovered } = parseRecipe(text);
+      if (!recipe || typeof recipe.naam !== "string" || !Array.isArray(recipe.ingrediënten)) {
+        throw new Error(`${file.name}: het recept heeft geen geldige naam of ingrediëntenlijst.`);
+      }
+
+      return { ...recipe, _fileName: file.name, _recovered: recovered };
+    }
+
+    function setNotice(messages, isError = false) {
+      notice.replaceChildren();
+      notice.classList.toggle("error", isError);
+      notice.hidden = messages.length === 0;
+      if (!messages.length) return;
+
+      const summary = document.createElement("p");
+      summary.textContent = messages[0];
+      notice.append(summary);
+      if (messages.length > 1) {
+        const list = document.createElement("ul");
+        for (const message of messages.slice(1)) {
+          const item = document.createElement("li");
+          item.textContent = message;
+          list.append(item);
+        }
+        notice.append(list);
+      }
+    }
+
+    function recipeEmoji(recipe) {
+      const title = recipe.naam.toLocaleLowerCase("nl");
+      if (title.includes("sushi")) return "🍣";
+      if (title.includes("scampi")) return "🦐";
+      if (title.includes("mossel")) return "🦪";
+      if (title.includes("kebab")) return "🥙";
+      if (title.includes("ballet")) return "🍛";
+      if (title.includes("pasta") || title.includes("tagliatelle")) return "🍝";
+      return categoryEmojis[recipe.categorie] || "🍲";
+    }
+
+    function visibleRecipes() {
+      const query = searchInput.value.trim().toLocaleLowerCase("nl");
+      return recipes
+        .filter(recipe => activeCategory === "Alles" || recipe.categorie === activeCategory)
+        .filter(recipe => {
+          if (!query) return true;
+          const searchable = [
+            recipe.naam,
+            recipe.categorie,
+            ...(recipe.ingrediënten || []).map(item => item.naam)
+          ].join(" ").toLocaleLowerCase("nl");
+          return searchable.includes(query);
+        })
+        .sort((first, second) => first.naam.localeCompare(second.naam, "nl"));
+    }
+
+    function makeFilterButton(label, total) {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "filter-button";
+      button.setAttribute("aria-pressed", String(activeCategory === label));
+      button.textContent = label === "Alles" ? `Alles · ${total}` : label;
+      button.addEventListener("click", () => {
+        activeCategory = label;
+        renderFilters();
+        renderRecipes();
+      });
+      return button;
+    }
+
+    function renderFilters() {
+      filters.replaceChildren();
+      filters.append(makeFilterButton("Alles", recipes.length));
+      const categories = [...new Set(recipes.map(recipe => recipe.categorie).filter(Boolean))]
+        .sort((first, second) => first.localeCompare(second, "nl"));
+      for (const category of categories) filters.append(makeFilterButton(category, recipes.length));
+    }
+
+    function createRecipeCard(recipe, index) {
+      const card = document.createElement("article");
+      card.className = "recipe-card";
+      card.style.setProperty("--hue", String((index * 43 + 72) % 360));
+      card.style.setProperty("--delay", `${Math.min(index, 8) * 45}ms`);
+
+      const art = document.createElement("div");
+      art.className = "card-art";
+      art.setAttribute("aria-hidden", "true");
+      const emoji = document.createElement("span");
+      emoji.className = "card-emoji";
+      emoji.textContent = recipeEmoji(recipe);
+      art.append(emoji);
+
+      const body = document.createElement("div");
+      body.className = "card-body";
+      const labels = document.createElement("div");
+      labels.className = "card-labels";
+      const category = document.createElement("span");
+      category.className = "category-label";
+      category.textContent = recipe.categorie || "Recept";
+      labels.append(category);
+      if (recipe.moeilijkheid) {
+        const difficulty = document.createElement("span");
+        difficulty.className = "difficulty-label";
+        difficulty.textContent = recipe.moeilijkheid;
+        labels.append(difficulty);
+      }
+
+      const title = document.createElement("h3");
+      title.className = "card-title";
+      title.textContent = recipe.naam;
+      const meta = document.createElement("div");
+      meta.className = "card-meta";
+      if (recipe.bereidingstijd) {
+        const time = document.createElement("span");
+        time.innerHTML = "◷";
+        time.append(document.createTextNode(` ${recipe.bereidingstijd}`));
+        meta.append(time);
+      }
+      if (recipe.personen) {
+        const servings = document.createElement("span");
+        servings.innerHTML = "♧";
+        servings.append(document.createTextNode(` ${recipe.personen} personen`));
+        meta.append(servings);
+      }
+
+      const openButton = document.createElement("button");
+      openButton.className = "card-open";
+      openButton.type = "button";
+      openButton.append(document.createTextNode("Bekijk recept"));
+      const arrow = document.createElement("span");
+      arrow.setAttribute("aria-hidden", "true");
+      arrow.textContent = "→";
+      openButton.append(arrow);
+      openButton.addEventListener("click", () => openRecipe(recipe));
+
+      body.append(labels, title, meta, openButton);
+      card.append(art, body);
+      return card;
+    }
+
+    function renderRecipes() {
+      const matches = visibleRecipes();
+      grid.replaceChildren();
+      countLabel.textContent = `${matches.length} ${matches.length === 1 ? "recept" : "recepten"}`;
+
+      if (!matches.length) {
+        const empty = document.createElement("div");
+        empty.className = "empty-state";
+        const heading = document.createElement("strong");
+        heading.textContent = "Geen recepten gevonden";
+        empty.append(heading, document.createTextNode("Probeer een andere zoekterm of categorie."));
+        grid.append(empty);
+        return;
+      }
+
+      matches.forEach((recipe, index) => grid.append(createRecipeCard(recipe, index)));
+    }
+
+    function formatAmount(value) {
+      return new Intl.NumberFormat("nl-BE", { maximumFractionDigits: 2 }).format(value);
+    }
+
+    function scaledQuantity(quantity, originalServings, requestedServings) {
+      const amount = String(quantity ?? "");
+      const numericAmount = /^(\s*)(\d+(?:[.,]\d+)?)(?:\s*(tot|[-–])\s*(\d+(?:[.,]\d+)?))?(.*)$/i.exec(amount);
+      if (!numericAmount) return amount;
+
+      const factor = requestedServings / originalServings;
+      const first = Number(numericAmount[2].replace(",", ".")) * factor;
+      const range = numericAmount[4]
+        ? ` ${numericAmount[3]} ${formatAmount(Number(numericAmount[4].replace(",", ".")) * factor)}`
+        : "";
+      return `${numericAmount[1]}${formatAmount(first)}${range}${numericAmount[5]}`;
+    }
+
+    function renderIngredientList(target, items, groupName) {
+      target.replaceChildren();
+      (items || []).forEach((ingredient, index) => {
+        const key = `${groupName}-${index}`;
+        const item = document.createElement("li");
+        item.className = "ingredient-item";
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.checked = checkedIngredients.has(key);
+        checkbox.setAttribute("aria-label", `Markeer ${ingredient.naam} als klaar`);
+        const name = document.createElement("span");
+        name.className = "ingredient-name";
+        name.textContent = ingredient.naam || "Ingrediënt";
+        const amount = document.createElement("span");
+        amount.className = "ingredient-amount";
+        amount.textContent = scaledQuantity(ingredient.hoeveelheid, Number(activeRecipe.personen) || 4, activeServings);
+        item.classList.toggle("is-checked", checkbox.checked);
+        checkbox.addEventListener("change", () => {
+          if (checkbox.checked) checkedIngredients.add(key);
+          else checkedIngredients.delete(key);
+          item.classList.toggle("is-checked", checkbox.checked);
+        });
+        item.append(checkbox, name, amount);
+        target.append(item);
+      });
+    }
+
+    function renderRecipeDetails() {
+      servingsInput.value = String(activeServings);
+      document.querySelector("#servings-minus").disabled = activeServings <= 1;
+      document.querySelector("#dialog-category").textContent = activeRecipe.categorie || "Recept";
+      document.querySelector("#dialog-title").textContent = activeRecipe.naam;
+
+      const meta = document.querySelector("#dialog-meta");
+      meta.replaceChildren();
+      for (const [symbol, value] of [["◷", activeRecipe.bereidingstijd], ["♧", `${activeServings} personen`], ["✳", activeRecipe.moeilijkheid]]) {
+        if (!value) continue;
+        const item = document.createElement("span");
+        item.textContent = `${symbol} ${value}`;
+        meta.append(item);
+      }
+
+      renderIngredientList(document.querySelector("#ingredient-list"), activeRecipe.ingrediënten, "ingredient");
+      const sauce = Array.isArray(activeRecipe.saus) ? activeRecipe.saus : [];
+      document.querySelector("#sauce-section").hidden = sauce.length === 0;
+      if (sauce.length) renderIngredientList(document.querySelector("#sauce-list"), sauce, "sauce");
+
+      const steps = document.querySelector("#steps-list");
+      steps.replaceChildren();
+      (activeRecipe.bereiding || []).forEach((instruction, index) => {
+        const item = document.createElement("li");
+        item.className = "step-item";
+        const number = document.createElement("span");
+        number.className = "step-number";
+        number.textContent = String(index + 1);
+        const text = document.createElement("span");
+        text.textContent = instruction;
+        item.append(number, text);
+        steps.append(item);
+      });
+    }
+
+    function openRecipe(recipe) {
+      activeRecipe = recipe;
+      activeServings = Math.max(1, Math.round(Number(recipe.personen) || 4));
+      checkedIngredients = new Set();
+      renderRecipeDetails();
+      dialog.showModal();
+    }
+
+    function changeServings(value) {
+      const parsed = Number(value);
+      if (!Number.isInteger(parsed) || parsed < 1 || parsed > 999) return;
+      activeServings = parsed;
+      renderRecipeDetails();
+    }
+
+    document.querySelector("#servings-minus").addEventListener("click", () => changeServings(activeServings - 1));
+    document.querySelector("#servings-plus").addEventListener("click", () => changeServings(activeServings + 1));
+    servingsInput.addEventListener("change", () => {
+      const parsed = Number(servingsInput.value);
+      if (Number.isInteger(parsed) && parsed >= 1 && parsed <= 999) changeServings(parsed);
+      else servingsInput.value = String(activeServings);
+    });
+    document.querySelector("#dialog-close").addEventListener("click", () => dialog.close());
+    dialog.addEventListener("click", event => {
+      if (event.target === dialog) dialog.close();
+    });
+    searchInput.addEventListener("input", renderRecipes);
+
+    async function start() {
+      try {
+        const repository = getGitHubRepository();
+        const files = repository
+          ? await discoverFromGitHub(repository)
+          : await discoverFromDirectoryListing();
+
+        if (!files.length) {
+          setNotice(["Er zijn geen .json-recepten gevonden in de map Recepten."], true);
+          grid.replaceChildren();
+          renderRecipes();
+          return;
+        }
+
+        const results = await Promise.all(files.map(async file => {
+          try {
+            return { recipe: await loadRecipeFile(file), error: null };
+          } catch (error) {
+            return { recipe: null, error: error.message || `${file.name}: kon niet worden gelezen.` };
+          }
+        }));
+
+        const recovered = [];
+        const failed = [];
+        for (const result of results) {
+          if (result.recipe) {
+            recipes.push(result.recipe);
+            if (result.recipe._recovered) recovered.push(`${result.recipe._fileName}: de onvolledige laatste bereidingsstap is overgeslagen.`);
+          } else if (result.error) {
+            failed.push(result.error);
+          }
+        }
+
+        if (!recipes.length) {
+          setNotice(["Geen enkel recept kon worden geladen.", ...failed], true);
+        } else if (failed.length || recovered.length) {
+          setNotice([
+            `${recipes.length} recepten geladen; ${failed.length + recovered.length} bestand${failed.length + recovered.length === 1 ? "" : "en"} vraagt aandacht.`,
+            ...recovered,
+            ...failed
+          ]);
+        }
+
+        renderFilters();
+        renderRecipes();
+      } catch (error) {
+        setNotice([readableError(error)], true);
+        countLabel.textContent = "Recepten niet beschikbaar";
+        grid.replaceChildren();
+        const empty = document.createElement("div");
+        empty.className = "empty-state";
+        const heading = document.createElement("strong");
+        heading.textContent = "De receptenmap is nog niet bereikbaar";
+        empty.append(heading, document.createTextNode(readableError(error)));
+        grid.append(empty);
+      }
+    }
+
+    start();
+  </script>
+</body>
+</html>

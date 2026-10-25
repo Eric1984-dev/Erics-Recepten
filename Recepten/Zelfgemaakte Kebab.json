@@ -1,0 +1,34 @@
+{
+  "naam": "Zelfgemaakte Kebab",
+  "slug": "zelfgemaakte-kebab",
+  "categorie": "Wraps",
+  "personen": 4,
+  "moeilijkheid": "Gemiddeld",
+  "bereidingstijd": "45min",
+  "ingrediënten": [
+    { "naam": "Gemengd gehakt", "hoeveelheid": "750 g" },
+    { "naam": "Ovenpapier", "hoeveelheid": "3 vellen" },
+    { "naam": "Kebab- of shoarmakruiden", "hoeveelheid": "3 el" },
+    { "naam": "Komkommer", "hoeveelheid": "1 stuk" },
+    { "naam": "Wortelen", "hoeveelheid": "3 stuks" },
+    { "naam": "Sla", "hoeveelheid": "naar wens" },
+    { "naam": "Pitabroodjes of wraps", "hoeveelheid": "4 tot 8 stuks" }
+  ],
+  "saus": [],
+  "bereiding": [
+    "Meng het gemengd gehakt met de kebab- of shoarmakruiden.",
+    "Neem een vel ovenpapier en bestrijk dit met een laag gehakt van ongeveer 0,5 cm dik.",
+    "Rol het ovenpapier met het gehakt op en leg het op een ovenschaal.",
+    "Herhaal dit met de overige vellen ovenpapier en het resterende gehakt.",
+    "Verwarm de oven voor op 185°C.",
+    "Bak de opgerolde gehaktrollen gedurende 15 minuten in de oven.",
+    "Snij ondertussen de komkommer in schijfjes.",
+    "Schil de wortelen en rasp ze fijn.",
+    "Was de sla en zet de groenten opzij.",
+    "Haal de gehaktrollen uit de oven en verwijder voorzichtig het ovenpapier.",
+    "Snij het gegaarde gehakt in dunne reepjes.",
+    "Bak de kebabreepjes nog kort op hoog vuur en kruid eventueel met extra kebab- of shoarmakruiden.",
+    "Beleg een pitabroodje of wrap met de kebab, komkommer, geraspte wortel en sla.",
+    "Werk af met een saus naar keuze en serveer onmiddellijk."
+  ]
+}

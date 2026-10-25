@@ -1,0 +1,38 @@
+{
+  "naam": "Sushi Wraps",
+  "slug": "sushi-wraps",
+  "categorie": "Aziatisch",
+  "personen": 4,
+     "moeilijkheid": "Gemiddeld",
+   "bereidingstijd": "60min",
+  "ingrediënten": [
+    { "naam": "Sushi rijst", "hoeveelheid": "400 g" },
+    { "naam": "Water", "hoeveelheid": "volgens verpakking" },
+    { "naam": "Sushi azijn", "hoeveelheid": "1 el" },
+    { "naam": "Bloem", "hoeveelheid": "100 g" },
+    { "naam": "Nori sushi vellen", "hoeveelheid": "10 stuks" },
+    { "naam": "Wortels", "hoeveelheid": "2 stuks" },
+    { "naam": "Komkommer", "hoeveelheid": "1 stuk" },
+    { "naam": "Suiker", "hoeveelheid": "1 el" },
+    { "naam": "Arachideolie", "hoeveelheid": "om te bakken" }
+  ],
+  "saus": [
+    { "naam": "Mayonaise", "hoeveelheid": "3 el" },
+    { "naam": "Sriracha mayo", "hoeveelheid": "1 el" },
+    { "naam": "Sojasaus", "hoeveelheid": "1 el" }
+  ],
+  "bereiding": [
+    "Kook de sushi rijst volgens de aanwijzingen op de verpakking.",
+    "Snij ronde vormen uit de nori-vellen met behulp van een kom of uitsteker.",
+    "Maak een papje van de bloem en lauw water.",
+    "Beleg de ronde nori-vellen met sushi rijst.",
+    "Vouw elk vel dubbel, maar zorg ervoor dat de rijst niet aan elkaar kleeft.",
+    "Verhit de arachideolie in een pan.",
+    "Bak de sushi wraps goudbruin aan beide zijden.",
+    "Snij de wortel en komkommer in fijne reepjes.",
+    "Meng de ingrediënten voor de saus tot een glad geheel.",
+    "Beleg elke sushi wrap met wortel en komkommer.",
+    "Besprenkel met een koffielepel saus.",
+    "Serveer onmiddellijk."
+  ]
+}

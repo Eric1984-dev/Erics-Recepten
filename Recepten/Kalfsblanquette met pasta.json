@@ -1,0 +1,38 @@
+{
+  "naam": "Kalfsblanquette met Pasta",
+  "slug": "kalfsblanquette-met-pasta",
+  "categorie": "Pasta",
+  "personen": 4,
+  "moeilijkheid": "Gemiddeld",
+  "bereidingstijd": "90min",
+  "ingrediënten": [
+    { "naam": "Kalfsblanquette", "hoeveelheid": "500 g" },
+    { "naam": "Wortelen", "hoeveelheid": "4 stuks" },
+    { "naam": "Sjalotten", "hoeveelheid": "2 stuks" },
+    { "naam": "Boter", "hoeveelheid": "1 el" },
+    { "naam": "Groene selder", "hoeveelheid": "enkele stengels" },
+    { "naam": "Madeira", "hoeveelheid": "25 cl" },
+    { "naam": "Room", "hoeveelheid": "25 cl" },
+    { "naam": "Pasta", "hoeveelheid": "500 g" },
+    { "naam": "Peper", "hoeveelheid": "naar smaak" },
+    { "naam": "Zout", "hoeveelheid": "naar smaak" },
+    { "naam": "Bloem", "hoeveelheid": "100 g" },
+    { "naam": "Tomatenpuree", "hoeveelheid": "1 el" },
+    { "naam": "Kalfsfond", "hoeveelheid": "500 g" }
+  ],
+  "saus": [],
+  "bereiding": [
+    "Kruid de kalfsblanquette met peper en zout en wentel het vlees door de bloem.",
+    "Smelt de boter in een kookpot en bak de bebloemde kalfsblanquette op hoog vuur goudbruin.",
+    "Snij de wortelen en de groene selder in kleine blokjes.",
+    "Snipper de sjalotten fijn.",
+    "Zet het vuur lager en voeg de groenten toe aan de kalfsblanquette.",
+    "Voeg de madeira toe en laat de alcohol verdampen.",
+    "Voeg de tomatenpuree toe en bak kort mee.",
+    "Voeg de kalfsfond toe",
+    "Laat het geheel 1 tot 1,5 uur sudderen op een laag vuur.",
+    "Voeg de room toe en laat nog enkele minuten verder garen.",
+    "Kook de pasta volgens de aanwijzingen op de verpakking.",
+    "Serveer de pasta samen met de kalfsblanquette en de saus."
+  ]
+}

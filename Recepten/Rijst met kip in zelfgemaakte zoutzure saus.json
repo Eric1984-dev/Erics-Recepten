@@ -1,0 +1,40 @@
+{
+  "naam": "Rijst met Zelfgemaakte Zoetzure Saus",
+  "slug": "rijst-met-zelfgemaakte-zoetzure-saus",
+  "categorie": "Aziatisch",
+  "personen": 4,
+  "moeilijkheid": "Makkelijk",
+  "bereidingstijd": "40min",
+  "ingrediënten": [
+    { "naam": "Kippenblokjes", "hoeveelheid": "500 g" },
+    { "naam": "Rijst", "hoeveelheid": "3 zakjes" },
+    { "naam": "Ananas op sap", "hoeveelheid": "1 groot blik" },
+    { "naam": "Sojasaus", "hoeveelheid": "15 cl" },
+    { "naam": "Ketchup", "hoeveelheid": "9 el" },
+    { "naam": "Rode paprika", "hoeveelheid": "4 stuks" },
+    { "naam": "Maïzena", "hoeveelheid": "2 el" },
+    { "naam": "Peper", "hoeveelheid": "naar smaak" },
+    { "naam": "Zout", "hoeveelheid": "naar smaak" },
+    { "naam": "Honing", "hoeveelheid": "4 el" }
+  ],
+  "saus": [
+    { "naam": "Ketchup", "hoeveelheid": "9 el" },
+    { "naam": "Honing", "hoeveelheid": "4 el" },
+    { "naam": "Sojasaus", "hoeveelheid": "15 cl" },
+    { "naam": "Ananassap", "hoeveelheid": "uit 1 groot blik ananas" }
+  ],
+  "bereiding": [
+    "Wentel de kippenblokjes door de maïzena en kruid met peper en zout.",
+    "Bak de kippenblokjes goudbruin op hoog vuur.",
+    "Haal de kip uit de pan en zet apart.",
+    "Verwijder de zaadlijsten van de paprika's en snij ze in reepjes.",
+    "Bak de paprika op hoog vuur tot deze gaar begint te worden.",
+    "Kook de rijst volgens de aanwijzingen op de verpakking.",
+    "Maak de zoetzure saus door de ketchup, honing, het ananassap en de sojasaus te mengen.",
+    "Voeg de kip opnieuw toe aan de paprika.",
+    "Snij de ananas in blokjes en voeg deze toe aan de pan.",
+    "Voeg de saus toe en laat enkele minuten sudderen.",
+    "Voeg de gekookte rijst toe en meng alles goed door elkaar.",
+    "Serveer onmiddellijk."
+  ]
+}

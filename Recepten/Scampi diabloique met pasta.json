@@ -1,0 +1,35 @@
+{
+  "naam": "Scampi Diabolique met Tagliatelle",
+  "slug": "scampi-diabolique-met-tagliatelle",
+  "categorie": "Pasta",
+  "moeilijkheid": "Makkelijk",
+  "bereidingstijd": "30min",
+  "personen": 4,
+  "ingrediënten": [
+    { "naam": "Tagliatelle", "hoeveelheid": "500 g" },
+    { "naam": "Tomaten", "hoeveelheid": "4 stuks" },
+    { "naam": "Sjalotten", "hoeveelheid": "4 stuks" },
+    { "naam": "Tomatenpuree", "hoeveelheid": "1 el" },
+    { "naam": "Currykruiden", "hoeveelheid": "1 kl" },
+    { "naam": "Paprikakruiden", "hoeveelheid": "1 el" },
+    { "naam": "Scampi's", "hoeveelheid": "32 stuks" },
+    { "naam": "Droge witte wijn", "hoeveelheid": "25 cl" },
+    { "naam": "Room", "hoeveelheid": "25 cl" },
+    { "naam": "Zonnebloemolie", "hoeveelheid": "naar smaak" },
+    { "naam": "Bieslook", "hoeveelheid": "optioneel" }
+  ],
+  "bereiding": [
+    "Snipper de sjalotten fijn en bak ze glazig in zonnebloemolie.",
+    "Voeg de curry- en paprikakruiden toe en bak kort mee.",
+    "Voeg de tomatenpuree toe en laat deze even meebakken met de sjalotten.",
+    "Voeg de droge witte wijn toe en laat sudderen tot de alcohol verdampt is.",
+    "Voeg de room toe en laat op laag vuur zachtjes inkoken.",
+    "Verwijder de zaadjes uit de tomaten en snij ze in blokjes van ongeveer 1 cm.",
+    "Voeg de tomatenblokjes toe aan de saus.",
+    "Dep de scampi's droog en bak ze in een aparte pan op hoog vuur.",
+    "Voeg de gebakken scampi's toe aan de saus.",
+    "Kook de tagliatelle volgens de aanwijzingen op de verpakking.",
+    "Voeg de gekookte pasta toe aan de saus met de scampi's en meng goed.",
+    "Werk af met fijngehakte bieslook."
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "naam": "Chili Con Carne",
+  "slug": "chili-con-carne",
+  "categorie": "Wereldkeuken",
+  "personen": 4,
+  "moeilijkheid": "Makkelijk",
+  "bereidingstijd": "105min",
+  "ingrediënten": [
+    { "naam": "Gemengd gehakt", "hoeveelheid": "750 g" },
+    { "naam": "Wortelen", "hoeveelheid": "5 stuks" },
+    { "naam": "Selder", "hoeveelheid": "4 stengels" },
+    { "naam": "Chili con carne kruiden", "hoeveelheid": "3 el" },
+    { "naam": "Tomatenblokjes", "hoeveelheid": "500 g" },
+    { "naam": "Look", "hoeveelheid": "2 teentjes" },
+    { "naam": "Uien", "hoeveelheid": "2 stuks" }
+  ],
+  "saus": [],
+  "bereiding": [
+    "Bak het gemengd gehakt op hoog vuur goudbruin.",
+    "Snipper de uien fijn en pers de look.",
+    "Voeg de ui en look toe aan het gehakt en bak kort mee.",
+    "Kruid het geheel met de chili con carne kruiden.",
+    "Spoel de selder en schil de wortelen.",
+    "Snij

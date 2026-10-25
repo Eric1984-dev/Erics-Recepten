@@ -1,0 +1,35 @@
+{
+  "naam": "Kip met Noedels en Broccoli",
+  "slug": "kip-met-noedels-en-broccoli",
+  "categorie": "Aziatisch",
+  "personen": 4,
+   "moeilijkheid": "Makkelijk",
+   "bereidingstijd": "25min",
+  "ingrediënten": [
+    { "naam": "Kippenblokjes", "hoeveelheid": "500 g" },
+    { "naam": "Bloem", "hoeveelheid": "100 g" },
+    { "naam": "Sojasaus", "hoeveelheid": "3 el" },
+    { "naam": "Honing", "hoeveelheid": "3 el" },
+    { "naam": "Oestersaus", "hoeveelheid": "3 el" },
+    { "naam": "Broccoli", "hoeveelheid": "1 stuk" },
+    { "naam": "Sjalotten", "hoeveelheid": "2 stuks" },
+    { "naam": "Noedels", "hoeveelheid": "400 g" },
+    { "naam": "Zonnebloemolie", "hoeveelheid": "naar smaak" },
+    { "naam": "Peper", "hoeveelheid": "naar smaak" },
+    { "naam": "Zout", "hoeveelheid": "naar smaak" },
+    { "naam": "Sesamzaadjes", "hoeveelheid": "1 handje" }
+  ],
+  "bereiding": [
+    "Meng de bloem, peper en zout met de kippenblokjes.",
+    "Klop overtollige bloem van de kip.",
+    "Bak de kip goudbruin in zonnebloemolie op hoog vuur.",
+    "Snij de broccoli in kleine roosjes.",
+    "Kook de broccoli beetgaar.",
+    "Kook de noedels volgens de aanwijzingen op de verpakking.",
+    "Meng de honing, sojasaus en oestersaus.",
+    "Voeg de saus toe aan de kip.",
+    "Voeg de broccoli toe aan de kip.",
+    "Bestrooi met de sesamzaadjes.",
+    "Serveer met de noedels."
+  ]
+}
