@@ -1,0 +1,92 @@
+{
+  "naam": "Zelfgemaakt Kapsalon",
+  "slug": "zelfgemaakt-kapsalon",
+  "categorie": "Ovenschotel",
+  "personen": 4,
+  "moeilijkheid": "Makkelijk",
+  "bereidingstijd": "35min",
+  "ingrediënten": [
+    {
+      "naam": "Zoete aardappelfrieten",
+      "hoeveelheid": "1 zak"
+    },
+    {
+      "naam": "Kerstomaten",
+      "hoeveelheid": "1 bakje"
+    },
+    {
+      "naam": "Griekse yoghurt",
+      "hoeveelheid": "1 klein potje"
+    },
+    {
+      "naam": "Mayonaise",
+      "hoeveelheid": "2 el"
+    },
+    {
+      "naam": "Citroensap",
+      "hoeveelheid": "sap van 1/2 citroen"
+    },
+    {
+      "naam": "Ijsbergsla",
+      "hoeveelheid": "1 krop"
+    },
+    {
+      "naam": "Komkommer",
+      "hoeveelheid": "1 stuk"
+    },
+    {
+      "naam": "Gemengd gehakt",
+      "hoeveelheid": "500 g"
+    },
+    {
+      "naam": "Uien",
+      "hoeveelheid": "2 stuks"
+    },
+    {
+      "naam": "Gemalen kaas",
+      "hoeveelheid": "100 g"
+    },
+    {
+      "naam": "Paprikapoeder",
+      "hoeveelheid": "1 el"
+    },
+    {
+      "naam": "Lookpoeder",
+      "hoeveelheid": "1 el"
+    }
+  ],
+  "saus": [
+    {
+      "naam": "Griekse yoghurt",
+      "hoeveelheid": "1 klein potje"
+    },
+    {
+      "naam": "Mayonaise",
+      "hoeveelheid": "2 el"
+    },
+    {
+      "naam": "Citroensap",
+      "hoeveelheid": "sap van 1/2 citroen"
+    }
+  ],
+  "bereiding": [
+    "Verwarm de oven voor op 185°C.",
+    "Bak het gemengd gehakt op hoog vuur.",
+    "Kruid het gehakt met paprikapoeder en lookpoeder.",
+    "Snij de uien in ringen en voeg ze toe aan het gehakt.",
+    "Bak tot het gehakt goudbruin is en de uien glazig zijn.",
+    "Voeg een deel van de gemalen kaas toe en meng goed.",
+    "Bak ondertussen de zoete aardappelfrieten in de airfryer of oven tot ze goudbruin en knapperig zijn.",
+    "Snij de komkommer in schijfjes.",
+    "Snij de kerstomaten doormidden.",
+    "Was en snij de ijsbergsla fijn.",
+    "Maak de saus door de Griekse yoghurt, mayonaise en het citroensap te mengen.",
+    "Bedek de bodem van een ovenschaal met het gehaktmengsel.",
+    "Verdeel de zoete aardappelfrieten over het gehakt.",
+    "Voeg de ijsbergsla, komkommer en kerstomaten toe.",
+    "Besprenkel met de saus en meng voorzichtig.",
+    "Werk af met de resterende gemalen kaas.",
+    "Plaats de ovenschaal nog 5 minuten in de oven.",
+    "Serveer onmiddellijk."
+  ]
+}
