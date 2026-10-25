@@ -243,6 +243,8 @@
       min-height: 335px;
       display: grid;
       place-items: center;
+      align-content: center;
+      gap: 20px;
       position: relative;
       animation: float-in .85s .15s both;
     }
@@ -882,10 +884,6 @@
             </button>
           </div>
           <div class="hero-secondary-actions">
-            <button class="surprise-button" id="spin-button" type="button" disabled>
-              <span aria-hidden="true">🎡</span>
-              <span id="spin-button-label">Recepten laden…</span>
-            </button>
             <a class="surprise-button proposal-button" href="mailto:ericstraetmans@hotmail.com?subject=voorstel%20recept">
               <span aria-hidden="true">✉</span>
               Stel een recept voor
@@ -902,6 +900,10 @@
           </div>
           <span class="wheel-caption" id="wheel-caption" aria-live="polite">Geen inspiratie? Laat het wiel kiezen!</span>
         </div>
+        <button class="surprise-button" id="spin-button" type="button" disabled>
+          <span aria-hidden="true">🎡</span>
+          <span id="spin-button-label">Recepten laden…</span>
+        </button>
       </div>
     </section>
 
