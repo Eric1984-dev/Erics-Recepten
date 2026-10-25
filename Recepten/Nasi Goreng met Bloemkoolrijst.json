@@ -1,0 +1,73 @@
+{
+  "naam": "Nasi Goreng met Bloemkoolrijst",
+  "slug": "nasi-goreng-met-bloemkoolrijst",
+  "categorie": "Aziatisch",
+  "personen": 4,
+  "moeilijkheid": "Makkelijk",
+  "bereidingstijd": "30min",
+  "ingrediënten": [
+    {
+      "naam": "Bloemkoolrijst",
+      "hoeveelheid": "150 g"
+    },
+    {
+      "naam": "Rijst",
+      "hoeveelheid": "150 g"
+    },
+    {
+      "naam": "Puntpaprika's",
+      "hoeveelheid": "2 stuks"
+    },
+    {
+      "naam": "Eieren",
+      "hoeveelheid": "4 stuks"
+    },
+    {
+      "naam": "Sojasaus",
+      "hoeveelheid": "2 el"
+    },
+    {
+      "naam": "Oestersaus",
+      "hoeveelheid": "2 el"
+    },
+    {
+      "naam": "Pijpajuin",
+      "hoeveelheid": "3 stengels"
+    },
+    {
+      "naam": "Erwten",
+      "hoeveelheid": "1 kop"
+    },
+    {
+      "naam": "Olijfolie",
+      "hoeveelheid": "naar behoefte"
+    }
+  ],
+  "saus": [
+    {
+      "naam": "Sojasaus",
+      "hoeveelheid": "2 el"
+    },
+    {
+      "naam": "Oestersaus",
+      "hoeveelheid": "2 el"
+    }
+  ],
+  "bereiding": [
+    "Kook de rijst en bloemkoolrijst volgens de aanwijzingen op de verpakking.",
+    "Verwijder de zaadlijsten uit de puntpaprika's.",
+    "Snij de puntpaprika's in kleine blokjes.",
+    "Bak de puntpaprika's kort aan in een beetje olijfolie.",
+    "Kook de erwten beetgaar.",
+    "Spoel de erwten onmiddellijk met koud water om hun heldergroene kleur te behouden.",
+    "Bak in een aparte pan de eieren op hoog vuur tot de onderkant krokant is en het eigeel nog zacht blijft.",
+    "Voeg de gekookte rijst en bloemkoolrijst toe aan de puntpaprika's.",
+    "Voeg de erwten toe.",
+    "Voeg de sojasaus en oestersaus toe.",
+    "Meng alles goed door elkaar en laat kort verder bakken.",
+    "Snipper de pijpajuin fijn.",
+    "Verdeel de nasi goreng over de borden.",
+    "Werk af met de krokant gebakken eieren en de fijngesneden pijpajuin.",
+    "Serveer onmiddellijk."
+  ]
+}
