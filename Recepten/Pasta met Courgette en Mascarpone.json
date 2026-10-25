@@ -1,0 +1,88 @@
+{
+  "naam": "Pasta met Courgette en Mascarpone",
+  "slug": "pasta-met-courgette-en-mascarpone",
+  "categorie": "Pasta",
+  "personen": 4,
+  "moeilijkheid": "Makkelijk",
+  "bereidingstijd": "40min",
+  "ingrediënten": [
+    {
+      "naam": "Courgettes",
+      "hoeveelheid": "2 stuks"
+    },
+    {
+      "naam": "Wortelen",
+      "hoeveelheid": "3 stuks"
+    },
+    {
+      "naam": "Spekblokjes",
+      "hoeveelheid": "400 g"
+    },
+    {
+      "naam": "Pasta",
+      "hoeveelheid": "400 g"
+    },
+    {
+      "naam": "Mascarpone",
+      "hoeveelheid": "3 el"
+    },
+    {
+      "naam": "Tomatensaus Frito",
+      "hoeveelheid": "50 cl"
+    },
+    {
+      "naam": "Tomatensaus Spagheroni",
+      "hoeveelheid": "1 pot"
+    },
+    {
+      "naam": "Sjalotten",
+      "hoeveelheid": "2 stuks"
+    },
+    {
+      "naam": "Olijfolie",
+      "hoeveelheid": "naar behoefte"
+    }
+  ],
+  "saus": [
+    {
+      "naam": "Tomatensaus Frito",
+      "hoeveelheid": "50 cl"
+    },
+    {
+      "naam": "Tomatensaus Spagheroni",
+      "hoeveelheid": "1 pot"
+    },
+    {
+      "naam": "Mascarpone",
+      "hoeveelheid": "3 el"
+    },
+    {
+      "naam": "Courgettes",
+      "hoeveelheid": "2 stuks"
+    },
+    {
+      "naam": "Wortelen",
+      "hoeveelheid": "3 stuks"
+    },
+    {
+      "naam": "Sjalotten",
+      "hoeveelheid": "2 stuks"
+    }
+  ],
+  "bereiding": [
+    "Was de courgettes en snij ze in kleine blokjes.",
+    "Schil de wortelen en snij ze in kleine blokjes.",
+    "Snij de sjalotten in fijne ringen.",
+    "Verwarm een scheutje olijfolie in een grote pan.",
+    "Stoof de courgettes, wortelen en sjalotten aan tot ze zacht beginnen te worden.",
+    "Voeg de tomatensaus Frito en de tomatensaus Spagheroni toe.",
+    "Laat de saus ongeveer 15 minuten zachtjes sudderen.",
+    "Bak ondertussen de spekblokjes krokant in een aparte pan of in de oven.",
+    "Kook de pasta volgens de aanwijzingen op de verpakking.",
+    "Voeg de mascarpone toe aan de tomatensaus en roer tot een gladde saus.",
+    "Voeg de krokant gebakken spekblokjes toe aan de saus en meng goed.",
+    "Giet de pasta af.",
+    "Serveer de pasta met de saus.",
+    "Werk eventueel af met extra gemalen kaas."
+  ]
+}

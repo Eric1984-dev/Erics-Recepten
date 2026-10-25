@@ -1227,6 +1227,7 @@
       const title = recipe.naam.toLocaleLowerCase("nl").normalize("NFD").replace(/[\u0300-\u036f]/g, "");
       if (title.includes("hotdog")) return "🌭";
       if (title.includes("worstenbrood")) return "🌭";
+      if (title.includes("aubergine")) return "🍆";
       if (title.includes("varkenshaasje")) return "🥩";
       if (title.includes("blanquette")) return "🥩";
       if (title.includes("lasagne")) return "🥘";
