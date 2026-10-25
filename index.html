@@ -1008,9 +1008,14 @@
     const categoryEmojis = {
       Aziatisch: "🍜",
       Pasta: "🍝",
-      Vis: "🦐",
+      Vis: "🐟",
       Wraps: "🌯",
-      Wereldkeuken: "🍛"
+      Wereldkeuken: "🍛",
+      Ovenschotel: "🥘",
+      Pinsa: "🍕",
+      Rijstgerechten: "🍚",
+      Risotto: "🍚",
+      Stoofpot: "🥘"
     };
 
     function readableError(error) {
@@ -1140,13 +1145,18 @@
 
     function recipeEmoji(recipe) {
       const title = recipe.naam.toLocaleLowerCase("nl");
+      if (title.includes("ballet")) return "🍡";
+      if (title.includes("pinsa") || title.includes("pizza")) return "🍕";
       if (title.includes("sushi")) return "🍣";
       if (title.includes("scampi")) return "🦐";
       if (title.includes("mossel")) return "🦪";
       if (title.includes("kebab")) return "🥙";
-      if (title.includes("ballet")) return "🍛";
-      if (title.includes("pinsa")) return "🍕";
-      if (title.includes("pasta") || title.includes("tagliatelle")) return "🍝";
+      if (title.includes("pasta") || title.includes("tagliatelle") || title.includes("spaghetti") || title.includes("penne")) return "🍝";
+      if (title.includes("noedel")) return "🍜";
+      if (title.includes("chicken") || title.includes("kip")) return "🍗";
+      if (title.includes("chili")) return "🫘";
+      if (title.includes("rijst") || title.includes("risotto") || title.includes("parelcouscous")) return "🍚";
+      if (title.includes("ossobuco") || title.includes("blanquette") || title.includes("hutsepot") || title.includes("ovenschotel")) return "🥘";
       return categoryEmojis[recipe.categorie] || "🍲";
     }
 
