@@ -176,7 +176,9 @@
       line-height: 1.75;
     }
 
-    .hero-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; }
+    .hero-actions { display: grid; justify-items: start; gap: 11px; }
+    .hero-primary-actions { display: grid; justify-items: start; gap: 9px; }
+    .hero-secondary-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; }
 
     .primary-link {
       min-height: 50px;
@@ -216,6 +218,26 @@
     .surprise-button:hover:not(:disabled) { transform: translateY(-2px); background: rgb(255 255 255 / 18%); }
     .surprise-button:disabled { opacity: .55; cursor: wait; }
     .surprise-button span { font-size: 1.15rem; }
+
+    .weekmenu-button {
+      min-height: 46px;
+      padding: 0 16px;
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      border: 1px solid rgb(213 231 117 / 43%);
+      border-radius: 13px;
+      background: rgb(213 231 117 / 10%);
+      color: var(--lime);
+      cursor: pointer;
+      font-size: .87rem;
+      font-weight: 800;
+      transition: transform .2s ease, background .2s ease, opacity .2s ease;
+    }
+
+    .weekmenu-button:hover:not(:disabled) { transform: translateY(-2px); background: rgb(213 231 117 / 18%); }
+    .weekmenu-button:disabled { opacity: .55; cursor: wait; }
+    .weekmenu-button span { font-size: 1.1rem; }
 
     .hero-art {
       min-height: 335px;
@@ -358,6 +380,33 @@
     .filter-groups { display: grid; gap: 10px; }
     .filter-group { display: flex; align-items: center; gap: 9px; }
     .filter-group-label { min-width: 91px; color: var(--muted); font-size: .69rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+    .more-filters { width: fit-content; }
+
+    .more-filters-toggle {
+      min-height: 39px;
+      padding: 0 15px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid #e5e6dc;
+      border-radius: 999px;
+      background: var(--paper);
+      color: #657269;
+      cursor: pointer;
+      font-size: .81rem;
+      font-weight: 800;
+      list-style: none;
+      transition: background .18s ease, border-color .18s ease, color .18s ease;
+    }
+
+    .more-filters-toggle::-webkit-details-marker { display: none; }
+    .more-filters-toggle:hover { border-color: #a6bc72; color: var(--green); }
+    .more-filters[open] > .more-filters-toggle { border-color: var(--green); background: var(--green); color: white; }
+    .more-filters[open] > .more-filters-toggle .filter-chevron { transform: rotate(180deg); }
+    .filter-chevron { transition: transform .18s ease; }
+    .filter-active-count { padding: 3px 7px; border-radius: 999px; background: var(--lime); color: var(--green-dark); font-size: .65rem; }
+    .more-filter-options { margin-top: 10px; padding: 12px; display: grid; gap: 11px; border: 1px solid var(--line); border-radius: 16px; background: var(--paper); }
+    .more-filter-options .filter-group-label { min-width: 110px; }
 
     .filters {
       display: flex;
@@ -652,6 +701,18 @@
     .detail-heading { margin: 27px 0 13px; font-family: Georgia, "Times New Roman", serif; font-size: 1.45rem; font-weight: 500; letter-spacing: -.03em; }
     .detail-heading:first-child { margin-top: 0; }
 
+    .weekmenu-intro { margin-bottom: 18px; color: var(--muted); font-size: .88rem; line-height: 1.55; }
+    .weekmenu-list { margin: 0; padding: 0; display: grid; gap: 10px; list-style: none; }
+    .weekmenu-item { padding: 13px 14px; display: grid; grid-template-columns: 85px minmax(0, 1fr) auto; align-items: center; gap: 13px; border: 1px solid #e9ebe2; border-radius: 15px; background: white; }
+    .weekmenu-day { color: #718747; font-size: .7rem; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; }
+    .weekmenu-recipe { min-width: 0; }
+    .weekmenu-recipe h3 { margin: 0 0 5px; font-family: Georgia, "Times New Roman", serif; font-size: 1rem; font-weight: 600; letter-spacing: -.02em; }
+    .weekmenu-meta { color: var(--muted); font-size: .74rem; }
+    .weekmenu-open { min-height: 37px; padding: 0 12px; border: 0; border-radius: 11px; background: #f2f4e9; color: var(--green); cursor: pointer; font-size: .77rem; font-weight: 800; transition: background .18s ease; }
+    .weekmenu-open:hover { background: #e6edcf; }
+    .weekmenu-regenerate { width: 100%; min-height: 46px; margin-top: 18px; padding: 0 15px; border: 0; border-radius: 13px; background: var(--green); color: white; cursor: pointer; font-size: .85rem; font-weight: 800; transition: background .18s ease, transform .18s ease; }
+    .weekmenu-regenerate:hover { background: var(--green-dark); transform: translateY(-1px); }
+
     .ingredient-list {
       margin: 0;
       padding: 0;
@@ -735,6 +796,9 @@
       .filters { gap: 7px; }
       .filter-group { align-items: flex-start; }
       .filter-group-label { min-width: 83px; padding-top: 10px; }
+      .more-filters-toggle { min-height: 36px; padding: 0 12px; font-size: .76rem; }
+      .more-filter-options { padding: 10px; }
+      .more-filter-options .filter-group-label { min-width: 83px; }
       .filter-button { min-height: 36px; padding: 0 12px; font-size: .76rem; }
       .recipe-grid { grid-template-columns: 1fr; gap: 15px; }
       .card-art { height: 164px; }
@@ -746,6 +810,9 @@
       .serving-row { align-items: flex-start; flex-direction: column; gap: 13px; }
       .ingredient-list { grid-template-columns: 1fr; }
       .ingredient-item { min-height: 40px; }
+      .weekmenu-item { grid-template-columns: 66px minmax(0, 1fr); gap: 9px; }
+      .weekmenu-day { font-size: .64rem; }
+      .weekmenu-open { grid-column: 2; justify-self: start; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -769,15 +836,23 @@
         <h1 id="hero-title">Lekker eten.<br><em>Goed geregeld.</em></h1>
         <p>Van een snelle hap tot uitgebreid tafelen: vind je volgende favoriet en zet de ingrediënten meteen op de juiste hoeveelheid.</p>
         <div class="hero-actions">
-          <a class="primary-link" href="#recepten">Ontdek de recepten <span aria-hidden="true">→</span></a>
-          <button class="surprise-button" id="spin-button" type="button" disabled>
-            <span aria-hidden="true">🎡</span>
-            <span id="spin-button-label">Recepten laden…</span>
-          </button>
-          <a class="surprise-button proposal-button" href="mailto:ericstraetmans@hotmail.com?subject=voorstel%20recept">
-            <span aria-hidden="true">✉</span>
-            Stel een recept voor
-          </a>
+          <div class="hero-primary-actions">
+            <a class="primary-link" href="#recepten">Ontdek de recepten <span aria-hidden="true">→</span></a>
+            <button class="weekmenu-button" id="weekmenu-button" type="button" disabled>
+              <span aria-hidden="true">🗓</span>
+              Maak een weekmenu
+            </button>
+          </div>
+          <div class="hero-secondary-actions">
+            <button class="surprise-button" id="spin-button" type="button" disabled>
+              <span aria-hidden="true">🎡</span>
+              <span id="spin-button-label">Recepten laden…</span>
+            </button>
+            <a class="surprise-button proposal-button" href="mailto:ericstraetmans@hotmail.com?subject=voorstel%20recept">
+              <span aria-hidden="true">✉</span>
+              Stel een recept voor
+            </a>
+          </div>
         </div>
       </div>
       <div class="hero-art">
@@ -807,14 +882,24 @@
             <span class="filter-group-label" id="category-filter-label">Soort</span>
             <div class="filters" id="filters" aria-labelledby="category-filter-label"></div>
           </div>
-          <div class="filter-group">
-            <span class="filter-group-label" id="difficulty-filter-label">Moeilijkheid</span>
-            <div class="filters" id="difficulty-filters" aria-labelledby="difficulty-filter-label"></div>
-          </div>
-          <div class="filter-group">
-            <span class="filter-group-label" id="duration-filter-label">Bereidingstijd</span>
-            <div class="filters" id="duration-filters" aria-labelledby="duration-filter-label"></div>
-          </div>
+          <details class="more-filters" id="more-filters">
+            <summary class="more-filters-toggle">
+              <span aria-hidden="true">☷</span>
+              Filter
+              <span class="filter-active-count" id="filter-active-count" hidden></span>
+              <span class="filter-chevron" aria-hidden="true">⌄</span>
+            </summary>
+            <div class="more-filter-options">
+              <div class="filter-group">
+                <span class="filter-group-label" id="difficulty-filter-label">Moeilijkheid</span>
+                <div class="filters" id="difficulty-filters" aria-labelledby="difficulty-filter-label"></div>
+              </div>
+              <div class="filter-group">
+                <span class="filter-group-label" id="duration-filter-label">Bereidingstijd</span>
+                <div class="filters" id="duration-filters" aria-labelledby="duration-filter-label"></div>
+              </div>
+            </div>
+          </details>
         </div>
         <label class="search-wrap">
           <span class="search-icon" aria-hidden="true">⌕</span>
@@ -870,6 +955,19 @@
     </div>
   </dialog>
 
+  <dialog class="recipe-dialog weekmenu-dialog" id="weekmenu-dialog" aria-labelledby="weekmenu-title">
+    <div class="dialog-top">
+      <button class="dialog-close" id="weekmenu-close" type="button" aria-label="Weekmenu sluiten">×</button>
+      <div class="dialog-category">Maandag tot en met vrijdag</div>
+      <h2 class="dialog-title" id="weekmenu-title">Jouw weekmenu</h2>
+    </div>
+    <div class="dialog-content">
+      <p class="weekmenu-intro" id="weekmenu-intro"></p>
+      <ol class="weekmenu-list" id="weekmenu-list"></ol>
+      <button class="weekmenu-regenerate" id="weekmenu-regenerate" type="button">↻ Kies vijf andere recepten</button>
+    </div>
+  </dialog>
+
   <script>
     "use strict";
 
@@ -881,6 +979,7 @@
     let activeDuration = "Alle tijden";
     let activeRecipe = null;
     let activeServings = 4;
+    let weekMenuRecipes = [];
     let checkedIngredients = new Set();
     let wheelRotation = 0;
     let pendingWheelRecipe = null;
@@ -890,6 +989,7 @@
     const filters = document.querySelector("#filters");
     const difficultyFilters = document.querySelector("#difficulty-filters");
     const durationFilters = document.querySelector("#duration-filters");
+    const filterActiveCount = document.querySelector("#filter-active-count");
     const countLabel = document.querySelector("#recipe-count");
     const notice = document.querySelector("#load-notice");
     const searchInput = document.querySelector("#recipe-search");
@@ -900,6 +1000,10 @@
     const recipeWheel = document.querySelector("#recipe-wheel");
     const wheelSlices = document.querySelector("#wheel-slices");
     const wheelCaption = document.querySelector("#wheel-caption");
+    const weekMenuButton = document.querySelector("#weekmenu-button");
+    const weekMenuDialog = document.querySelector("#weekmenu-dialog");
+    const weekMenuIntro = document.querySelector("#weekmenu-intro");
+    const weekMenuList = document.querySelector("#weekmenu-list");
 
     const categoryEmojis = {
       Aziatisch: "🍜",
@@ -1059,6 +1163,7 @@
       if (!recipes.length) {
         recipeWheel.style.background = "#d5e775";
         spinButton.disabled = true;
+        weekMenuButton.disabled = true;
         spinButtonLabel.textContent = "Geen recepten beschikbaar";
         wheelCaption.textContent = "Voeg recepten toe in Recepten/";
         return;
@@ -1084,8 +1189,61 @@
       });
 
       spinButton.disabled = false;
+      weekMenuButton.disabled = false;
       spinButtonLabel.textContent = "Verras me!";
       wheelCaption.textContent = "Geen inspiratie? Laat het wiel kiezen!";
+    }
+
+    function renderWeekMenu() {
+      const days = ["Maandag", "Dinsdag", "Woensdag", "Donderdag", "Vrijdag"];
+      weekMenuList.replaceChildren();
+      weekMenuIntro.textContent = weekMenuRecipes.length === 5
+        ? "Vijf verschillende recepten, gekozen uit jouw verzameling."
+        : `Er zijn ${weekMenuRecipes.length} recepten beschikbaar; die hebben we allemaal opgenomen.`;
+
+      weekMenuRecipes.forEach((recipe, index) => {
+        const item = document.createElement("li");
+        item.className = "weekmenu-item";
+
+        const day = document.createElement("span");
+        day.className = "weekmenu-day";
+        day.textContent = days[index];
+
+        const details = document.createElement("div");
+        details.className = "weekmenu-recipe";
+        const title = document.createElement("h3");
+        title.textContent = recipe.naam;
+        const meta = document.createElement("div");
+        meta.className = "weekmenu-meta";
+        meta.textContent = [recipe.categorie, recipe.bereidingstijd].filter(Boolean).join(" · ");
+        details.append(title, meta);
+
+        const openButton = document.createElement("button");
+        openButton.className = "weekmenu-open";
+        openButton.type = "button";
+        openButton.textContent = "Bekijk recept";
+        openButton.addEventListener("click", () => {
+          weekMenuDialog.close();
+          openRecipe(recipe);
+        });
+
+        item.append(day, details, openButton);
+        weekMenuList.append(item);
+      });
+    }
+
+    function generateWeekMenu() {
+      if (!recipes.length) return;
+
+      const shuffledRecipes = [...recipes];
+      for (let index = shuffledRecipes.length - 1; index > 0; index -= 1) {
+        const randomIndex = Math.floor(Math.random() * (index + 1));
+        [shuffledRecipes[index], shuffledRecipes[randomIndex]] = [shuffledRecipes[randomIndex], shuffledRecipes[index]];
+      }
+
+      weekMenuRecipes = shuffledRecipes.slice(0, 5);
+      renderWeekMenu();
+      if (!weekMenuDialog.open) weekMenuDialog.showModal();
     }
 
     function finishWheelSpin() {
@@ -1206,6 +1364,10 @@
       for (const duration of durationOptions) {
         durationFilters.append(makeFilterButton(duration, activeDuration, label => { activeDuration = label; }));
       }
+
+      const activeAdvancedFilters = Number(activeDifficulty !== "Alle niveaus") + Number(activeDuration !== "Alle tijden");
+      filterActiveCount.hidden = activeAdvancedFilters === 0;
+      filterActiveCount.textContent = `${activeAdvancedFilters} actief`;
     }
 
     function createRecipeCard(recipe, index) {
@@ -1392,6 +1554,12 @@
     document.querySelector("#dialog-close").addEventListener("click", () => dialog.close());
     dialog.addEventListener("click", event => {
       if (event.target === dialog) dialog.close();
+    });
+    document.querySelector("#weekmenu-close").addEventListener("click", () => weekMenuDialog.close());
+    document.querySelector("#weekmenu-regenerate").addEventListener("click", generateWeekMenu);
+    weekMenuButton.addEventListener("click", generateWeekMenu);
+    weekMenuDialog.addEventListener("click", event => {
+      if (event.target === weekMenuDialog) weekMenuDialog.close();
     });
     searchInput.addEventListener("input", renderRecipes);
     spinButton.addEventListener("click", spinWheel);

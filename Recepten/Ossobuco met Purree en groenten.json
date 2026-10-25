@@ -1,0 +1,42 @@
+{
+  "naam": "Ossobuco met Purree en groenten",
+  "slug": "ossobuco-met-puree-en-groenten",
+  "categorie": "Stoofpot",
+  "personen": 4,
+  "moeilijkheid": "Gemiddeld",
+  "bereidingstijd": "150min",
+  "ingrediënten": [
+    { "naam": "Kalfsschenkel", "hoeveelheid": "500 g" },
+    { "naam": "Wortelen", "hoeveelheid": "5 stuks" },
+    { "naam": "Selder", "hoeveelheid": "5 stengels" },
+    { "naam": "Peper", "hoeveelheid": "naar smaak" },
+    { "naam": "Zout", "hoeveelheid": "naar smaak" },
+    { "naam": "Laurier", "hoeveelheid": "2 blaadjes" },
+    { "naam": "Witte wijn", "hoeveelheid": "25 cl" },
+    { "naam": "Tomatenblokjes", "hoeveelheid": "500 g" },
+    { "naam": "Aardappelen", "hoeveelheid": "300 g" },
+    { "naam": "Boter", "hoeveelheid": "naar behoefte" },
+    { "naam": "Uien", "hoeveelheid": "2 stuks" },
+    { "naam": "Vleesbouillon", "hoeveelheid": "50 cl" },
+    { "naam": "Melk", "hoeveelheid": "10 cl" },
+    { "naam": "Nootmuskaat", "hoeveelheid": "naar smaak" }
+  ],
+  "saus": [
+    { "naam": "Tomatenblokjes", "hoeveelheid": "500 g" },
+    { "naam": "Witte wijn", "hoeveelheid": "25 cl" },
+    { "naam": "Vleesbouillon", "hoeveelheid": "50 cl" },
+    { "naam": "Laurier", "hoeveelheid": "2 blaadjes" },
+    { "naam": "Ui", "hoeveelheid": "2 stuks" },
+    { "naam": "Wortelen", "hoeveelheid": "5 stuks" },
+    { "naam": "Selder", "hoeveelheid": "5 stengels" }
+  ],
+  "bereiding": [
+    "Verwarm de oven voor op 160°C.",
+    "Smelt een klont boter in een braadpot tot deze begint te bruisen.",
+    "Kruid de kalfsschenkels met peper en zout.",
+    "Bak de kalfsschenkels rondom goudbruin.",
+    "Haal het vlees uit de braadpot en zet apart.",
+    "Snij de uien in ringen en bak ze in dezelfde braadpot.",
+    "Snij de wortelen en selder in kleine blokjes en voeg toe aan de ui.",
+    "Stoof de groenten tot ze licht glazig zijn.",
+    "Voeg de witte 
