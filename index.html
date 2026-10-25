@@ -1502,6 +1502,22 @@
       return `${day}/${month}/${date.getFullYear()}`;
     }
 
+    function isPastaRecipe(recipe) {
+      const title = String(recipe.naam || "").toLocaleLowerCase("nl").normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+      return recipe.categorie === "Pasta" || /\b(pasta|spaghetti|penne|tagliatelle|orzo|gnocchi|lasagne)\b/.test(title);
+    }
+
+    function selectWeekMenuRecipes(shuffledRecipes) {
+      const remaining = [...shuffledRecipes];
+      const selection = [];
+      while (selection.length < 5 && remaining.length) {
+        const previousIsPasta = selection.length > 0 && isPastaRecipe(selection[selection.length - 1]);
+        const nextIndex = remaining.findIndex(recipe => !previousIsPasta || !isPastaRecipe(recipe));
+        selection.push(remaining.splice(nextIndex === -1 ? 0 : nextIndex, 1)[0]);
+      }
+      return selection;
+    }
+
     function generateWeekMenu() {
       if (!recipes.length) return;
 
@@ -1512,7 +1528,7 @@
         [shuffledRecipes[index], shuffledRecipes[randomIndex]] = [shuffledRecipes[randomIndex], shuffledRecipes[index]];
       }
 
-      weekMenuRecipes = shuffledRecipes.slice(0, 5);
+      weekMenuRecipes = selectWeekMenuRecipes(shuffledRecipes);
       renderWeekMenu();
       if (!weekMenuDialog.open) weekMenuDialog.showModal();
     }
