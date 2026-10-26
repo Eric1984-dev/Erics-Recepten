@@ -763,7 +763,8 @@
     .weekmenu-expanded h4:not(:first-child) { margin-top: 16px; }
     .weekmenu-expanded-ingredients { margin: 0; padding-left: 20px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 5px 20px; color: var(--muted); font-size: .8rem; }
     .weekmenu-expanded-steps { margin: 0; padding-left: 22px; display: grid; gap: 7px; color: var(--muted); font-size: .8rem; line-height: 1.5; }
-    .weekmenu-share { width: 100%; min-height: 46px; margin-top: 18px; padding: 0 15px; display: flex; align-items: center; justify-content: center; border-radius: 13px; background: #25d366; color: #12351f; text-decoration: none; font-size: .85rem; font-weight: 800; transition: background .18s ease, transform .18s ease; }
+    .weekmenu-share-note { margin: 18px 0 10px; color: var(--muted); text-align: center; font-size: .82rem; line-height: 1.45; }
+    .weekmenu-share { width: 100%; min-height: 46px; margin-top: 0; padding: 0 15px; display: flex; align-items: center; justify-content: center; border-radius: 13px; background: #25d366; color: #12351f; text-decoration: none; font-size: .85rem; font-weight: 800; transition: background .18s ease, transform .18s ease; }
     .weekmenu-share:hover { background: #20bd5a; transform: translateY(-1px); }
     .weekmenu-regenerate { width: 100%; min-height: 46px; margin-top: 18px; padding: 0 15px; border: 0; border-radius: 13px; background: var(--green); color: white; cursor: pointer; font-size: .85rem; font-weight: 800; transition: background .18s ease, transform .18s ease; }
     .weekmenu-regenerate:hover { background: var(--green-dark); transform: translateY(-1px); }
@@ -1066,6 +1067,7 @@
     <div class="dialog-content">
       <p class="weekmenu-intro" id="weekmenu-intro"></p>
       <ol class="weekmenu-list" id="weekmenu-list"></ol>
+      <p class="weekmenu-share-note">Recepten worden verzonden alsook een boodschappenlijstje</p>
       <a class="weekmenu-share" id="weekmenu-share" href="https://wa.me/" target="_blank" rel="noopener noreferrer">🟢 Stuur weekmenu via WhatsApp</a>
       <button class="weekmenu-regenerate" id="weekmenu-regenerate" type="button">↻ Kies vijf andere recepten</button>
     </div>
@@ -1892,8 +1894,7 @@
         });
       });
 
-      const lines = ["*Boodschappenlijst:*"];
-      totals.forEach(({ name, quantities }) => {
+      const items = Array.from(totals.values(), ({ name, quantities }) => {
         const amounts = Array.from(quantities.values()).map(quantity => {
           const value = quantity.min === quantity.max
             ? formatAmount(quantity.min)
@@ -1903,8 +1904,13 @@
             : quantity.unit.plural;
           return [value, unit].filter(Boolean).join(" ");
         });
-        lines.push(`• ${name}${amounts.length ? `: ${amounts.join(", ")}` : ""}`);
+        return { hasQuantity: amounts.length > 0, line: `• ${name}${amounts.length ? `: ${amounts.join(", ")}` : ""}` };
       });
+      const lines = [
+        "*Boodschappenlijst:*",
+        ...items.filter(item => item.hasQuantity).map(item => item.line),
+        ...items.filter(item => !item.hasQuantity).map(item => item.line)
+      ];
       return lines.join("\n");
     }
 
