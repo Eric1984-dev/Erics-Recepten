@@ -399,6 +399,11 @@
       gap: 18px;
     }
 
+    .toolbar-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; }
+    .sort-wrap { display: flex; align-items: center; gap: 7px; color: var(--muted); font-size: .78rem; font-weight: 700; }
+    .sort-select { min-height: 43px; padding: 0 12px; border: 1px solid #e5e6dc; border-radius: 13px; background: var(--paper); color: var(--ink); cursor: pointer; font: inherit; }
+    .sort-select:focus { outline: 0; border-color: #9cb46a; box-shadow: 0 0 0 3px rgb(156 180 106 / 15%); }
+
     .filter-groups { display: grid; gap: 10px; }
     .filter-group { display: flex; align-items: center; gap: 9px; }
     .filter-group-label { min-width: 91px; color: var(--muted); font-size: .69rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
@@ -856,6 +861,7 @@
       .wheel-icon { width: 33px; height: 33px; font-size: 1rem; }
       .recipe-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .toolbar { align-items: flex-start; flex-direction: column-reverse; }
+      .toolbar-actions { width: 100%; }
       .search-wrap { width: min(360px, 100%); }
     }
 
@@ -990,14 +996,27 @@
                 <span class="filter-group-label" id="duration-filter-label">Bereidingstijd</span>
                 <div class="filters" id="duration-filters" aria-labelledby="duration-filter-label"></div>
               </div>
+              <div class="filter-group">
+                <span class="filter-group-label" id="rating-filter-label">Beoordeling</span>
+                <div class="filters" id="rating-filters" aria-labelledby="rating-filter-label"></div>
+              </div>
             </div>
           </details>
         </div>
-        <label class="search-wrap">
-          <span class="search-icon" aria-hidden="true">⌕</span>
-          <span class="sr-only" hidden>Zoek een recept</span>
-          <input id="recipe-search" type="search" placeholder="Zoek een recept…" aria-label="Zoek een recept" autocomplete="off">
-        </label>
+        <div class="toolbar-actions">
+          <label class="sort-wrap" for="recipe-sort">
+            Sorteren
+            <select class="sort-select" id="recipe-sort">
+              <option value="alphabetical">Alfabetisch (A-Z)</option>
+              <option value="rating">Beoordeling (hoog-laag)</option>
+            </select>
+          </label>
+          <label class="search-wrap">
+            <span class="search-icon" aria-hidden="true">⌕</span>
+            <span class="sr-only" hidden>Zoek een recept</span>
+            <input id="recipe-search" type="search" placeholder="Zoek een recept…" aria-label="Zoek een recept" autocomplete="off">
+          </label>
+        </div>
       </div>
 
       <div class="notice" id="load-notice" role="status" hidden></div>
@@ -1122,6 +1141,8 @@
     let activeCategory = "Alles";
     let activeDifficulty = "Alle niveaus";
     let activeDuration = "Alle tijden";
+    let activeRating = 0;
+    let activeSort = "alphabetical";
     let activeRecipe = null;
     let activeServings = 4;
     let weekMenuRecipes = [];
@@ -1143,10 +1164,12 @@
     const filters = document.querySelector("#filters");
     const difficultyFilters = document.querySelector("#difficulty-filters");
     const durationFilters = document.querySelector("#duration-filters");
+    const ratingFilters = document.querySelector("#rating-filters");
     const filterActiveCount = document.querySelector("#filter-active-count");
     const countLabel = document.querySelector("#recipe-count");
     const notice = document.querySelector("#load-notice");
     const searchInput = document.querySelector("#recipe-search");
+    const sortSelect = document.querySelector("#recipe-sort");
     const dialog = document.querySelector("#recipe-dialog");
     const servingsInput = document.querySelector("#servings-input");
     const spinButton = document.querySelector("#spin-button");
@@ -1404,6 +1427,13 @@
       return summary;
     }
 
+    function ratingAverageFor(recipe) {
+      const result = ratingSummaries.get(recipeIdentity(recipe));
+      if (!result) return null;
+      const average = Number(result.average_rating);
+      return Number.isFinite(average) ? average : null;
+    }
+
     function renderRecipeRating() {
       if (!activeRecipe) return;
       recipeRatingSummary.replaceChildren(...createRatingSummary(activeRecipe).childNodes);
@@ -1457,14 +1487,20 @@
         await refreshRatingSummaries();
         ratingStatus = "ready";
         ratingStatusMessage = "";
-        if (recipes.length) renderRecipes();
+        if (recipes.length) {
+          renderFilters();
+          renderRecipes();
+        }
         renderRecipeRating();
         if (activeRecipe) loadUserRating(activeRecipe);
       } catch (error) {
         ratingStatus = "error";
         ratingStatusMessage = `Beoordelingen konden niet worden geladen: ${ratingErrorDescription(error)}`;
         console.error("Beoordelingen konden niet worden geladen.", error);
-        if (recipes.length) renderRecipes();
+        if (recipes.length) {
+          renderFilters();
+          renderRecipes();
+        }
         renderRecipeRating();
       }
     }
@@ -1533,7 +1569,10 @@
         }
         try {
           await refreshRatingSummaries();
-          if (recipes.length) renderRecipes();
+          if (recipes.length) {
+            renderFilters();
+            renderRecipes();
+          }
         } catch (error) {
           if (activeRecipe === recipe) {
             ratingFeedbackMessage = `Je beoordeling is opgeslagen, maar het gemiddelde kon niet worden bijgewerkt: ${ratingErrorDescription(error)}`;
@@ -1811,6 +1850,10 @@
         .filter(recipe => activeDifficulty === "Alle niveaus" || recipe.moeilijkheid === activeDifficulty)
         .filter(recipe => activeDuration === "Alle tijden" || durationFilterFor(recipe) === activeDuration)
         .filter(recipe => {
+          const average = ratingAverageFor(recipe);
+          return activeRating === 0 || average === null || average >= activeRating;
+        })
+        .filter(recipe => {
           if (!query) return true;
           const searchable = [
             recipe.naam,
@@ -1819,7 +1862,18 @@
           ].join(" ").toLocaleLowerCase("nl");
           return searchable.includes(query);
         })
-        .sort((first, second) => first.naam.localeCompare(second.naam, "nl"));
+        .sort((first, second) => {
+          if (activeSort === "rating") {
+            const firstAverage = ratingAverageFor(first);
+            const secondAverage = ratingAverageFor(second);
+            if (firstAverage === null && secondAverage !== null) return 1;
+            if (firstAverage !== null && secondAverage === null) return -1;
+            if (firstAverage !== null && secondAverage !== null && firstAverage !== secondAverage) {
+              return secondAverage - firstAverage;
+            }
+          }
+          return first.naam.localeCompare(second.naam, "nl");
+        });
     }
 
     function makeFilterButton(label, activeValue, onSelect, total = null) {
@@ -1840,6 +1894,7 @@
       filters.replaceChildren();
       difficultyFilters.replaceChildren();
       durationFilters.replaceChildren();
+      ratingFilters.replaceChildren();
       filters.append(makeFilterButton("Alles", activeCategory, label => { activeCategory = label; }, recipes.length));
       const categories = [...new Set(recipes.map(recipe => recipe.categorie).filter(Boolean))]
         .sort((first, second) => first.localeCompare(second, "nl"));
@@ -1861,7 +1916,21 @@
         durationFilters.append(makeFilterButton(duration, activeDuration, label => { activeDuration = label; }));
       }
 
-      const activeAdvancedFilters = Number(activeDifficulty !== "Alle niveaus") + Number(activeDuration !== "Alle tijden");
+      const activeRatingLabel = activeRating
+        ? `Minimaal ${activeRating} ${activeRating === 1 ? "ster" : "sterren"}`
+        : "Alle beoordelingen";
+      ratingFilters.append(makeFilterButton("Alle beoordelingen", activeRatingLabel, () => { activeRating = 0; }));
+      for (let minimumRating = 1; minimumRating <= 5; minimumRating += 1) {
+        if (!Array.from(ratingSummaries.values()).some(summary => Number(summary.average_rating) >= minimumRating)) continue;
+        const label = `Minimaal ${minimumRating} ${minimumRating === 1 ? "ster" : "sterren"}`;
+        ratingFilters.append(makeFilterButton(label, activeRatingLabel, () => {
+          activeRating = minimumRating;
+        }));
+      }
+
+      const activeAdvancedFilters = Number(activeDifficulty !== "Alle niveaus")
+        + Number(activeDuration !== "Alle tijden")
+        + Number(activeRating > 0);
       filterActiveCount.hidden = activeAdvancedFilters === 0;
       filterActiveCount.textContent = `${activeAdvancedFilters} actief`;
     }
@@ -2266,6 +2335,10 @@
       if (event.target === weekMenuDialog) weekMenuDialog.close();
     });
     searchInput.addEventListener("input", renderRecipes);
+    sortSelect.addEventListener("change", () => {
+      activeSort = sortSelect.value;
+      renderRecipes();
+    });
     spinButton.addEventListener("click", spinWheel);
     recipeWheel.addEventListener("transitionend", event => {
       if (event.propertyName === "transform") finishWheelSpin();
