@@ -40,6 +40,16 @@
     button { color: inherit; }
     a { color: inherit; }
 
+    .home-screen-banner {
+      padding: 12px 20px;
+      background: var(--lime);
+      color: var(--green-dark);
+      text-align: center;
+      font-size: .9rem;
+      font-weight: 700;
+      line-height: 1.45;
+    }
+
     .site-header {
       width: min(1160px, calc(100% - 48px));
       height: 82px;
@@ -877,6 +887,7 @@
   </style>
 </head>
 <body>
+  <aside class="home-screen-banner" role="note">Voeg deze website toe aan het beginscherm van je smartphone om een app gevoel te krijgen</aside>
   <header class="site-header">
     <a class="brand" href="#" aria-label="Erics Recepten, naar boven">
       <span class="brand-mark" aria-hidden="true">✳</span>
@@ -1482,7 +1493,8 @@
         lines.push(`Recept: ${recipeUrl(recipe)}`);
         return lines.join("\n");
       });
-      weekMenuShare.href = `https://wa.me/?text=${encodeURIComponent(["*Mijn weekmenu* 🍽️", ...sections].join("\n\n"))}`;
+      const ingredientTotals = formatWeekMenuIngredientTotals(weekMenuRecipes);
+      weekMenuShare.href = `https://wa.me/?text=${encodeURIComponent(["*Mijn weekmenu* 🍽️", ...sections, ingredientTotals].join("\n\n"))}`;
     }
 
     function getWeekMenuDates(today = new Date()) {
@@ -1777,6 +1789,123 @@
       const name = ingredient.naam || "Ingrediënt";
       const amount = String(ingredient.hoeveelheid ?? "").trim();
       return amount ? `${name}: ${amount}` : name;
+    }
+
+    function weekMenuIngredientKey(name) {
+      const key = ingredientNameKey(name);
+      if (key === "wortels" || key === "wortelen") return "wortel";
+      if (key === "rode paprika's") return "rode paprika";
+      return key;
+    }
+
+    function isHerbOrSpice(name) {
+      const key = ingredientNameKey(name);
+      return key.endsWith("poeder") || [
+        "kruiden", "peper", "zout", "komijn", "kurkuma", "garam masala",
+        "kaneel", "muskaat", "laurier", "peterselie", "basilicum",
+        "bieslook", "chilivlokken", "oregano", "tijm", "rozemarijn",
+        "dille", "koriander"
+      ].some(term => key.includes(term));
+    }
+
+    function parseQuantityNumber(value) {
+      const fraction = /^(\d+)\/(\d+)$/.exec(value);
+      if (fraction) return Number(fraction[2]) ? Number(fraction[1]) / Number(fraction[2]) : NaN;
+      return Number(value.replace(",", "."));
+    }
+
+    function normalizeTotalUnit(unit) {
+      const key = unit.trim().toLocaleLowerCase("nl").replace(/\s+/g, " ");
+      const unitForms = {
+        stuk: { key: "stuk", singular: "stuk", plural: "stuks" },
+        stuks: { key: "stuk", singular: "stuk", plural: "stuks" },
+        teen: { key: "teen", singular: "teen", plural: "tenen" },
+        teentje: { key: "teen", singular: "teen", plural: "tenen" },
+        teentjes: { key: "teen", singular: "teen", plural: "tenen" },
+        stengel: { key: "stengel", singular: "stengel", plural: "stengels" },
+        stengels: { key: "stengel", singular: "stengel", plural: "stengels" },
+        blaadje: { key: "blaadje", singular: "blaadje", plural: "blaadjes" },
+        blaadjes: { key: "blaadje", singular: "blaadje", plural: "blaadjes" },
+        bakje: { key: "bakje", singular: "bakje", plural: "bakjes" },
+        bakjes: { key: "bakje", singular: "bakje", plural: "bakjes" },
+        pak: { key: "pak", singular: "pak", plural: "pakken" },
+        pakken: { key: "pak", singular: "pak", plural: "pakken" },
+        zakje: { key: "zakje", singular: "zakje", plural: "zakjes" },
+        zakjes: { key: "zakje", singular: "zakje", plural: "zakjes" }
+      };
+      return unitForms[key] || { key, singular: unit.trim(), plural: unit.trim() };
+    }
+
+    function parseIngredientQuantity(quantity) {
+      const amount = String(quantity ?? "").trim();
+      const number = "(\\d+/\\d+|\\d+(?:[.,]\\d+)?)";
+      const packageSize = new RegExp(`^${number}\\s+(?:zakjes?|pakken?)\\s+van\\s+(\\d+(?:[.,]\\d+)?)\\s*g$`, "i").exec(amount);
+      if (packageSize) {
+        const count = parseQuantityNumber(packageSize[1]);
+        const size = parseQuantityNumber(packageSize[2]);
+        return { min: count * size, max: count * size, unit: normalizeTotalUnit("g") };
+      }
+      const fixedPackage = new RegExp(`^${number}\\s+(?:blik|blikje|pak|pakje|zakje|doos|doosje)\\s*\\((\\d+(?:[.,]\\d+)?)\\s*g\\)$`, "i").exec(amount);
+      if (fixedPackage) {
+        const count = parseQuantityNumber(fixedPackage[1]);
+        const size = parseQuantityNumber(fixedPackage[2]);
+        return { min: count * size, max: count * size, unit: normalizeTotalUnit("g") };
+      }
+      const range = new RegExp(`^${number}\\s*(?:tot|[-–])\\s*${number}\\s*(.*)$`, "i").exec(amount);
+      if (range) {
+        const min = parseQuantityNumber(range[1]);
+        const max = parseQuantityNumber(range[2]);
+        return Number.isFinite(min) && Number.isFinite(max)
+          ? { min, max, unit: normalizeTotalUnit(range[3]) }
+          : null;
+      }
+      const single = new RegExp(`^${number}\\s*(.*)$`, "i").exec(amount);
+      if (!single) return null;
+      const value = parseQuantityNumber(single[1]);
+      return Number.isFinite(value)
+        ? { min: value, max: value, unit: normalizeTotalUnit(single[2]) }
+        : null;
+    }
+
+    function formatWeekMenuIngredientTotals(weekMenuRecipes) {
+      const totals = new Map();
+      weekMenuRecipes.forEach(recipe => {
+        const ingredients = [
+          ...getMainIngredients(recipe),
+          ...(Array.isArray(recipe.saus) ? recipe.saus : []),
+          ...(Array.isArray(recipe.bijgerecht) ? recipe.bijgerecht : [])
+        ];
+        ingredients.forEach(ingredient => {
+          const name = ingredient.naam || "Ingrediënt";
+          const key = weekMenuIngredientKey(name);
+          if (!totals.has(key)) totals.set(key, { name, quantities: new Map() });
+          if (isHerbOrSpice(name)) return;
+          const quantity = parseIngredientQuantity(ingredient.hoeveelheid);
+          if (!quantity) return;
+          const unitKey = quantity.unit.key;
+          if (!totals.get(key).quantities.has(unitKey)) {
+            totals.get(key).quantities.set(unitKey, { ...quantity, min: 0, max: 0 });
+          }
+          const total = totals.get(key).quantities.get(unitKey);
+          total.min += quantity.min;
+          total.max += quantity.max;
+        });
+      });
+
+      const lines = ["*Boodschappenlijst:*"];
+      totals.forEach(({ name, quantities }) => {
+        const amounts = Array.from(quantities.values()).map(quantity => {
+          const value = quantity.min === quantity.max
+            ? formatAmount(quantity.min)
+            : `${formatAmount(quantity.min)} tot ${formatAmount(quantity.max)}`;
+          const unit = quantity.min === 1 && quantity.max === 1
+            ? quantity.unit.singular
+            : quantity.unit.plural;
+          return [value, unit].filter(Boolean).join(" ");
+        });
+        lines.push(`• ${name}${amounts.length ? `: ${amounts.join(", ")}` : ""}`);
+      });
+      return lines.join("\n");
     }
 
     function renderIngredientList(target, items, groupName) {
