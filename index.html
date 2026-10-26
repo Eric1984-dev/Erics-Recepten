@@ -585,6 +585,19 @@
 
     .card-meta span { display: inline-flex; align-items: center; gap: 5px; }
 
+    .card-rating, .rating-summary { display: flex; align-items: center; gap: 8px; }
+    .card-rating { min-height: 24px; margin: -7px 0 14px; color: var(--muted); font-size: .72rem; }
+    .rating-stars { color: #d99028; font-size: 1rem; letter-spacing: .04em; white-space: nowrap; }
+    .rating-panel { margin: 26px 0 30px; padding: 20px; border: 1px solid #e9ebe2; border-radius: 16px; background: #fbfcf8; }
+    .rating-panel .detail-heading { margin: 0 0 10px; font-size: 1.2rem; }
+    .rating-summary { min-height: 25px; color: var(--muted); font-size: .82rem; }
+    .rating-control { margin-top: 9px; display: flex; gap: 4px; }
+    .rating-choice { padding: 2px; border: 0; background: transparent; color: #b8beb2; cursor: pointer; font-size: 1.8rem; line-height: 1; transition: color .15s ease, transform .15s ease; }
+    .rating-choice[aria-pressed="true"] { color: #d99028; }
+    .rating-choice:hover:not(:disabled) { color: #d99028; transform: scale(1.12); }
+    .rating-choice:disabled { cursor: not-allowed; opacity: .55; }
+    .rating-feedback { min-height: 1.2em; margin: 8px 0 0; color: var(--muted); font-size: .78rem; line-height: 1.5; }
+
     .card-open {
       width: 100%;
       min-height: 43px;
@@ -868,6 +881,7 @@
       .recipe-grid { grid-template-columns: 1fr; gap: 15px; }
       .card-art { height: 164px; }
       .card-title { min-height: auto; }
+      .rating-panel { padding: 16px; }
       .recipe-dialog { width: calc(100% - 18px); max-height: 93vh; border-radius: 21px; }
       .dialog-top { padding: 25px 21px 21px; }
       .dialog-content { padding: 23px 21px 28px; }
@@ -1026,6 +1040,12 @@
           <button class="serving-button" id="servings-plus" type="button" aria-label="Een persoon meer">+</button>
         </div>
       </div>
+      <section class="rating-panel" aria-labelledby="rating-heading">
+        <h3 class="detail-heading" id="rating-heading">Waardering</h3>
+        <div class="rating-summary" id="recipe-rating-summary" aria-live="polite"></div>
+        <div class="rating-control" id="recipe-rating-control" role="group" aria-label="Geef dit recept een beoordeling"></div>
+        <p class="rating-feedback" id="rating-feedback" role="status" aria-live="polite"></p>
+      </section>
       <section id="ingredients-section">
         <h3 class="detail-heading heading-with-icon">
           <svg class="heading-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -1053,6 +1073,8 @@
         </h3>
         <ol class="steps-list" id="steps-list"></ol>
       </section>
+      <p class="weekmenu-share-note">Het recept en boodschappenlijstje worden samen verzonden</p>
+      <a class="weekmenu-share" id="recipe-share" href="https://wa.me/" target="_blank" rel="noopener noreferrer">🟢 Stuur recept en boodschappenlijst via WhatsApp</a>
     </div>
   </dialog>
 
@@ -1081,16 +1103,20 @@
     <span class="cookie-icon" aria-hidden="true">🍪</span>
     <div class="cookie-copy">
       <h2 id="cookie-title">Even over cookies</h2>
-      <p id="cookie-description">Deze website gebruikt geen trackingcookies. We onthouden in je browser alleen dat je deze melding hebt gezien.</p>
+      <p id="cookie-description">Deze website gebruikt geen trackingcookies. Als je een beoordeling geeft, bewaart Supabase een anonieme sessie in je browser om je stemmen te onthouden.</p>
     </div>
     <button class="cookie-dismiss" id="cookie-dismiss" type="button">Begrepen</button>
   </aside>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
     "use strict";
 
     const RECIPE_DIRECTORY = "Recepten";
     const GITHUB_REPOSITORY = "https://github.com/Eric1984-dev/Erics-Recepten";
+    // Use the Supabase project URL and publishable key, never the service_role key.
+    const SUPABASE_URL = "https://ogosnhxwtgakbxebvgxc.supabase.co";
+    const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_pH2pGgZpGqDiYwpvg1trUQ_gq-qoCon";
     const COOKIE_NOTICE_STORAGE_KEY = "erics-recepten-cookie-notice-dismissed";
     const recipes = [];
     let activeCategory = "Alles";
@@ -1104,6 +1130,14 @@
     let wheelRotation = 0;
     let pendingWheelRecipe = null;
     let spinFallbackTimer = 0;
+    let ratingsClient = null;
+    let ratingStatus = "loading";
+    let ratingStatusMessage = "Beoordelingen laden…";
+    let ratingFeedbackMessage = "";
+    let ratingSummaries = new Map();
+    let myRating = 0;
+    let ratingRequestId = 0;
+    let isRatingSaving = false;
 
     const grid = document.querySelector("#recipe-grid");
     const filters = document.querySelector("#filters");
@@ -1126,6 +1160,10 @@
     const weekMenuList = document.querySelector("#weekmenu-list");
     const weekMenuShare = document.querySelector("#weekmenu-share");
     const weekMenuDateRange = document.querySelector("#weekmenu-date-range");
+    const recipeShare = document.querySelector("#recipe-share");
+    const recipeRatingSummary = document.querySelector("#recipe-rating-summary");
+    const recipeRatingControl = document.querySelector("#recipe-rating-control");
+    const ratingFeedback = document.querySelector("#rating-feedback");
 
     const categoryEmojis = {
       Amerikaans: "🍔",
@@ -1335,6 +1373,184 @@
       return url.href;
     }
 
+    function ratingAverageLabel(value) {
+      return new Intl.NumberFormat("nl-BE", { minimumFractionDigits: 1, maximumFractionDigits: 1 }).format(value);
+    }
+
+    function createRatingSummary(recipe, compact = false) {
+      const summary = document.createElement("div");
+      summary.className = "rating-summary";
+      const result = ratingSummaries.get(recipeIdentity(recipe));
+      if (result) {
+        const average = Number(result.average_rating);
+        const roundedStars = Math.max(0, Math.min(5, Math.round(average)));
+        const stars = document.createElement("span");
+        stars.className = "rating-stars";
+        stars.textContent = `${"★".repeat(roundedStars)}${"☆".repeat(5 - roundedStars)}`;
+        stars.setAttribute("aria-label", `Gemiddeld ${ratingAverageLabel(average)} van 5 sterren`);
+        stars.title = `Gemiddeld ${ratingAverageLabel(average)} van 5 sterren`;
+        const details = document.createElement("span");
+        details.textContent = `${ratingAverageLabel(average)} · ${result.rating_count} ${Number(result.rating_count) === 1 ? "beoordeling" : "beoordelingen"}`;
+        summary.append(stars, details);
+      } else {
+        const message = document.createElement("span");
+        message.textContent = ratingStatus === "ready"
+          ? "☆☆☆☆☆ Nog geen beoordelingen"
+          : compact
+            ? ratingStatus === "loading" ? "Beoordelingen laden…" : "Beoordelingen niet beschikbaar"
+            : ratingStatusMessage;
+        summary.append(message);
+      }
+      return summary;
+    }
+
+    function renderRecipeRating() {
+      if (!activeRecipe) return;
+      recipeRatingSummary.replaceChildren(...createRatingSummary(activeRecipe).childNodes);
+      recipeRatingControl.replaceChildren();
+      for (let score = 1; score <= 5; score += 1) {
+        const button = document.createElement("button");
+        button.className = "rating-choice";
+        button.type = "button";
+        button.textContent = "★";
+        button.setAttribute("aria-label", `Geef ${score} ${score === 1 ? "ster" : "sterren"}`);
+        button.setAttribute("aria-pressed", String(score <= myRating));
+        button.disabled = ratingStatus !== "ready" || isRatingSaving;
+        button.addEventListener("click", () => saveRecipeRating(score));
+        recipeRatingControl.append(button);
+      }
+      ratingFeedback.textContent = ratingFeedbackMessage || (ratingStatus !== "ready"
+        ? ratingStatusMessage
+        : myRating
+          ? `Je beoordeling: ${myRating} van 5 sterren. Kies sterren om deze aan te passen.`
+          : "Kies 1 tot 5 sterren om dit recept te beoordelen.");
+    }
+
+    async function refreshRatingSummaries() {
+      const { data, error } = await ratingsClient
+        .from("recipe_rating_summary")
+        .select("recipe_id,rating_count,average_rating");
+      if (error) throw error;
+      ratingSummaries = new Map(data.map(summary => [summary.recipe_id, summary]));
+    }
+
+    function ratingErrorDescription(error) {
+      return error && typeof error === "object" && typeof error.message === "string"
+        ? error.message
+        : String(error);
+    }
+
+    async function initializeRatings() {
+      if (!SUPABASE_URL.trim() || !SUPABASE_PUBLISHABLE_KEY.trim()) {
+        ratingStatus = "unconfigured";
+        ratingStatusMessage = "Beoordelingen zijn nog niet geconfigureerd. Vul de Supabase-gegevens in index.html in.";
+        if (recipes.length) renderRecipes();
+        renderRecipeRating();
+        return;
+      }
+
+      try {
+        if (!window.supabase || typeof window.supabase.createClient !== "function") {
+          throw new Error("De Supabase-client kon niet worden geladen.");
+        }
+        ratingsClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+        await refreshRatingSummaries();
+        ratingStatus = "ready";
+        ratingStatusMessage = "";
+        if (recipes.length) renderRecipes();
+        renderRecipeRating();
+        if (activeRecipe) loadUserRating(activeRecipe);
+      } catch (error) {
+        ratingStatus = "error";
+        ratingStatusMessage = `Beoordelingen konden niet worden geladen: ${ratingErrorDescription(error)}`;
+        console.error("Beoordelingen konden niet worden geladen.", error);
+        if (recipes.length) renderRecipes();
+        renderRecipeRating();
+      }
+    }
+
+    async function loadUserRating(recipe) {
+      const requestId = ++ratingRequestId;
+      myRating = 0;
+      ratingFeedbackMessage = "";
+      renderRecipeRating();
+      if (!ratingsClient || ratingStatus !== "ready") return;
+
+      try {
+        const { data: { session }, error: sessionError } = await ratingsClient.auth.getSession();
+        if (sessionError) throw sessionError;
+        if (!session) return;
+        const { data, error } = await ratingsClient
+          .from("recipe_ratings")
+          .select("rating")
+          .eq("recipe_id", recipeIdentity(recipe))
+          .eq("user_id", session.user.id)
+          .maybeSingle();
+        if (error) throw error;
+        if (requestId !== ratingRequestId || activeRecipe !== recipe) return;
+        myRating = data?.rating || 0;
+        renderRecipeRating();
+      } catch (error) {
+        if (requestId !== ratingRequestId || activeRecipe !== recipe) return;
+        ratingFeedbackMessage = `Je beoordeling kon niet worden geladen: ${ratingErrorDescription(error)}`;
+        console.error("De eigen receptbeoordeling kon niet worden geladen.", error);
+        renderRecipeRating();
+      }
+    }
+
+    async function saveRecipeRating(score) {
+      if (!ratingsClient || ratingStatus !== "ready" || isRatingSaving || !activeRecipe) return;
+      const recipe = activeRecipe;
+      isRatingSaving = true;
+      if (activeRecipe === recipe) {
+        ratingFeedbackMessage = "Je beoordeling wordt opgeslagen…";
+        renderRecipeRating();
+      }
+
+      try {
+        const { data: { session: currentSession }, error: sessionError } = await ratingsClient.auth.getSession();
+        if (sessionError) throw sessionError;
+        let session = currentSession;
+        if (!session) {
+          const { data, error } = await ratingsClient.auth.signInAnonymously();
+          if (error) throw error;
+          session = data.session;
+        }
+        if (!session) throw new Error("Er kon geen anonieme sessie worden gestart.");
+
+        const { error } = await ratingsClient
+          .from("recipe_ratings")
+          .upsert({
+            recipe_id: recipeIdentity(recipe),
+            user_id: session.user.id,
+            rating: score
+          }, { onConflict: "recipe_id,user_id" });
+        if (error) throw error;
+
+        if (activeRecipe === recipe) {
+          myRating = score;
+          ratingFeedbackMessage = "Je beoordeling is opgeslagen. Je kunt deze later aanpassen.";
+        }
+        try {
+          await refreshRatingSummaries();
+          if (recipes.length) renderRecipes();
+        } catch (error) {
+          if (activeRecipe === recipe) {
+            ratingFeedbackMessage = `Je beoordeling is opgeslagen, maar het gemiddelde kon niet worden bijgewerkt: ${ratingErrorDescription(error)}`;
+          }
+          console.error("Het gemiddelde van de receptbeoordelingen kon niet worden bijgewerkt.", error);
+        }
+      } catch (error) {
+        if (activeRecipe === recipe) {
+          ratingFeedbackMessage = `Je beoordeling kon niet worden opgeslagen: ${ratingErrorDescription(error)}`;
+        }
+        console.error("De receptbeoordeling kon niet worden opgeslagen.", error);
+      } finally {
+        isRatingSaving = false;
+        if (activeRecipe === recipe) renderRecipeRating();
+      }
+    }
+
     function openRecipeFromLocation() {
       const routePrefix = "#recept/";
       if (!window.location.hash.startsWith(routePrefix)) return;
@@ -1471,34 +1687,9 @@
         weekMenuList.append(item);
       });
 
-      const sections = weekMenuRecipes.map((recipe, index) => {
-        const servings = Number(recipe.personen) || 4;
-        const ingredients = getMainIngredients(recipe);
-        const lines = [
-          `*${days[index]} ${formatWeekMenuDate(weekMenuDates[index])} – ${recipe.naam}*`,
-          `Voor ${servings} personen`,
-          "Ingrediënten:",
-          ...(ingredients.length
-            ? ingredients.map(formatWhatsAppIngredient)
-            : ["Geen ingrediënten opgegeven."])
-        ];
-        const sauce = Array.isArray(recipe.saus) ? recipe.saus : [];
-        if (sauce.length) {
-          lines.push(
-            "Voor de saus:",
-            ...sauce.map(formatWhatsAppIngredient)
-          );
-        }
-        const sideDish = Array.isArray(recipe.bijgerecht) ? recipe.bijgerecht : [];
-        if (sideDish.length) {
-          lines.push(
-            "Bijgerecht:",
-            ...sideDish.map(formatWhatsAppIngredient)
-          );
-        }
-        lines.push(`Recept: ${recipeUrl(recipe)}`);
-        return lines.join("\n");
-      });
+      const sections = weekMenuRecipes.map((recipe, index) =>
+        formatWhatsAppRecipe(recipe, `${days[index]} ${formatWeekMenuDate(weekMenuDates[index])} – ${recipe.naam}`)
+      );
       const ingredientTotals = formatWeekMenuIngredientTotals(weekMenuRecipes);
       weekMenuShare.href = `https://wa.me/?text=${encodeURIComponent(["*Mijn weekmenu* 🍽️", ...sections, ingredientTotals].join("\n\n"))}`;
     }
@@ -1707,6 +1898,8 @@
       const title = document.createElement("h3");
       title.className = "card-title";
       title.textContent = recipe.naam;
+      const rating = createRatingSummary(recipe, true);
+      rating.classList.add("card-rating");
       const meta = document.createElement("div");
       meta.className = "card-meta";
       if (recipe.bereidingstijd) {
@@ -1732,7 +1925,7 @@
       openButton.append(arrow);
       openButton.addEventListener("click", () => openRecipe(recipe));
 
-      body.append(labels, title, meta, openButton);
+      body.append(labels, title, meta, rating, openButton);
       card.append(art, body);
       return card;
     }
@@ -1795,6 +1988,42 @@
       const name = ingredient.naam || "Ingrediënt";
       const amount = String(ingredient.hoeveelheid ?? "").trim();
       return amount ? `${name}: ${amount}` : name;
+    }
+
+    function scaleRecipeForServings(recipe, servings) {
+      const originalServings = Number(recipe.personen) || 4;
+      const scaleIngredients = ingredients => ingredients.map(ingredient => ({
+        ...ingredient,
+        hoeveelheid: scaledQuantity(ingredient.hoeveelheid, originalServings, servings)
+      }));
+      return {
+        ...recipe,
+        ingrediënten: scaleIngredients(getMainIngredients(recipe)),
+        saus: scaleIngredients(Array.isArray(recipe.saus) ? recipe.saus : []),
+        bijgerecht: scaleIngredients(Array.isArray(recipe.bijgerecht) ? recipe.bijgerecht : [])
+      };
+    }
+
+    function formatWhatsAppRecipe(recipe, heading = recipe.naam, servings = Number(recipe.personen) || 4) {
+      const ingredients = getMainIngredients(recipe);
+      const lines = [
+        `*${heading}*`,
+        `Voor ${servings} personen`,
+        "Ingrediënten:",
+        ...(ingredients.length
+          ? ingredients.map(formatWhatsAppIngredient)
+          : ["Geen ingrediënten opgegeven."])
+      ];
+      const sauce = Array.isArray(recipe.saus) ? recipe.saus : [];
+      if (sauce.length) {
+        lines.push("Voor de saus:", ...sauce.map(formatWhatsAppIngredient));
+      }
+      const sideDish = Array.isArray(recipe.bijgerecht) ? recipe.bijgerecht : [];
+      if (sideDish.length) {
+        lines.push("Bijgerecht:", ...sideDish.map(formatWhatsAppIngredient));
+      }
+      lines.push(`Recept: ${recipeUrl(recipe)}`);
+      return lines.join("\n");
     }
 
     function weekMenuIngredientKey(name) {
@@ -1950,6 +2179,12 @@
       document.querySelector("#servings-minus").disabled = activeServings <= 1;
       document.querySelector("#dialog-category").textContent = activeRecipe.categorie || "Recept";
       document.querySelector("#dialog-title").textContent = activeRecipe.naam;
+      renderRecipeRating();
+      const sharedRecipe = scaleRecipeForServings(activeRecipe, activeServings);
+      recipeShare.href = `https://wa.me/?text=${encodeURIComponent([
+        formatWhatsAppRecipe(sharedRecipe, activeRecipe.naam, activeServings),
+        formatWeekMenuIngredientTotals([sharedRecipe])
+      ].join("\n\n"))}`;
 
       const meta = document.querySelector("#dialog-meta");
       meta.replaceChildren();
@@ -1986,8 +2221,11 @@
     function openRecipe(recipe, updateLocation = true) {
       activeRecipe = recipe;
       activeServings = Math.max(1, Math.round(Number(recipe.personen) || 4));
+      myRating = 0;
+      ratingFeedbackMessage = "";
       checkedIngredients = new Set();
       renderRecipeDetails();
+      loadUserRating(recipe);
       if (updateLocation) {
         const url = new URL(window.location.href);
         url.hash = recipeHash(recipe);
@@ -2113,6 +2351,7 @@
     }
 
     initializeCookieNotice();
+    initializeRatings();
     start();
   </script>
 </body>
