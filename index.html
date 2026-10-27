@@ -1465,6 +1465,27 @@
       ratingSummaries = new Map(data.map(summary => [summary.recipe_id, summary]));
     }
 
+    async function refreshVisibleRatingSummaries() {
+      if (ratingStatus !== "ready" || document.visibilityState !== "visible") return;
+
+      try {
+        await refreshRatingSummaries();
+        if (recipes.length) {
+          renderFilters();
+          renderRecipes();
+        }
+        renderRecipeRating();
+      } catch (error) {
+        console.error("De receptbeoordelingen konden niet automatisch worden bijgewerkt.", error);
+      }
+    }
+
+    function initializeRatingAutoRefresh() {
+      document.addEventListener("visibilitychange", refreshVisibleRatingSummaries);
+      window.addEventListener("pageshow", refreshVisibleRatingSummaries);
+      window.setInterval(refreshVisibleRatingSummaries, 60_000);
+    }
+
     function ratingErrorDescription(error) {
       return error && typeof error === "object" && typeof error.message === "string"
         ? error.message
@@ -1494,6 +1515,7 @@
         }
         renderRecipeRating();
         if (activeRecipe) loadUserRating(activeRecipe);
+        initializeRatingAutoRefresh();
       } catch (error) {
         ratingStatus = "error";
         ratingStatusMessage = `Beoordelingen konden niet worden geladen: ${ratingErrorDescription(error)}`;
