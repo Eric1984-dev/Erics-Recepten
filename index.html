@@ -1123,7 +1123,7 @@
     <span class="cookie-icon" aria-hidden="true">🍪</span>
     <div class="cookie-copy">
       <h2 id="cookie-title">Even over cookies</h2>
-      <p id="cookie-description">Deze website gebruikt geen trackingcookies. Als je een beoordeling geeft, bewaart Supabase een anonieme sessie in je browser om je stemmen te onthouden.</p>
+      <p id="cookie-description">Deze website gebruikt geen trackingcookies. Als je een beoordeling geeft, bewaart deze browser een willekeurige ID en je beoordeling lokaal zodat je je stem op dit apparaat kunt aanpassen.</p>
     </div>
     <button class="cookie-dismiss" id="cookie-dismiss" type="button">Begrepen</button>
   </aside>
@@ -1138,6 +1138,8 @@
     const SUPABASE_URL = "https://ogosnhxwtgakbxebvgxc.supabase.co";
     const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_pH2pGgZpGqDiYwpvg1trUQ_gq-qoCon";
     const COOKIE_NOTICE_STORAGE_KEY = "erics-recepten-cookie-notice-dismissed";
+    const RATING_BROWSER_ID_STORAGE_KEY = "erics-recepten-rating-browser-id";
+    const RATING_STORAGE_KEY_PREFIX = "erics-recepten-rating:";
     const recipes = [];
     let activeCategory = "Alles";
     let activeDifficulty = "Alle niveaus";
@@ -1158,7 +1160,6 @@
     let ratingFeedbackMessage = "";
     let ratingSummaries = new Map();
     let myRating = 0;
-    let ratingRequestId = 0;
     let isRatingSaving = false;
 
     const grid = document.querySelector("#recipe-grid");
@@ -1435,6 +1436,22 @@
       return Number.isFinite(average) ? average : null;
     }
 
+    function ratingStorageKey(recipe) {
+      return `${RATING_STORAGE_KEY_PREFIX}${recipeIdentity(recipe)}`;
+    }
+
+    function getRatingBrowserId() {
+      const storage = window.localStorage;
+      const existingId = storage.getItem(RATING_BROWSER_ID_STORAGE_KEY);
+      if (existingId && /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(existingId)) {
+        return existingId;
+      }
+
+      const browserId = window.crypto.randomUUID();
+      storage.setItem(RATING_BROWSER_ID_STORAGE_KEY, browserId);
+      return browserId;
+    }
+
     function renderRecipeRating() {
       if (!activeRecipe) return;
       recipeRatingSummary.replaceChildren(...createRatingSummary(activeRecipe).childNodes);
@@ -1505,7 +1522,13 @@
         if (!window.supabase || typeof window.supabase.createClient !== "function") {
           throw new Error("De Supabase-client kon niet worden geladen.");
         }
-        ratingsClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+        ratingsClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
+          auth: {
+            autoRefreshToken: false,
+            persistSession: false,
+            detectSessionInUrl: false
+          }
+        });
         await refreshRatingSummaries();
         ratingStatus = "ready";
         ratingStatusMessage = "";
@@ -1528,33 +1551,22 @@
       }
     }
 
-    async function loadUserRating(recipe) {
-      const requestId = ++ratingRequestId;
+    function loadUserRating(recipe) {
       myRating = 0;
       ratingFeedbackMessage = "";
-      renderRecipeRating();
-      if (!ratingsClient || ratingStatus !== "ready") return;
+      if (!ratingsClient || ratingStatus !== "ready") {
+        renderRecipeRating();
+        return;
+      }
 
       try {
-        const { data: { session }, error: sessionError } = await ratingsClient.auth.getSession();
-        if (sessionError) throw sessionError;
-        if (!session) return;
-        const { data, error } = await ratingsClient
-          .from("recipe_ratings")
-          .select("rating")
-          .eq("recipe_id", recipeIdentity(recipe))
-          .eq("user_id", session.user.id)
-          .maybeSingle();
-        if (error) throw error;
-        if (requestId !== ratingRequestId || activeRecipe !== recipe) return;
-        myRating = data?.rating || 0;
-        renderRecipeRating();
+        const savedRating = Number(window.localStorage.getItem(ratingStorageKey(recipe)));
+        if (Number.isInteger(savedRating) && savedRating >= 1 && savedRating <= 5) myRating = savedRating;
       } catch (error) {
-        if (requestId !== ratingRequestId || activeRecipe !== recipe) return;
         ratingFeedbackMessage = `Je beoordeling kon niet worden geladen: ${ratingErrorDescription(error)}`;
         console.error("De eigen receptbeoordeling kon niet worden geladen.", error);
-        renderRecipeRating();
       }
+      if (activeRecipe === recipe) renderRecipeRating();
     }
 
     async function saveRecipeRating(score) {
@@ -1567,28 +1579,26 @@
       }
 
       try {
-        const { data: { session: currentSession }, error: sessionError } = await ratingsClient.auth.getSession();
-        if (sessionError) throw sessionError;
-        let session = currentSession;
-        if (!session) {
-          const { data, error } = await ratingsClient.auth.signInAnonymously();
-          if (error) throw error;
-          session = data.session;
-        }
-        if (!session) throw new Error("Er kon geen anonieme sessie worden gestart.");
-
-        const { error } = await ratingsClient
-          .from("recipe_ratings")
-          .upsert({
-            recipe_id: recipeIdentity(recipe),
-            user_id: session.user.id,
-            rating: score
-          }, { onConflict: "recipe_id,user_id" });
+        const browserId = getRatingBrowserId();
+        const { error } = await ratingsClient.rpc("submit_recipe_rating", {
+          p_recipe_id: recipeIdentity(recipe),
+          p_browser_id: browserId,
+          p_rating: score
+        });
         if (error) throw error;
 
+        if (activeRecipe === recipe) myRating = score;
+        const saveWarnings = [];
+        try {
+          window.localStorage.setItem(ratingStorageKey(recipe), String(score));
+        } catch (error) {
+          saveWarnings.push("de browser kan je stem niet lokaal onthouden");
+          console.error("De eigen receptbeoordeling kon niet lokaal worden bewaard.", error);
+        }
         if (activeRecipe === recipe) {
-          myRating = score;
-          ratingFeedbackMessage = "Je beoordeling is opgeslagen. Je kunt deze later aanpassen.";
+          ratingFeedbackMessage = saveWarnings.length
+            ? `Je beoordeling is opgeslagen, maar ${saveWarnings.join(" en ")}.`
+            : "Je beoordeling is opgeslagen. Je kunt deze later op dit apparaat aanpassen.";
         }
         try {
           await refreshRatingSummaries();
@@ -1598,7 +1608,8 @@
           }
         } catch (error) {
           if (activeRecipe === recipe) {
-            ratingFeedbackMessage = `Je beoordeling is opgeslagen, maar het gemiddelde kon niet worden bijgewerkt: ${ratingErrorDescription(error)}`;
+            const warning = `Het gemiddelde kon niet worden bijgewerkt: ${ratingErrorDescription(error)}`;
+            ratingFeedbackMessage = [ratingFeedbackMessage, warning].filter(Boolean).join(" ");
           }
           console.error("Het gemiddelde van de receptbeoordelingen kon niet worden bijgewerkt.", error);
         }
