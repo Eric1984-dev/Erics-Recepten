@@ -14,7 +14,9 @@
     { "naam": "Zout", "hoeveelheid": "naar smaak" },
     { "naam": "Boter", "hoeveelheid": "1 el" },
     { "naam": "Olijfolie", "hoeveelheid": "naar behoefte" },
-    { "naam": "Wortelen", "hoeveelheid": "5 stuks" }
+    { "naam": "Wortelen", "hoeveelheid": "5 stuks" },
+    { "naam": "Witte kool geraspt", "hoeveelheid": "1 stuk" }
+    { "naam": "Mayonaise", "hoeveelheid": "2 el" }
   ],
   "saus": [
     { "naam": "BBQ-saus", "hoeveelheid": "6 el" },
@@ -29,7 +31,7 @@
     "Haal de kippendijen uit de Braadpot en zet ze apart.",
     "Bak de uien in dezelfde Braadpot tot ze glazig zijn.",
     "Schil de wortelen en snij ze in kleine blokjes.",
-    "Voeg de wortelen toe aan de uien en bak kort mee.",
+    "Voeg de wortelen toe aan de uien en stoof kort mee.",
     "Leg de kippendijen terug in de Braadpot.",
     "Voeg de tomatenblokjes toe.",
     "Voeg de BBQ-saus toe.",
@@ -38,6 +40,7 @@
     "Haal de Braadpot uit de oven wanneer het vlees zacht is.",
     "Trek de kippendijen met twee vorken uit elkaar tot fijne draadjes.",
     "Meng het vlees door de saus.",
-    "Serveer warm, eventueel met broodjes, wraps, rijst of aardappelen."
+    "Meng een schepje payonaise door de geraspte witte kool en kruid met peper en zout.",
+    "Serveer warm, eventueel met broodjes, wraps, rijst of aardappelen en de geraspte witte kool."
   ]
 }
