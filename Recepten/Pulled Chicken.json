@@ -15,32 +15,33 @@
     { "naam": "Boter", "hoeveelheid": "1 el" },
     { "naam": "Olijfolie", "hoeveelheid": "naar behoefte" },
     { "naam": "Wortelen", "hoeveelheid": "5 stuks" },
-    { "naam": "Witte kool geraspt", "hoeveelheid": "1 stuk" },
-    { "naam": "Mayonaise", "hoeveelheid": "2 el" } 
+    { "naam": "Geraspte witte kool", "hoeveelheid": "300 g" },
+    { "naam": "Mayonaise", "hoeveelheid": "2 el" }
   ],
   "saus": [
     { "naam": "BBQ-saus", "hoeveelheid": "6 el" },
-    { "naam": "Tomatenblokjes", "hoeveelheid": "1 blik (500 g)" }
+    { "naam": "Tomatenblokjes", "hoeveelheid": "1 blik (500 g)" },
+    { "naam": "Mayonaise", "hoeveelheid": "2 el" }
   ],
   "bereiding": [
     "Verwarm de oven voor op 160°C.",
     "Kruid de kippendijen met peper en zout.",
-    "Smelt de boter in een ovenvaste Braadpot en voeg een scheutje olijfolie toe.",
+    "Smelt de boter in een ovenvaste braadpot en voeg een scheutje olijfolie toe.",
     "Bak de kippendijen op hoog vuur goudbruin aan beide kanten.",
     "Snij de uien in ringen.",
-    "Haal de kippendijen uit de Braadpot en zet ze apart.",
-    "Bak de uien in dezelfde Braadpot tot ze glazig zijn.",
+    "Haal de kippendijen uit de braadpot en zet ze apart.",
+    "Bak de uien in dezelfde braadpot tot ze glazig zijn.",
     "Schil de wortelen en snij ze in kleine blokjes.",
     "Voeg de wortelen toe aan de uien en stoof kort mee.",
-    "Leg de kippendijen terug in de Braadpot.",
+    "Leg de kippendijen terug in de braadpot.",
     "Voeg de tomatenblokjes toe.",
     "Voeg de BBQ-saus toe.",
     "Meng alles goed door elkaar.",
-    "Plaats de Braadpot gedurende 1,5 uur in de voorverwarmde oven.",
-    "Haal de Braadpot uit de oven wanneer het vlees zacht is.",
+    "Plaats de braadpot gedurende 1,5 uur in de voorverwarmde oven.",
+    "Haal de braadpot uit de oven wanneer het vlees zacht is.",
     "Trek de kippendijen met twee vorken uit elkaar tot fijne draadjes.",
     "Meng het vlees door de saus.",
-    "Meng een schepje payonaise door de geraspte witte kool en kruid met peper en zout.",
-    "Serveer warm, eventueel met broodjes, wraps, rijst of aardappelen en de geraspte witte kool."
+    "Meng de geraspte witte kool met de mayonaise en kruid met peper en zout.",
+    "Serveer warm, eventueel met broodjes, wraps, rijst of aardappelen en de wittekoolsalade."
   ]
 }
